@@ -1,0 +1,475 @@
+openapi: 3.0.0
+servers:
+  - url: 'http://docr.kba.cloud:8765/'
+info:
+  version: 0.0.1
+  title: OCR-D HTTP API
+  description: This is a definition of the modules used for the OCR-D project.
+  contact:
+    email: volker.hartmann@kit.edu
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: Bildvorverarbeitung
+    description: >
+      Verfahren, die die Digitalisate für die Layout- und Texterkennung
+      charakterisieren und optimieren.
+  - name: Layouterkennung
+    description: >
+      Die Erfassung des korrekten, d.h. die Wiedergabe des logisch strukturell
+      auf sich beziehenden Textflusses und hohe Textgenauigkeit.
+  - name: Textoptimierung
+    description: >
+      Kombination mehrere OCR-Engines mit anschließender Nachkorrektur zur
+      Verbesserung der Textergebnisse.
+  - name: Modellbildung
+    description: |
+      Training der Modelle und Bereitstellung dieser.
+  - name: Langzeitarchivierung
+    description: >
+      Sicherung der Langzeitverfügbarkeit und Referenzierbarkeit der gewonnenen
+      Texte.
+  - name: Qualitätssicherung
+    description: |
+      Bestimmung/Schätzung des Potenzials der einzelnen Komponenten.
+paths:
+  /layout/segment_line:
+    post:
+      tags:
+        - Bildvorverarbeitung
+      summary: Determine specific characteristics of a digitalization.
+      description: >-
+        Determine intrinsic and extrensic characteristics of a digitalization.
+        These characteristics should be stored as metadata.
+      requestBody:
+        required: true
+        content:
+          multipart/mixed:
+            schema:
+              $ref: '#/definitions/OcrdJobRequest'
+  /layout/segmentation/tesserocr_segment_line:
+    post:
+      tags:
+        - Layouterkennung
+      summary: Segment page into regions with tesseract
+      description: Segment page into regions with tesseract
+      requestBody:
+        required: true
+        content:
+          multipart/mixed:
+            schema:
+              type: object
+              required:
+                - mets
+              properties:
+                mets:
+                  type: string
+                  format: base64
+                  description: METS file
+                parameterJson:
+                  type: object
+                  description: Parameter definition provided by MP
+                  schema:
+                    type: object
+                    properties: {}
+      responses:
+        '201':
+          description: Successfully ran 'ocrd_tesserocr_segment_line'
+          headers:
+            Location:
+              type: string
+              format: uri
+              description: URL of the resulting METS
+  '/layout/segmentation/tesserocr_segment_line/{_id}':
+    get:
+      summary: Get Job result
+      description: Get file thumbnail
+      parameters:
+        - name: id
+          in: path
+          description: Upload ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/vnd.ocrd.mets+zip:
+              description: The workspace as a ZIP
+            application/mets+xml:
+              summary: The METS file
+            text/status+plain:
+              schema:
+                type: string
+                enum:
+                  - RUNNING
+                  - FAILED
+                  - FINISHED
+        '404':
+          description: Job not found
+        '410':
+          description: Job deleted on server
+      tags:
+        - Layouterkennung
+  /layout/segmentation/tesserocr_segment_region:
+    post:
+      tags:
+        - Layouterkennung
+      summary: Segment regions into lines with tesseract
+      description: Segment regions into lines with tesseract
+      requestBody:
+        required: true
+        content:
+          multipart/mixed:
+            schema:
+              type: object
+              required:
+                - mets
+              properties:
+                mets:
+                  type: string
+                  format: base64
+                  description: METS file
+                parameterJson:
+                  type: object
+                  description: Parameter definition provided by MP
+                  schema:
+                    type: object
+                    properties: {}
+      responses:
+        '201':
+          description: Successfully ran 'ocrd_tesserocr_segment_region'
+          headers:
+            Location:
+              type: string
+              format: uri
+              description: URL of the resulting METS
+  '/layout/segmentation/tesserocr_segment_region/{_id}':
+    get:
+      summary: Get Job result
+      description: Get file thumbnail
+      parameters:
+        - name: id
+          in: path
+          description: Upload ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/vnd.ocrd.mets+zip:
+              description: The workspace as a ZIP
+            application/mets+xml:
+              summary: The METS file
+            text/status+plain:
+              schema:
+                type: string
+                enum:
+                  - RUNNING
+                  - FAILED
+                  - FINISHED
+        '404':
+          description: Job not found
+        '410':
+          description: Job deleted on server
+      tags:
+        - Layouterkennung
+  /recognition/tesserocr_recognize:
+    post:
+      tags:
+        - Texterkennung
+      summary: Recognize text in lines with tesseract
+      description: Recognize text in lines with tesseract
+      requestBody:
+        required: true
+        content:
+          multipart/mixed:
+            schema:
+              type: object
+              required:
+                - mets
+              properties:
+                mets:
+                  type: string
+                  format: base64
+                  description: METS file
+                parameterJson:
+                  type: object
+                  description: Parameter definition provided by MP
+                  schema:
+                    type: object
+                    properties: {}
+      responses:
+        '201':
+          description: Successfully ran 'ocrd_tesserocr_recognize'
+          headers:
+            Location:
+              type: string
+              format: uri
+              description: URL of the resulting METS
+  '/recognition/tesserocr_recognize/{_id}':
+    get:
+      summary: Get Job result
+      description: Get file thumbnail
+      parameters:
+        - name: id
+          in: path
+          description: Upload ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/vnd.ocrd.mets+zip:
+              description: The workspace as a ZIP
+            application/mets+xml:
+              summary: The METS file
+            text/status+plain:
+              schema:
+                type: string
+                enum:
+                  - RUNNING
+                  - FAILED
+                  - FINISHED
+        '404':
+          description: Job not found
+        '410':
+          description: Job deleted on server
+      tags:
+        - Texterkennung
+components:
+  headers:
+    X-Total-Count:
+      description: Total number of items found for this query
+      schema:
+        type: integer
+  schemas:
+    File:
+      type: object
+      required:
+        - url
+        - mediaType
+        - size
+        - path
+      properties:
+        mediaType:
+          type: string
+        path:
+          type: string
+        url:
+          type: string
+        size:
+          type: number
+    command-input.gm:
+      type: object
+      required:
+        - inputFile
+        - commands
+      additionalProperties: false
+      properties:
+        inputFile:
+          type: string
+          file: true
+          mediaType:
+            - image/png
+            - image/jpeg
+        commands:
+          type: array
+          minLength: 1
+          items:
+            type: string
+            match: ^(rotate)
+          default: []
+    command-input.kraken-binarize-segment-ocr:
+      type: object
+      required:
+        - image
+      additionalProperties: false
+      properties:
+        image:
+          type: string
+          file: true
+          mediaType:
+            - image/png
+    command-input.kraken-segment:
+      type: object
+      required:
+        - image
+      additionalProperties: false
+      properties:
+        image:
+          type: string
+          file: true
+          mediaType:
+            - image/png
+        noScriptDetect:
+          type: boolean
+          default: false
+        textDirection:
+          type: string
+          enum:
+            - horizontal-lr
+            - horizontal-rl
+            - vertical-lr
+            - vertical-rl
+          default: horizontal-lr
+        blackColSeps:
+          type: boolean
+          default: false
+        whiteColSeps:
+          type: boolean
+          default: true
+        scale:
+          type: number
+    command-input.kraken-binarize:
+      type: object
+      required:
+        - image
+      additionalProperties: false
+      properties:
+        image:
+          type: string
+          file: true
+          mediaType:
+            - image/png
+            - image/jpeg
+        threshold:
+          type: string
+        zoom:
+          type: string
+        escale:
+          type: string
+        border:
+          type: string
+        perc:
+          type: string
+        range:
+          type: string
+        low:
+          type: string
+        high:
+          type: string
+    command-input.kraken-ocr:
+      type: object
+      required:
+        - image
+        - lines
+        - model
+      additionalProperties: false
+      properties:
+        image:
+          type: string
+          file: true
+          mediaType:
+            - image/png
+        lines:
+          type: string
+          file: true
+          mediaType:
+            - application/vnd.ocr.lines+json
+        model:
+          type: string
+          file: true
+          mediaType:
+            - application/vnd.ocr.clstm
+            - application/vnd.ocr.pyrnn
+            - application/vnd.ocr.pronn
+        reorder:
+          type: boolean
+          default: true
+        noReorder:
+          type: boolean
+          default: false
+        outputMediaType:
+          type: string
+          enum:
+            - text/hocr+html
+    command-input.ocropus-rpred:
+      type: object
+      required:
+        - image
+        - model
+      additionalProperties: false
+      properties:
+        image:
+          type: string
+          file: true
+          mediaType:
+            - image/vnd.ocr.png.binarized
+            - image/vnd.ocr.png.binarized+dewarped
+        pseg:
+          type: string
+          file: true
+          mediaType:
+            - image/vnd.ocr.png.pseg
+        model:
+          type: string
+          file: true
+          mediaType:
+            - application/vnd.ocr.pyrnn
+    command-input.tesseract3:
+      type: object
+      required:
+        - image
+        - configfile
+        - langs
+      additionalProperties: false
+      properties:
+        image:
+          type: string
+          file: true
+          mediaType:
+            - image/png
+            - image/tif
+            - image/jpeg
+        configfile:
+          type: string
+          file: true
+          mediaType:
+            - text/vnc.ocr.tesseract.configfile
+        langs:
+          type: array
+          minLength: 1
+          file: true
+          default: []
+          items:
+            type: string
+          mediaType:
+            - application/vnd.ocr.traineddata.3
+            - application/vnd.ocr.traineddata.3+4
+    command-input.test-date:
+      type: object
+      required: []
+      additionalProperties: false
+      properties:
+        sleeptime:
+          type: number
+          default: 5
+        max:
+          type: number
+          default: 5
+    Job:
+      type: object
+      description: State of a running command
+      properties:
+        status:
+          type: string
+    OcrdJobRequest:
+      type: object
+      required:
+        - mets
+        - mediaType
+      properties:
+        mets:
+          type: string
+          format: base64
+          description: METS file
+        parameterJson:
+          type: object
+          description: Parameter definition provided by MP
+        mediaType:
+          type: string
+          description: Media type of file
