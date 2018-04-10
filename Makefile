@@ -15,6 +15,7 @@ help:
 	@echo "  Targets"
 	@echo ""
 	@echo "    swagger  Fetch swagger"
+	@echo "    yaml     Rebuild YAML"
 	@echo "    serve    Start local server"
 	@echo ""
 	@echo "  Variables"
@@ -24,7 +25,7 @@ help:
 
 # END-EVAL
 
-.PHONY: swagger
+.PHONY: swagger yaml docs/ocrd.oas3.yml
 
 # Fetch swagger
 swagger: docs/swagger docs/ocrd.oas3.yml
@@ -32,22 +33,22 @@ swagger: docs/swagger docs/ocrd.oas3.yml
 docs/swagger:
 	mkdir -p docs
 	cd docs ;\
-		if [[ ! -e "v$(SWAGGER_UI_VERSION)" ]];then wget "$(SWAGGER_UI_URL)"; fi; \
+		if [[ ! -e "v$(SWAGGER_UI_VERSION).zip" ]];then wget "$(SWAGGER_UI_URL)"; fi; \
 		rm -rf openapi; \
 		if [[ ! -e 'openapi' ]];then \
 			unzip v$(SWAGGER_UI_VERSION).zip;\
 			mv swagger-ui-$(SWAGGER_UI_VERSION)/dist openapi; \
 			rm -rf swagger-ui-$(SWAGGER_UI_VERSION); \
-			rm -f v$(SWAGGER_UI_VERSION).zip; \
 		fi
 
+# Rebuild YAML
+yaml: docs/ocrd.oas3.yml
+
 docs/ocrd.oas3.yml:
-	sed -i '/url:/ s,.*,url: "../ocrd.oas3.yml",' docs/openapi/index.html
+	sed -i '/url:/ s|.*|url: "../ocrd.oas3.yml",|' docs/openapi/index.html
 	ocrd generate-swagger $(OCRD_TOOLS) | traf -i json -o yaml - $@
 
-.PHONY: serve
-
 # Start local server
-serve: swagger
-	sed -i '/url:/ s,.*,url: "http://localhost:8000/ocrd.oas3.yml",' docs/openapi/index.html
+serve:
+	sed -i '/url:/ s|.*|url: "http://localhost:8000/ocrd.oas3.yml",|' docs/openapi/index.html
 	cd docs ; python -m SimpleHTTPServer
