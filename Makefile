@@ -45,7 +45,7 @@ docs/swagger:
 yaml: docs/ocrd.oas3.yml
 
 docs/ocrd.oas3.yml:
-	sed -i '/url:/ s|.*|url: "../ocrd.oas3.yml",|' docs/openapi/index.html
+	sed -i '/url:/ s|.*|url: "http://kba.cloud/ocr-d.github.io/ocrd.oas3.yml",|' docs/openapi/index.html
 	ocrd generate-swagger $(OCRD_TOOLS) | traf -i json -o yaml - $@
 
 # Start local server
