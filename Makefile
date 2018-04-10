@@ -42,11 +42,12 @@ docs/swagger:
 		fi
 
 docs/ocrd.oas3.yml:
+	sed -i '/url:/ s,.*,url: "../ocrd.oas3.yml",' docs/openapi/index.html
 	ocrd generate-swagger $(OCRD_TOOLS) | traf -i json -o yaml - $@
 
 .PHONY: serve
 
 # Start local server
-serve:
-	sed -i 's,http://petstore.swagger.io/v2/swagger.json,http://localhost:8000/ocrd.oas3.yml,' docs/openapi/index.html
+serve: swagger
+	sed -i '/url:/ s,.*,url: "http://localhost:8000/ocrd.oas3.yml",' docs/openapi/index.html
 	cd docs ; python -m SimpleHTTPServer
