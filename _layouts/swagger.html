@@ -5,9 +5,7 @@
   <meta charset="UTF-8">
   <title>Swagger UI</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
-  <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />
+  <link rel="stylesheet" href="{{ "/assets/swagger-ui.css" | relative_url }}">
   <style>
     html
     {
@@ -27,9 +25,11 @@
       background: #fafafa;
     }
   </style>
+  {%- include head.html -%}
 </head>
 
 <body>
+    {%- include header.html -%}
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position:absolute;width:0;height:0">
   <defs>
@@ -67,14 +67,14 @@
 
 <div id="swagger-ui"></div>
 
-<script src="./swagger-ui-bundle.js"> </script>
-<script src="./swagger-ui-standalone-preset.js"> </script>
+<script src="{{ "/assets/swagger-ui-bundle.js" | relative_url }}"> </script>
+<script src="{{ "/assets/swagger-ui-standalone-preset.js" | relative_url }}"> </script>
 <script>
 window.onload = function() {
-  
+
   // Build a system
   const ui = SwaggerUIBundle({
-url: "http://localhost:4000/ocrd.oas3.yml",
+    url: "http://localhost:4000/ocrd.oas3.yml",
     dom_id: '#swagger-ui',
     deepLinking: true,
     presets: [
