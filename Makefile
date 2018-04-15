@@ -15,6 +15,7 @@ help:
 	@echo "    swagger-yaml  Rebuild Swagger YAML"
 	@echo "    serve         Start local server"
 	@echo "    spec          Clone spec repo"
+	@echo "    markdown      Copy markdown from ocr-d/spec to here"
 	@echo ""
 	@echo "  Variables"
 	@echo ""
@@ -50,3 +51,23 @@ serve:
 # Clone spec repo
 spec:
 	git clone --depth 1 https://github.com/OCR-D/spec
+
+# Copy markdown from ocr-d/spec to here
+markdown: cli.md docker.md ocrd_tool.md mets.md
+
+define copy_markdown
+	echo -e "---\nlayout: page\n---\n\n" > "$(1)"
+	cat spec/$(1) >> "$(1)"
+endef
+
+docker.md: spec
+	$(call copy_markdown,$@)
+
+cli.md: spec
+	$(call copy_markdown,$@)
+
+ocrd_tool.md: spec
+	$(call copy_markdown,$@)
+
+mets.md: spec
+	$(call copy_markdown,$@)
