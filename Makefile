@@ -60,14 +60,14 @@ define copy_markdown
 	cat spec/$(1) >> "$(1)"
 endef
 
-docker.md: spec
+docker.md:
 	$(call copy_markdown,$@)
 
-cli.md: spec
+cli.md:
 	$(call copy_markdown,$@)
 
-ocrd_tool.md: spec
+ocrd_tool.md:
 	$(call copy_markdown,$@)
 
-mets.md: spec
+mets.md:
 	$(call copy_markdown,$@)
