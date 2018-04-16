@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "description": "This is a generic definition of the modules used for the OCR-D project.\n* Implementation path for the different processors (description)\n* /preprocessing/characterization (Determine specific characteristics of a digitalization.)\n*  /preprocessing/characterization/font (Estimate font families and languages used.)\n* /preprocessing/optimization (Execute all steps for image optimization at once.)\n* /preprocessing/optimization/cropping (Crops the digitization to printspace.)\n* /preprocessing/optimization/deskewing (Deskews the digitization.)\n* /preprocessing/optimization/despeckling (Despeckles the digitization.)\n* /preprocessing/optimization/dewarping (Dewarps the digitization.)\n* /preprocessing/optimization/binarization (Binarize the digitization.)\n* /layout/segmentation (Detect and classify all regions of a page.)\n* /layout/segmentation/page (Detect all regions of a page.)\n* /layout/segmentation/line (Detect all text line regions inside the text regions of a page.)\n* /layout/segmentation/classification | Classify all detected regions of a page.)\n* /layout/analysis (Analyse regions on document level.)",
+    "description": "This is a generic definition of the modules used for the OCR-D project.\n* Implementation path for the different processors (description)\n* /preprocessing/characterization (Determine specific characteristics of a digitalization.)\n* /preprocessing/optimization (Execute all steps for image optimization at once.)\n* /preprocessing/optimization/cropping (Crops the digitization to printspace.)\n* /preprocessing/optimization/deskewing (Deskews the digitization.)\n* /preprocessing/optimization/despeckling (Despeckles the digitization.)\n* /preprocessing/optimization/dewarping (Dewarps the digitization.)\n* /preprocessing/optimization/binarization (Binarize the digitization.)\n*  /recognition/text-recognition (Estimate font families and languages used.)\n*  /recognition/font-identification (Estimate font families and languages used.)\n* /layout/segmentation (Detect and classify all regions of a page.)\n* /layout/segmentation/page (Detect all regions of a page.)\n* /layout/segmentation/line (Detect all text line regions inside the text regions of a page.)\n* /layout/segmentation/classification | Fine-grained classification of all detected regions of a page.)\n* /layout/analysis (Analyse regions on document level.)",
     "version": "0.9",
     "title": "OCR-D",
     "termsOfService": "http://swagger.io/terms/",
@@ -20,28 +20,28 @@
   ],
   "tags": [
     {
-      "name": "Bildvorverarbeitung",
-      "description": "Verfahren, die die Digitalisate f\u00fcr die Layout- und Texterkennung charakterisieren und optimieren."
+      "name": "Image preprocessing",
+      "description": "Methods that characterize and optimize the digital representations for layout and text recognition."
     },
     {
-      "name": "Layouterkennung",
-      "description": "Die Erfassung des korrekten, d.h. die Wiedergabe des logischstrukturell auf sich beziehenden Textflusses und hohe Textgenauigkeit."
+      "name": "Layout analysis",
+      "description": "Registration of the correct text flow, that means the reproduction of the logical-structural text flow and high text accuracy."
     },
     {
-      "name": "Textoptimierung",
-      "description": "Kombination mehrere OCR-Engines mit anschlie\u00dfender Nachkorrektur zur Verbesserung der Textergebnisse."
+      "name": "Text recognition and optimization",
+      "description": "Combination of several OCR engines with subsequent corrections to improve text results."
     },
     {
-      "name": "Modellbildung",
-      "description": "Training der Modelle und Bereitstellung dieser."
+      "name": "Model training",
+      "description": "Training and provision of models."
     },
     {
-      "name": "Langzeitarchivierung",
-      "description": "Sicherung der Langzeitverf\u00fcgbarkeit und Referenzierbarkeit der gewonnenen Texte."
+      "name": "Long-term archiving",
+      "description": "Ensuring the long-term availability and referenceability of the texts obtained."
     },
     {
-      "name": "Qualit\u00e4tssicherung",
-      "description": "Bestimmung/Sch\u00e4tzung des Potenzials der einzelnen Komponenten."
+      "name": "Quality assurance",
+      "description": "Determination/estimation of the potential of each component."
     }
   ],
   "paths": {
@@ -52,7 +52,7 @@
         ],
         "summary": "Segment page into regions with tesseract",
         "description": "Segment page into regions with tesseract",
-        "operationId": "startProcessor",
+        "operationId": "start-processor",
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -61,23 +61,23 @@
                 "description": "Object holding all parameters needed by most processors.",
                 "properties": {
                   "mets": {
-                    "$ref": "#/components/schemas/metsFile"
+                    "$ref": "#/components/schemas/mets-file"
                   },
-                  "inputFileGrp": {
+                  "input-file-grp": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     },
                     "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE)."
                   },
-                  "outputFileGrp": {
+                  "output-file-grp": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     },
                     "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE)."
                   },
-                  "groupID": {
+                  "group-id": {
                     "type": "array",
                     "items": {
                       "type": "string"
@@ -91,14 +91,14 @@
                     },
                     "description": "Parameter file in JSON format."
                   },
-                  "logLevel": {
-                    "$ref": "#/components/schemas/logLevel"
+                  "log-level": {
+                    "$ref": "#/components/schemas/log-level"
                   }
                 },
                 "required": [
                   "mets",
-                  "inputFileGrp",
-                  "outputFileGrp"
+                  "input-file-grp",
+                  "output-file-grp"
                 ],
                 "parameters": {
                   "type": "object",
@@ -114,7 +114,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/jobId"
+                  "$ref": "#/components/schemas/job-id"
                 }
               }
             },
@@ -129,7 +129,7 @@
             },
             "links": {
               "GetFilesByJobId": {
-                "operationId": "getCreatedFilesOfProcessor",
+                "operationId": "get-created-files-of-processor",
                 "parameters": {
                   "jobID": "$response.body#/jobID"
                 },
@@ -255,9 +255,9 @@
           "204": {
             "description": "Successful Operation. All linked ressources are removed successfully.",
             "content": {
-              "application/vnd.ocrd+jobstatus": {
+              "application/vnd.ocrd+job-status": {
                 "schema": {
-                  "$ref": "#/components/schemas/jobStatus"
+                  "$ref": "#/components/schemas/job-status"
                 }
               }
             }
@@ -279,7 +279,7 @@
         ],
         "summary": "Get created files.",
         "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
-        "operationId": "getCreatedFilesOfProcessor",
+        "operationId": "get-created-files-of-processor",
         "parameters": [
           {
             "in": "path",
@@ -295,29 +295,29 @@
           "200": {
             "description": "Successful Operation.",
             "content": {
-              "application/vnd.ocrd+jobstatus": {
+              "application/vnd.ocrd+job-status": {
                 "schema": {
-                  "$ref": "#/components/schemas/jobStatus"
+                  "$ref": "#/components/schemas/job-status"
                 }
               },
               "application/mets+xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/metsFile"
+                  "$ref": "#/components/schemas/mets-file"
                 }
               },
               "image/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/imageFile"
+                  "$ref": "#/components/schemas/image-file"
                 }
               },
               "application/vnd.ocrd.page+xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/pageFile"
+                  "$ref": "#/components/schemas/page-file"
                 }
               },
               "application/vnd.ocrd.prov+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/provenanceFile"
+                  "$ref": "#/components/schemas/provenance-file"
                 }
               },
               "application/vnd.ocrd.log+json": {
@@ -327,7 +327,7 @@
               },
               "application/zip": {
                 "schema": {
-                  "$ref": "#/components/schemas/zipFile"
+                  "$ref": "#/components/schemas/zip-file"
                 }
               }
             }
@@ -348,7 +348,7 @@
         ],
         "summary": "Segment regions into lines with tesseract",
         "description": "Segment regions into lines with tesseract",
-        "operationId": "startProcessor",
+        "operationId": "start-processor",
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -357,23 +357,23 @@
                 "description": "Object holding all parameters needed by most processors.",
                 "properties": {
                   "mets": {
-                    "$ref": "#/components/schemas/metsFile"
+                    "$ref": "#/components/schemas/mets-file"
                   },
-                  "inputFileGrp": {
+                  "input-file-grp": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     },
                     "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE)."
                   },
-                  "outputFileGrp": {
+                  "output-file-grp": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     },
                     "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE)."
                   },
-                  "groupID": {
+                  "group-id": {
                     "type": "array",
                     "items": {
                       "type": "string"
@@ -387,14 +387,14 @@
                     },
                     "description": "Parameter file in JSON format."
                   },
-                  "logLevel": {
-                    "$ref": "#/components/schemas/logLevel"
+                  "log-level": {
+                    "$ref": "#/components/schemas/log-level"
                   }
                 },
                 "required": [
                   "mets",
-                  "inputFileGrp",
-                  "outputFileGrp"
+                  "input-file-grp",
+                  "output-file-grp"
                 ],
                 "parameters": {
                   "type": "object",
@@ -410,7 +410,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/jobId"
+                  "$ref": "#/components/schemas/job-id"
                 }
               }
             },
@@ -425,7 +425,7 @@
             },
             "links": {
               "GetFilesByJobId": {
-                "operationId": "getCreatedFilesOfProcessor",
+                "operationId": "get-created-files-of-processor",
                 "parameters": {
                   "jobID": "$response.body#/jobID"
                 },
@@ -551,9 +551,9 @@
           "204": {
             "description": "Successful Operation. All linked ressources are removed successfully.",
             "content": {
-              "application/vnd.ocrd+jobstatus": {
+              "application/vnd.ocrd+job-status": {
                 "schema": {
-                  "$ref": "#/components/schemas/jobStatus"
+                  "$ref": "#/components/schemas/job-status"
                 }
               }
             }
@@ -575,7 +575,7 @@
         ],
         "summary": "Get created files.",
         "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
-        "operationId": "getCreatedFilesOfProcessor",
+        "operationId": "get-created-files-of-processor",
         "parameters": [
           {
             "in": "path",
@@ -591,29 +591,29 @@
           "200": {
             "description": "Successful Operation.",
             "content": {
-              "application/vnd.ocrd+jobstatus": {
+              "application/vnd.ocrd+job-status": {
                 "schema": {
-                  "$ref": "#/components/schemas/jobStatus"
+                  "$ref": "#/components/schemas/job-status"
                 }
               },
               "application/mets+xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/metsFile"
+                  "$ref": "#/components/schemas/mets-file"
                 }
               },
               "image/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/imageFile"
+                  "$ref": "#/components/schemas/image-file"
                 }
               },
               "application/vnd.ocrd.page+xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/pageFile"
+                  "$ref": "#/components/schemas/page-file"
                 }
               },
               "application/vnd.ocrd.prov+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/provenanceFile"
+                  "$ref": "#/components/schemas/provenance-file"
                 }
               },
               "application/vnd.ocrd.log+json": {
@@ -623,7 +623,7 @@
               },
               "application/zip": {
                 "schema": {
-                  "$ref": "#/components/schemas/zipFile"
+                  "$ref": "#/components/schemas/zip-file"
                 }
               }
             }
@@ -644,7 +644,7 @@
         ],
         "summary": "Recognize text in lines with tesseract",
         "description": "Recognize text in lines with tesseract",
-        "operationId": "startProcessor",
+        "operationId": "start-processor",
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -653,23 +653,23 @@
                 "description": "Object holding all parameters needed by most processors.",
                 "properties": {
                   "mets": {
-                    "$ref": "#/components/schemas/metsFile"
+                    "$ref": "#/components/schemas/mets-file"
                   },
-                  "inputFileGrp": {
+                  "input-file-grp": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     },
                     "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE)."
                   },
-                  "outputFileGrp": {
+                  "output-file-grp": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     },
                     "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE)."
                   },
-                  "groupID": {
+                  "group-id": {
                     "type": "array",
                     "items": {
                       "type": "string"
@@ -683,14 +683,14 @@
                     },
                     "description": "Parameter file in JSON format."
                   },
-                  "logLevel": {
-                    "$ref": "#/components/schemas/logLevel"
+                  "log-level": {
+                    "$ref": "#/components/schemas/log-level"
                   }
                 },
                 "required": [
                   "mets",
-                  "inputFileGrp",
-                  "outputFileGrp"
+                  "input-file-grp",
+                  "output-file-grp"
                 ],
                 "parameters": {
                   "type": "object",
@@ -706,7 +706,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/jobId"
+                  "$ref": "#/components/schemas/job-id"
                 }
               }
             },
@@ -721,7 +721,7 @@
             },
             "links": {
               "GetFilesByJobId": {
-                "operationId": "getCreatedFilesOfProcessor",
+                "operationId": "get-created-files-of-processor",
                 "parameters": {
                   "jobID": "$response.body#/jobID"
                 },
@@ -847,9 +847,9 @@
           "204": {
             "description": "Successful Operation. All linked ressources are removed successfully.",
             "content": {
-              "application/vnd.ocrd+jobstatus": {
+              "application/vnd.ocrd+job-status": {
                 "schema": {
-                  "$ref": "#/components/schemas/jobStatus"
+                  "$ref": "#/components/schemas/job-status"
                 }
               }
             }
@@ -871,7 +871,7 @@
         ],
         "summary": "Get created files.",
         "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
-        "operationId": "getCreatedFilesOfProcessor",
+        "operationId": "get-created-files-of-processor",
         "parameters": [
           {
             "in": "path",
@@ -887,29 +887,29 @@
           "200": {
             "description": "Successful Operation.",
             "content": {
-              "application/vnd.ocrd+jobstatus": {
+              "application/vnd.ocrd+job-status": {
                 "schema": {
-                  "$ref": "#/components/schemas/jobStatus"
+                  "$ref": "#/components/schemas/job-status"
                 }
               },
               "application/mets+xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/metsFile"
+                  "$ref": "#/components/schemas/mets-file"
                 }
               },
               "image/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/imageFile"
+                  "$ref": "#/components/schemas/image-file"
                 }
               },
               "application/vnd.ocrd.page+xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/pageFile"
+                  "$ref": "#/components/schemas/page-file"
                 }
               },
               "application/vnd.ocrd.prov+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/provenanceFile"
+                  "$ref": "#/components/schemas/provenance-file"
                 }
               },
               "application/vnd.ocrd.log+json": {
@@ -919,7 +919,7 @@
               },
               "application/zip": {
                 "schema": {
-                  "$ref": "#/components/schemas/zipFile"
+                  "$ref": "#/components/schemas/zip-file"
                 }
               }
             }
@@ -941,23 +941,23 @@
         "description": "Object holding all parameters needed by most processors.",
         "properties": {
           "mets": {
-            "$ref": "#/components/schemas/metsFile"
+            "$ref": "#/components/schemas/mets-file"
           },
-          "inputFileGrp": {
+          "input-file-grp": {
             "type": "array",
             "items": {
               "type": "string"
             },
             "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE)."
           },
-          "outputFileGrp": {
+          "output-file-grp": {
             "type": "array",
             "items": {
               "type": "string"
             },
             "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE)."
           },
-          "groupID": {
+          "group-id": {
             "type": "array",
             "items": {
               "type": "string"
@@ -971,53 +971,74 @@
             },
             "description": "Parameter file in JSON format."
           },
-          "logLevel": {
-            "$ref": "#/components/schemas/logLevel"
+          "log-level": {
+            "$ref": "#/components/schemas/log-level"
           }
         },
         "required": [
           "mets",
-          "inputFileGrp",
-          "outputFileGrp"
+          "input-file-grp",
+          "output-file-grp"
         ]
       },
-      "metsFile": {
+      "mets-file": {
         "type": "string",
         "description": "XML holding all information of the digitized document. All references of the images and the PAGE XMLs are available via fileGrp section  (see http://www.loc.gov/standards/mets/mets.xsd)"
       },
-      "pageFile": {
+      "page-file": {
         "type": "string",
         "description": "XML holding all information of the digitized page. (see http://schema.primaresearch.org/PAGE/gts/pagecontent/2017-07-15/pagecontent.xsd)"
       },
-      "imageFile": {
+      "image-file": {
         "type": "string",
         "format": "binary",
         "description": "Image created by processor."
       },
-      "zipFile": {
+      "zip-file": {
         "type": "string",
         "format": "binary",
-        "description": "Zipfile containing all files created by the processor.  Content of zipfile: \n  * METS file (mandatory) (default: mets.xml)\n  * Provenance (mandatory) (default: provenance.json)\n  * PAGE XML (optional) \n  * Images (optional) \n  * Output of (error) console. (optional) (default: output.json)\n\nAll files have to be referenced inside the METS file.\n"
+        "description": "zip-file containing all files created by the processor.  Content of zip-file: \n  * METS file (mandatory) (default: mets.xml)\n  * Provenance (mandatory) (default: provenance.json)\n  * PAGE XML (optional) \n  * Images (optional) \n  * Output of (error) console. (optional) (default: output.json)\n\nAll files have to be referenced inside the METS file.\n"
       },
-      "provenanceFile": {
+      "provenance-file": {
         "type": "string",
         "description": "JSON file holding all information about the provenance."
       },
+      "message-with-timestamp": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "description": "timestamp",
+            "format": "date"
+          },
+          "message": {
+            "type": "string",
+            "description": "message"
+          }
+        }
+      },
       "logging": {
+        "additionalProperties": false,
         "type": "object",
         "properties": {
           "stdout": {
-            "type": "string",
-            "description": "Output of console."
+            "type": "array",
+            "description": "Output of console.",
+            "items": {
+              "$ref": "#/components/schemas/message-with-timestamp"
+            }
           },
           "stderr": {
-            "type": "string",
-            "description": "Output of error console."
+            "type": "array",
+            "description": "Output of error console.",
+            "items": {
+              "$ref": "#/components/schemas/message-with-timestamp"
+            }
           }
         },
         "description": "JSON file holding the output of the job."
       },
-      "jobId": {
+      "job-id": {
         "type": "object",
         "properties": {
           "status": {
@@ -1036,7 +1057,7 @@
           "OK"
         ]
       },
-      "jobStatus": {
+      "job-status": {
         "type": "string",
         "enum": [
           "RUNNING",
@@ -1046,7 +1067,7 @@
         ],
         "description": "Description of the status:\n  * `RUNNING` - Job is not finished yet.\n  * `FINISHED` - Job was executed successfully.\n  * `ERROR` - Job was cancelled due to an error.\n  * `STOPPED` - Job was stopped due to server restrictions.\n"
       },
-      "logLevel": {
+      "log-level": {
         "type": "string",
         "enum": [
           false,
