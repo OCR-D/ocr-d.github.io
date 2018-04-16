@@ -68,10 +68,10 @@ tags:
   - name: Qualitätssicherung
     description: Bestimmung/Schätzung des Potenzials der einzelnen Komponenten.
 paths:
-  /layout/segmentation/tesserocr_segment_line:
+  /layout/segmentation/line/tesserocr_segment_line:
     post:
       tags:
-        - Layouterkennung
+        - Layout analysis
       summary: Segment page into regions with tesseract
       description: Segment page into regions with tesseract
       operationId: startProcessor
@@ -208,11 +208,11 @@ paths:
                             - Langzeitarchivierung
                             - Qualitätssicherung
       tags:
-        - Layouterkennung
-  '/layout/segmentation/tesserocr_segment_line/{_id}':
+        - Layout analysis
+  '/layout/segmentation/line/tesserocr_segment_line/{_id}':
     delete:
       tags:
-        - Layouterkennung
+        - Layout analysis
       summary: Delete all files created by job with ID 'jobID'.
       parameters:
         - in: path
@@ -238,7 +238,7 @@ paths:
           description: Internal error
     get:
       tags:
-        - Layouterkennung
+        - Layout analysis
       summary: Get created files.
       description: >-
         Fetch all file created by job with id 'jobID'. If more than one file is
@@ -284,10 +284,10 @@ paths:
             fetch all files at once.
         '500':
           description: Internal error
-  /layout/segmentation/tesserocr_segment_region:
+  /layout/segmentation/region/tesserocr_segment_region:
     post:
       tags:
-        - Layouterkennung
+        - Layout analysis
       summary: Segment regions into lines with tesseract
       description: Segment regions into lines with tesseract
       operationId: startProcessor
@@ -424,11 +424,11 @@ paths:
                             - Langzeitarchivierung
                             - Qualitätssicherung
       tags:
-        - Layouterkennung
-  '/layout/segmentation/tesserocr_segment_region/{_id}':
+        - Layout analysis
+  '/layout/segmentation/region/tesserocr_segment_region/{_id}':
     delete:
       tags:
-        - Layouterkennung
+        - Layout analysis
       summary: Delete all files created by job with ID 'jobID'.
       parameters:
         - in: path
@@ -454,7 +454,7 @@ paths:
           description: Internal error
     get:
       tags:
-        - Layouterkennung
+        - Layout analysis
       summary: Get created files.
       description: >-
         Fetch all file created by job with id 'jobID'. If more than one file is
@@ -500,7 +500,7 @@ paths:
             fetch all files at once.
         '500':
           description: Internal error
-  /recognition/tesserocr_recognize:
+  /recognition/text-recognition/tesserocr_recognize:
     post:
       tags:
         - Texterkennung
@@ -641,7 +641,7 @@ paths:
                             - Qualitätssicherung
       tags:
         - Texterkennung
-  '/recognition/tesserocr_recognize/{_id}':
+  '/recognition/text-recognition/tesserocr_recognize/{_id}':
     delete:
       tags:
         - Texterkennung

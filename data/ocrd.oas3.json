@@ -45,10 +45,10 @@
     }
   ],
   "paths": {
-    "/layout/segmentation/tesserocr_segment_line": {
+    "/layout/segmentation/line/tesserocr_segment_line": {
       "post": {
         "tags": [
-          "Layouterkennung"
+          "Layout analysis"
         ],
         "summary": "Segment page into regions with tesseract",
         "description": "Segment page into regions with tesseract",
@@ -230,14 +230,14 @@
           }
         },
         "tags": [
-          "Layouterkennung"
+          "Layout analysis"
         ]
       }
     },
-    "/layout/segmentation/tesserocr_segment_line/{_id}": {
+    "/layout/segmentation/line/tesserocr_segment_line/{_id}": {
       "delete": {
         "tags": [
-          "Layouterkennung"
+          "Layout analysis"
         ],
         "summary": "Delete all files created by job with ID 'jobID'.",
         "parameters": [
@@ -275,7 +275,7 @@
       },
       "get": {
         "tags": [
-          "Layouterkennung"
+          "Layout analysis"
         ],
         "summary": "Get created files.",
         "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
@@ -341,10 +341,10 @@
         }
       }
     },
-    "/layout/segmentation/tesserocr_segment_region": {
+    "/layout/segmentation/region/tesserocr_segment_region": {
       "post": {
         "tags": [
-          "Layouterkennung"
+          "Layout analysis"
         ],
         "summary": "Segment regions into lines with tesseract",
         "description": "Segment regions into lines with tesseract",
@@ -526,14 +526,14 @@
           }
         },
         "tags": [
-          "Layouterkennung"
+          "Layout analysis"
         ]
       }
     },
-    "/layout/segmentation/tesserocr_segment_region/{_id}": {
+    "/layout/segmentation/region/tesserocr_segment_region/{_id}": {
       "delete": {
         "tags": [
-          "Layouterkennung"
+          "Layout analysis"
         ],
         "summary": "Delete all files created by job with ID 'jobID'.",
         "parameters": [
@@ -571,7 +571,7 @@
       },
       "get": {
         "tags": [
-          "Layouterkennung"
+          "Layout analysis"
         ],
         "summary": "Get created files.",
         "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
@@ -637,7 +637,7 @@
         }
       }
     },
-    "/recognition/tesserocr_recognize": {
+    "/recognition/text-recognition/tesserocr_recognize": {
       "post": {
         "tags": [
           "Texterkennung"
@@ -826,7 +826,7 @@
         ]
       }
     },
-    "/recognition/tesserocr_recognize/{_id}": {
+    "/recognition/text-recognition/tesserocr_recognize/{_id}": {
       "delete": {
         "tags": [
           "Texterkennung"
