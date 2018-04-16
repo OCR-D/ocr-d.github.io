@@ -27,7 +27,7 @@ help:
 
 # Install dependencies
 deps:
-	npm install -g traf
+	sudo npm install -g traf
 	bundle install
 
 # Fetch swagger
@@ -46,7 +46,7 @@ swagger-yaml: swagger-json
 
 # Start local server
 serve:
-	bundle exec jekyll serve
+	bundle exec jekyll serve --incremental
 
 # Clone spec repo
 spec:
