@@ -1,3 +1,8 @@
+---
+layout: page
+---
+
+
 # Dockerfile provided by MP
 
 MP should provide a
