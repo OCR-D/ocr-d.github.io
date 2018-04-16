@@ -2,6 +2,7 @@
 layout: page
 ---
 
+
 # Dockerfile provided by MP
 
 MP should provide a [Dockerfile](https://docs.docker.com/engine/reference/builder/) that should result in a container to execute the CLI with all dependencies bundled.

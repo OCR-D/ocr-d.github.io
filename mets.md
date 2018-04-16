@@ -66,21 +66,21 @@ PROCESSOR := [A-Z0-9\-]{3,}
 
 ### Examples
 
-<mets:fileGrp USE> | Type of use for OCR-D
+`<mets:fileGrp USE>` | Type of use for OCR-D
 -- | --
-<mets:fileGrp USE=”OCR-D-IMG”> | The unmanipulated source images
-<mets:fileGrp USE=”OCR-D-IMG-BIN”> | Black-and-White images
-<mets:fileGrp USE=”OCR-D-IMG-CROP”> | Cropped images
-<mets:fileGrp USE=”OCR-D-IMG-DESKEW”> | Deskewed images
-<mets:fileGrp USE=”OCR-D-IMG-DESPECK”> | Despeckled images
-<mets:fileGrp USE=”OCR-D-IMG-DEWARP”> | Dewarped images
-<mets:fileGrp USE=”OCR-D-SEG-PAGE”> | Page segmentation
-<mets:fileGrp USE=”OCR-D-SEG-BLOCK”> | Block segmentation
-<mets:fileGrp USE=”OCR-D-SEG-LINE”> | Line segmentation
-<mets:fileGrp USE=”OCR-D-OCR-TESS”> | Tesseract OCR
-<mets:fileGrp USE=”OCR-D-OCR-ANY”> | AnyOCR
-<mets:fileGrp USE=”OCR-D-COR-CIS”> | CIS post-correction
-<mets:fileGrp USE=”OCR-D-COR-ASV”> | ASV post-correction
+`<mets:fileGrp USE=”OCR-D-IMG”>` | The unmanipulated source images
+`<mets:fileGrp USE=”OCR-D-IMG-BIN”>` | Black-and-White images
+`<mets:fileGrp USE=”OCR-D-IMG-CROP”>` | Cropped images
+`<mets:fileGrp USE=”OCR-D-IMG-DESKEW”>` | Deskewed images
+`<mets:fileGrp USE=”OCR-D-IMG-DESPECK”>` | Despeckled images
+`<mets:fileGrp USE=”OCR-D-IMG-DEWARP”>` | Dewarped images
+`<mets:fileGrp USE=”OCR-D-SEG-PAGE”>` | Page segmentation
+`<mets:fileGrp USE=”OCR-D-SEG-BLOCK”>` | Block segmentation
+`<mets:fileGrp USE=”OCR-D-SEG-LINE”>` | Line segmentation
+`<mets:fileGrp USE=”OCR-D-OCR-TESS”>` | Tesseract OCR
+`<mets:fileGrp USE=”OCR-D-OCR-ANY”>` | AnyOCR
+`<mets:fileGrp USE=”OCR-D-COR-CIS”>` | CIS post-correction
+`<mets:fileGrp USE=”OCR-D-COR-ASV”>` | ASV post-correction
 
 ## File ID syntax
 
@@ -134,8 +134,16 @@ The PAGE XML root element `<pc:PcGts>` MUST have exactly one `<pc:Page>`.
 ## Always use URL everywhere
 
 Always use URL. If it's a local file, prefix absolute path with `file://`.
-> [name=Volker Hartmann] :thumbsup: 
-Aber ein Beispiel wie oben wäre nicht schlecht.
+
+### Example
+
+```xml
+<mets:fileGrp USE="OCR-D-SEG-PAGE">
+    <mets:file ID="OCR-D-SEG-PAGE_0001" GROUPID="OCR-D-IMG_0001" MIMETYPE="text/xml">
+        <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:///path/to/workingDir/segmentation/page/page_0001.xml" />
+    </mets:file>
+</mets:fileGrp>
+```
 
 ## If in PAGE then in METS
 
