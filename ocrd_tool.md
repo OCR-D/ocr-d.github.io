@@ -77,7 +77,7 @@ properties:
               - Layout analysis
               - Text recognition and optimization
               - Model training
-              - Long-term archiving
+              - Long-term preservation
               - Quality assurance
 ```
 
