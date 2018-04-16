@@ -52,6 +52,10 @@ serve:
 spec:
 	git clone --depth 1 https://github.com/OCR-D/spec
 
+# Run shinclude to transclude examples / set timestamp
+shinclude:
+	shinclude -c xml -i _includes/footer.html
+
 # Copy markdown from ocr-d/spec to here
 markdown: cli.md docker.md ocrd_tool.md mets.md
 
