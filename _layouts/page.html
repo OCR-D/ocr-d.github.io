@@ -5,10 +5,15 @@
 
   <body>
     {%- include header.html -%}
+    <div class="columns">
+      <aside class="column is-one-quarter menu">
+        {% include toc.html html=content class="menu-list.column.is-one-quarter" h_min=1 %}
+      </aside>
 
-    <main class="container content" aria-label="Content">
-      {{ content }}
-    </main>
+      <main class="container content column is-three-quarters" aria-label="Content">
+        {{ content }}
+      </main>
+    </div>
 
     {%- include footer.html -%}
 
