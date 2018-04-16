@@ -1,4 +1,4 @@
-# OCR-D Specs
+# OCR-D Specs Overview
 
 Since OCR-D focuses on improving access to mass digitization for historical
 prints, it is important that tools are sufficiently uniform in their interfaces
