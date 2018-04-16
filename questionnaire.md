@@ -40,9 +40,9 @@ Please list the external software libraries and APIs you use for various tasks:
 
 ### Database
 
-Does your tool require a database to be running?
+Does your tool require a database to be running? If so, which one and how is it set up?
 
-#### Which database? How is it set up?
+`______________`
 
 ### Interactivity
 
