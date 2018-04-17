@@ -1,8 +1,3 @@
----
-layout: page
----
-
-
 # Command Line Interface (CLI)
 
 ## CLI binary name

@@ -1,8 +1,3 @@
----
-layout: page
----
-
-
 # Requirements on handling METS/PAGE
 
 OCR-D has decided to base its data exchange format on top of [METS](http://www.loc.gov/standards/mets/).

@@ -1,8 +1,3 @@
----
-layout: page
----
-
-
 # ocrd-tool.json
 
 Tools MUST be described in a file `ocrd_tool.json` in the root of the repository.
