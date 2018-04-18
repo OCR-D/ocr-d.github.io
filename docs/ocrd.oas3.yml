@@ -224,7 +224,7 @@ paths:
       responses:
         '204':
           description: >-
-            Successful Operation. All linked ressources are removed
+            Successful Operation. All linked resources are removed
             successfully.
           content:
             application/vnd.ocrd+jobstatus:
@@ -233,7 +233,7 @@ paths:
         '404':
           description: Not found.
         '410':
-          description: Ressource is not available anymore.
+          description: Resource is not available anymore.
         '500':
           description: Internal error
     get:
@@ -440,7 +440,7 @@ paths:
       responses:
         '204':
           description: >-
-            Successful Operation. All linked ressources are removed
+            Successful Operation. All linked resources are removed
             successfully.
           content:
             application/vnd.ocrd+jobstatus:
@@ -449,7 +449,7 @@ paths:
         '404':
           description: Not found.
         '410':
-          description: Ressource is not available anymore.
+          description: Resource is not available anymore.
         '500':
           description: Internal error
     get:
@@ -656,7 +656,7 @@ paths:
       responses:
         '204':
           description: >-
-            Successful Operation. All linked ressources are removed
+            Successful Operation. All linked resources are removed
             successfully.
           content:
             application/vnd.ocrd+jobstatus:
@@ -665,7 +665,7 @@ paths:
         '404':
           description: Not found.
         '410':
-          description: Ressource is not available anymore.
+          description: Resource is not available anymore.
         '500':
           description: Internal error
     get:

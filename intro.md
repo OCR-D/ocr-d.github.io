@@ -10,9 +10,9 @@ be implemented by MP to be usable within the OCR-D ecosphere.
 
 ## CLI
 
-Software developed by OCR-D module projects (MP) must be exceutable with a
+Software developed by OCR-D module projects (MP) must be executable with a
 command line interface (CLI) on a Linux OS. CLI are straightforward to run and
-test and can be asily embedded in automated setups. The mechanics of OCR-D
+test and can be easily embedded in automated setups. The mechanics of OCR-D
 conformant CLI tools are laid out in the [CLI specs](cli).
 
 ## METS
@@ -39,4 +39,4 @@ current `ocrd-tool.json` descriptions can be accessed [online](swagger).
 Docker is a widely used system for containerization of software. MPs are
 encouraged to package the tools they develop as a docker image by providing a
 `Dockerfile`. OCR-D offers [recommendations on how the Dockerfile should be
-structured](./docker)
+structured](./docker).
