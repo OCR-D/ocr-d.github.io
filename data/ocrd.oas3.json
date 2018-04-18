@@ -951,10 +951,10 @@
     "/preprocessing/binarization/kraken_binarize": {
       "post": {
         "tags": [
-          "Bildvorverarbeitung"
+          "Image preprocessing"
         ],
-        "summary": "Binarize images",
-        "description": "Binarize images",
+        "summary": "Binarize images with kraken",
+        "description": "Binarize images with kraken",
         "operationId": "start-processor",
         "requestBody": {
           "content": {
@@ -1138,14 +1138,14 @@
           }
         },
         "tags": [
-          "Bildvorverarbeitung"
+          "Image preprocessing"
         ]
       }
     },
     "/preprocessing/binarization/kraken_binarize/{_id}": {
       "delete": {
         "tags": [
-          "Bildvorverarbeitung"
+          "Image preprocessing"
         ],
         "summary": "Delete all files created by job with ID 'jobID'.",
         "parameters": [
@@ -1183,7 +1183,7 @@
       },
       "get": {
         "tags": [
-          "Bildvorverarbeitung"
+          "Image preprocessing"
         ],
         "summary": "Get created files.",
         "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
