@@ -650,7 +650,7 @@
     "/recognition/text-recognition/tesserocr_recognize": {
       "post": {
         "tags": [
-          "Texterkennung"
+          "Text recognition and optimization"
         ],
         "summary": "Recognize text in lines with tesseract",
         "description": "Recognize text in lines with tesseract",
@@ -837,14 +837,14 @@
           }
         },
         "tags": [
-          "Texterkennung"
+          "Text recognition and optimization"
         ]
       }
     },
     "/recognition/text-recognition/tesserocr_recognize/{_id}": {
       "delete": {
         "tags": [
-          "Texterkennung"
+          "Text recognition and optimization"
         ],
         "summary": "Delete all files created by job with ID 'jobID'.",
         "parameters": [
@@ -882,7 +882,7 @@
       },
       "get": {
         "tags": [
-          "Texterkennung"
+          "Text recognition and optimization"
         ],
         "summary": "Get created files.",
         "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
