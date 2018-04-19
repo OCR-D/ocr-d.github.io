@@ -948,7 +948,7 @@
         }
       }
     },
-    "/preprocessing/binarization/kraken-binarize": {
+    "/preprocessing/optimization/binarization/kraken-binarize": {
       "post": {
         "tags": [
           "Image preprocessing"
@@ -1142,7 +1142,7 @@
         ]
       }
     },
-    "/preprocessing/binarization/kraken-binarize/{_id}": {
+    "/preprocessing/optimization/binarization/kraken-binarize/{_id}": {
       "delete": {
         "tags": [
           "Image preprocessing"
