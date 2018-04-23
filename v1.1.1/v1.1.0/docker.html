@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4">
+  <link rel="stylesheet" href="/assets/bulma.css">
+  <link rel="stylesheet" href="/assets/syntax-highlight.css">
+  <style>
+  #swagger-ui pre.version {
+    padding: 2px !important;
+    background: initial !important;
+  }
+  #swagger-ui .topbar {
+    display: none;
+  }
+  blockquote {
+    background: #f99;
+  }
+  aside.menu > ul { 
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+  }
+  body > #swagger-ui,
+  body > .columns {
+    margin-top: 55px;
+  }
+  h2 code, h3 code, h4 code {
+    color: black;
+  }
+
+  </style><link type="application/atom+xml" rel="alternate" href="https://ocr-d.github.io/feed.xml" title="OCR-D" /></head>
+<body><nav class="navbar is-transparent is-fixed-top">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4" height="28">
+    </a>
+    <div class="navbar-burger burger" data-target="ocrd-navbar-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="ocrd-navbar-menu" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="cli">CLI</a>
+      <a class="navbar-item" href="mets">METS</a>
+      <a class="navbar-item" href="ocrd_zip">OCRD-ZIP</a>
+      <a class="navbar-item" href="ocrd_tool">ocrd-tool.json</a>
+      <a class="navbar-item" href="swagger">Swagger</a>
+      <a class="navbar-item" href="docker">Dockerfile</a>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Older versions</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="v1.0.0">v1.0.0</a>
+        </div>
+      </div>
+      <span class="navbar-item">
+        <a href="https://github.com/OCR-D"><img src="https://www.vectorlogo.zone/logos/github/github-tile.svg"/></a>
+        &nbsp;
+        <a href="https://hub.docker.com/r/ocrd"><img src="https://www.vectorlogo.zone/logos/docker/docker-tile.svg"/></a>
+        &nbsp;
+        <a href="https://ocr-d.de"><img src="https://www.vectorlogo.zone/logos/fileformatinfo/fileformatinfo-tile.svg"/></a>
+      </span>
+    </div>
+  </div>
+</nav>
+<div class="columns">
+      <aside class="column is-one-third menu">
+        <ul class="menu-list column is-one-third">
+  <li><a href="#dockerfile-provided-by-mp">Dockerfile provided by MP</a>
+    <ul>
+      <li><a href="#based-on-ocrdpyocrd">Based on ocrd:pyocrd</a></li>
+      <li><a href="#shell-entrypoint">Shell entrypoint</a></li>
+      <li><a href="#data-as-volume"><code class="highlighter-rouge">/data</code> as volume</a></li>
+      <li><a href="#example">Example</a></li>
+    </ul>
+  </li>
+</ul>
+
+      </aside>
+
+      <main class="container content column is-two-thirds" aria-label="Content">
+        <h1 id="dockerfile-provided-by-mp">Dockerfile provided by MP</h1>
+
+<p>MP should provide a
+<a href="https://docs.docker.com/engine/reference/builder/">Dockerfile</a> that should
+result in a container which bundles the <a href="cli">tools developed by the MP</a> along
+with all requirements.</p>
+
+<h2 id="based-on-ocrdpyocrd">Based on ocrd:pyocrd</h2>
+
+<p>Docker containers should be based on the <a href="https://hub.docker.com/r/ocrd/pyocrd/">ocrd base
+image</a> which itself is based on Ubuntu
+18.04. For one, this allows MP to use the <code class="highlighter-rouge">ocrd</code> tool to handle recurrent tasks
+in a spec-conformant way. Besides, it locally installed and containerized
+<a href="cli">CLI</a> interchangeable.</p>
+
+<h2 id="shell-entrypoint">Shell entrypoint</h2>
+
+<p>The <code class="highlighter-rouge">ENTRYPOINT</code> should a be a shell call not the tool provided. A non-shell
+entrypoint would restrict MP to just one tool.</p>
+
+<h2 id="data-as-volume"><code class="highlighter-rouge">/data</code> as volume</h2>
+
+<p>The directory <code class="highlighter-rouge">/data</code> in the the container should be marked as a volume to
+allow processing host data in the container in a uniform way.</p>
+
+<h2 id="example">Example</h2>
+
+<pre><code class="language-dockerfile=">FROM ocrd:pyocrd
+VOLUME ["/data"]
+
+# RUN-commands to install requirements, build and install
+
+ENTRYPOINT ["/bin/sh", "-c"]
+</code></pre>
+
+      </main>
+    </div><footer class="level">
+
+  <div class="level-item">
+    <p>
+<!-- BEGIN-EVAL echo "Based on <a href="https://github.com/OCR-D/spec/releases/tag/${SPEC_VERSION:-dev}">OCR-D/spec ${SPEC_VERSION:-dev}</a>." -->
+Based on <a href=https://github.com/OCR-D/spec/releases/tag/v1.1.0>OCR-D/spec v1.1.0</a>.
+
+<!-- END-EVAL -->
+    </p>
+    &nbsp;
+
+
+<!-- BEGIN-EVAL echo "<p>Generated on <code>$(date)</code></p>" -->
+<p>Generated on <code>Thu Apr 19 09:10:51 CEST 2018</code></p>
+
+<!-- END-EVAL -->
+  </div>
+
+</footer>
+<script src="/assets/script.js"></script>
+</body>
+
+</html>
