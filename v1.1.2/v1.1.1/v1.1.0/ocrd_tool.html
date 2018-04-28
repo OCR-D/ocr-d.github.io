@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4">
+  <link rel="stylesheet" href="/assets/bulma.css">
+  <link rel="stylesheet" href="/assets/syntax-highlight.css">
+  <style>
+  #swagger-ui pre.version {
+    padding: 2px !important;
+    background: initial !important;
+  }
+  #swagger-ui .topbar {
+    display: none;
+  }
+  blockquote {
+    background: #f99;
+  }
+  aside.menu > ul { 
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+  }
+  body > #swagger-ui,
+  body > .columns {
+    margin-top: 55px;
+  }
+  h2 code, h3 code, h4 code {
+    color: black;
+  }
+
+  </style><link type="application/atom+xml" rel="alternate" href="https://ocr-d.github.io/feed.xml" title="OCR-D" /></head>
+<body><nav class="navbar is-transparent is-fixed-top">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4" height="28">
+    </a>
+    <div class="navbar-burger burger" data-target="ocrd-navbar-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="ocrd-navbar-menu" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="cli">CLI</a>
+      <a class="navbar-item" href="mets">METS</a>
+      <a class="navbar-item" href="ocrd_zip">OCRD-ZIP</a>
+      <a class="navbar-item" href="ocrd_tool">ocrd-tool.json</a>
+      <a class="navbar-item" href="swagger">Swagger</a>
+      <a class="navbar-item" href="docker">Dockerfile</a>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Older versions</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="v1.0.0">v1.0.0</a>
+        </div>
+      </div>
+      <span class="navbar-item">
+        <a href="https://github.com/OCR-D"><img src="https://www.vectorlogo.zone/logos/github/github-tile.svg"/></a>
+        &nbsp;
+        <a href="https://hub.docker.com/r/ocrd"><img src="https://www.vectorlogo.zone/logos/docker/docker-tile.svg"/></a>
+        &nbsp;
+        <a href="https://ocr-d.de"><img src="https://www.vectorlogo.zone/logos/fileformatinfo/fileformatinfo-tile.svg"/></a>
+      </span>
+    </div>
+  </div>
+</nav>
+<div class="columns">
+      <aside class="column is-one-third menu">
+        <ul class="menu-list column is-one-third">
+  <li><a href="#ocrd-tooljson">ocrd-tool.json</a>
+    <ul>
+      <li><a href="#definition">Definition</a></li>
+      <li><a href="#example">Example</a></li>
+    </ul>
+  </li>
+</ul>
+
+      </aside>
+
+      <main class="container content column is-two-thirds" aria-label="Content">
+        <h1 id="ocrd-tooljson">ocrd-tool.json</h1>
+
+<p>Tools MUST be described in a file <code class="highlighter-rouge">ocrd_tool.json</code> in the root of the repository.</p>
+
+<p>It must contain a JSON object adhering to the <a href="#Definition">ocrd-tool JSON Schema</a>.</p>
+
+<p>In particular, every tool provided must be described in an array item under the
+<code class="highlighter-rouge">tools</code> key. These definitions drive the <a href="cli">CLI</a> and the <a href="swagger">web
+services</a>.</p>
+
+<p>To validate a <code class="highlighter-rouge">ocrd_tool.json</code> file, use <code class="highlighter-rouge">ocrd validate-ocrd-tool -T /path/to/ocrd-tool.json</code>.</p>
+
+<h2 id="definition">Definition</h2>
+
+<!-- Regenerate with 'shinclude -i ocrd_tool.md'. See https://github.com/kba/shinclude -->
+<!-- BEGIN-EVAL -w '```yaml' '```' -- cat ./ocrd_tool.schema.yml -->
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">type</span><span class="pi">:</span> <span class="s">object</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s">Schema for tools by OCR-D MP</span>
+<span class="na">required</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">git_url</span>
+  <span class="pi">-</span> <span class="s">tools</span>
+<span class="na">properties</span><span class="pi">:</span>
+  <span class="na">git_url</span><span class="pi">:</span>
+    <span class="na">description</span><span class="pi">:</span> <span class="s">Github/Gitlab URL</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+    <span class="na">format</span><span class="pi">:</span> <span class="s">url</span>
+  <span class="na">dockerhub</span><span class="pi">:</span>
+    <span class="na">description</span><span class="pi">:</span> <span class="s">DockerHub image</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+  <span class="na">tools</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">array</span>
+    <span class="na">items</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">object</span>
+      <span class="na">required</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">description</span>
+        <span class="pi">-</span> <span class="s">step</span>
+        <span class="pi">-</span> <span class="s">exceutable</span>
+      <span class="na">properties</span><span class="pi">:</span>
+        <span class="na">exceutable</span><span class="pi">:</span>
+          <span class="na">description</span><span class="pi">:</span> <span class="s">The name of the CLI executable in $PATH</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+        <span class="na">parameterSchema</span><span class="pi">:</span>
+          <span class="na">description</span><span class="pi">:</span> <span class="s">JSON Schema for the parameters.json file</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">object</span>
+        <span class="na">description</span><span class="pi">:</span>
+          <span class="na">description</span><span class="pi">:</span> <span class="s">Concise description what the tool does</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+        <span class="na">step</span><span class="pi">:</span>
+          <span class="na">description</span><span class="pi">:</span> <span class="s">Step in the OCR-D functional model for this tool</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+          <span class="na">enum</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">preprocessing/characterization</span>
+            <span class="pi">-</span> <span class="s">preprocessing/optimization</span>
+            <span class="pi">-</span> <span class="s">preprocessing/optimization/cropping</span>
+            <span class="pi">-</span> <span class="s">preprocessing/optimization/deskewing</span>
+            <span class="pi">-</span> <span class="s">preprocessing/optimization/despeckling</span>
+            <span class="pi">-</span> <span class="s">preprocessing/optimization/dewarping</span>
+            <span class="pi">-</span> <span class="s">preprocessing/optimization/binarization</span>
+            <span class="pi">-</span> <span class="s">recognition/text-recognition</span>
+            <span class="pi">-</span> <span class="s">recognition/font-identification</span>
+            <span class="pi">-</span> <span class="s">layout/segmentation</span>
+            <span class="pi">-</span> <span class="s">layout/segmentation/region</span>
+            <span class="pi">-</span> <span class="s">layout/segmentation/line</span>
+            <span class="pi">-</span> <span class="s">layout/segmentation/classification</span>
+            <span class="pi">-</span> <span class="s">layout/analysis</span>
+        <span class="na">tags</span><span class="pi">:</span>
+          <span class="na">description</span><span class="pi">:</span> <span class="s">Tools belong to this category, representing modules within the OCR-D project structure</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">array</span>
+          <span class="na">items</span><span class="pi">:</span>
+            <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+            <span class="na">enum</span><span class="pi">:</span>
+              <span class="pi">-</span> <span class="s">Image preprocessing</span>
+              <span class="pi">-</span> <span class="s">Layout analysis</span>
+              <span class="pi">-</span> <span class="s">Text recognition and optimization</span>
+              <span class="pi">-</span> <span class="s">Model training</span>
+              <span class="pi">-</span> <span class="s">Long-term preservation</span>
+              <span class="pi">-</span> <span class="s">Quality assurance</span>
+</code></pre></div></div>
+
+<!-- END-EVAL -->
+
+<h2 id="example">Example</h2>
+
+<p>This is from the <a href="https://github.com/OCR-D/ocrd_tesserocr">ocrd_tesserocr sample project</a>:</p>
+
+<!-- BEGIN-EVAL -w '```json' '```' -- cat ../ocrd_kraken/ocrd-tool.json -->
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"git_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/OCR-D/ocrd_kraken"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tools"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"executable"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ocrd-kraken-binarize"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Image preprocessing"</span><span class="p">],</span><span class="w">
+      </span><span class="s2">"step"</span><span class="p">:</span><span class="w"> </span><span class="s2">"preprocessing/optimization/binarization"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Binarize images with kraken"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"structure-level"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"page"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"page"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"region"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"line"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<!-- END-EVAL -->
+
+
+      </main>
+    </div><footer class="level">
+
+  <div class="level-item">
+    <p>
+<!-- BEGIN-EVAL echo "Based on <a href="https://github.com/OCR-D/spec/releases/tag/${SPEC_VERSION:-dev}">OCR-D/spec ${SPEC_VERSION:-dev}</a>." -->
+Based on <a href=https://github.com/OCR-D/spec/releases/tag/v1.1.0>OCR-D/spec v1.1.0</a>.
+
+<!-- END-EVAL -->
+    </p>
+    &nbsp;
+
+
+<!-- BEGIN-EVAL echo "<p>Generated on <code>$(date)</code></p>" -->
+<p>Generated on <code>Thu Apr 19 09:10:51 CEST 2018</code></p>
+
+<!-- END-EVAL -->
+  </div>
+
+</footer>
+<script src="/assets/script.js"></script>
+</body>
+
+</html>

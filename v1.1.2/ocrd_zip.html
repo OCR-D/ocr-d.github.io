@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4">
+  <link rel="stylesheet" href="/assets/bulma.css">
+  <link rel="stylesheet" href="/assets/syntax-highlight.css">
+  <style>
+  #swagger-ui pre.version {
+    padding: 2px !important;
+    background: initial !important;
+  }
+  #swagger-ui .topbar {
+    display: none;
+  }
+  blockquote {
+    background: #f99;
+  }
+  aside.menu > ul { 
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+  }
+  body > #swagger-ui,
+  body > .columns {
+    margin-top: 55px;
+  }
+  h2 code, h3 code, h4 code {
+    color: black;
+  }
+
+  </style><link type="application/atom+xml" rel="alternate" href="https://ocr-d.github.io/feed.xml" title="OCR-D" /></head>
+<body><nav class="navbar is-transparent is-fixed-top">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4" height="28">
+    </a>
+    <div class="navbar-burger burger" data-target="ocrd-navbar-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="ocrd-navbar-menu" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="cli">CLI</a>
+      <a class="navbar-item" href="mets">METS</a>
+      <a class="navbar-item" href="ocrd_zip">OCRD-ZIP</a>
+      <a class="navbar-item" href="ocrd_tool">ocrd-tool.json</a>
+      <a class="navbar-item" href="swagger">Swagger</a>
+      <a class="navbar-item" href="docker">Dockerfile</a>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Older versions</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="v1.0.0">v1.0.0</a>
+          <a class="navbar-item" href="v1.1.0">v1.1.0</a>
+          <a class="navbar-item" href="v1.1.1">v1.1.1</a>
+        </div>
+      </div>
+      <span class="navbar-item">
+        <a href="https://github.com/OCR-D"><img src="https://www.vectorlogo.zone/logos/github/github-tile.svg"/></a>
+        &nbsp;
+        <a href="https://hub.docker.com/r/ocrd"><img src="https://www.vectorlogo.zone/logos/docker/docker-tile.svg"/></a>
+        &nbsp;
+        <a href="https://ocr-d.de"><img src="https://www.vectorlogo.zone/logos/fileformatinfo/fileformatinfo-tile.svg"/></a>
+      </span>
+    </div>
+  </div>
+</nav>
+<div class="columns">
+      <aside class="column is-one-third menu">
+        <ul class="menu-list column is-one-third">
+  <li><a href="#ocrd-zip">OCRD-ZIP</a>
+    <ul>
+      <li><a href="#rationale">Rationale</a></li>
+      <li><a href="#format">Format</a>
+        <ul>
+          <li><a href="#zip">ZIP</a></li>
+          <li><a href="#metsxml-in-the-root-folder"><code class="highlighter-rouge">mets.xml</code> in the root folder</a></li>
+          <li><a href="#file-urls-must-be-relative"><code class="highlighter-rouge">file://</code>-URLs must be relative</a></li>
+          <li><a href="#when-in-zip-then-in-mets">When in ZIP then in METS</a></li>
+        </ul>
+      </li>
+      <li><a href="#packing-a-workspace-as-ocrd-zip">Packing a workspace as OCRD-ZIP</a></li>
+      <li><a href="#unpacking-ocrd-zip-to-a-workspace">Unpacking OCRD-ZIP to a workspace</a></li>
+      <li><a href="#iana-considerations">IANA considerations</a></li>
+    </ul>
+  </li>
+</ul>
+
+      </aside>
+
+      <main class="container content column is-two-thirds" aria-label="Content">
+        <h1 id="ocrd-zip">OCRD-ZIP</h1>
+
+<p>This document describes an exchange format to bundle a workspace described by a
+<a href="mets">METS file following OCR-D’s conventions</a>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>METS is the exchange format of choice by OCR-D for describing relations of
+files such as images and metadata about those images such as PAGE or ALTO
+files. METS is a textual format, not suitable for embedding arbitrary,
+potentially binary, data. For various use cases (such as transfer via network,
+long-term preservation, reproducible tests etc.) it is desirable to have a
+self-contained representation of a workspace. With such a representation, data
+producers are not forced to provide dereferencable HTTP-URL for the files they
+produce and data consumers are not forced to dereference all HTTP-URL.</p>
+
+<p>While METS does have mechanisms for embedding XML data and even base64-encoded
+binary data, the tradeoffs in file size, parsing speed and readability are too
+great to make this a viable solution for a mass digitization scenario.</p>
+
+<p>Instead, OCRD-ZIP is based on the widely used ZIP format which allows
+representing file hierarchies in a standardized, compressable archive format.
+Many formats like JAR (used in software development) and BagIt (used in
+long-term preservation) use the same principles: A zip file containing a
+manifest of contained resources and the resources themselves. For OCRD-ZIP, the
+METS file is the manifest.</p>
+
+<h2 id="format">Format</h2>
+
+<h3 id="zip">ZIP</h3>
+
+<p>An OCRD-ZIP MUST be a valid ZIP file.</p>
+
+<h3 id="metsxml-in-the-root-folder"><code class="highlighter-rouge">mets.xml</code> in the root folder</h3>
+
+<p>The root folder of the ZIP filetree must contain a file <code class="highlighter-rouge">mets.xml</code>.</p>
+
+<h3 id="file-urls-must-be-relative"><code class="highlighter-rouge">file://</code>-URLs must be relative</h3>
+
+<p>All resources referenced in the METS with a <code class="highlighter-rouge">file://</code>-URL (and consequently all
+those referenced in other files within the workspace – see rule “When in PAGE
+then in METS”) must be referenced by <code class="highlighter-rouge">file://</code>-URL that must be relative to the
+root location of the workspace.</p>
+
+<p>Right:</p>
+<ul>
+  <li><code class="highlighter-rouge">file://foo.xml</code></li>
+  <li><code class="highlighter-rouge">file://foo.tif</code></li>
+  <li><code class="highlighter-rouge">http://server/foo.tif</code></li>
+</ul>
+
+<p>Wrong:</p>
+<ul>
+  <li><code class="highlighter-rouge">file:///absolute/path/somewhere/foo.tif</code></li>
+</ul>
+
+<h3 id="when-in-zip-then-in-mets">When in ZIP then in METS</h3>
+
+<p>All files except <code class="highlighter-rouge">mets.xml</code> itself that are contained in the OCRD-ZIP must be
+referenced in a <code class="highlighter-rouge">file/Flocat</code> in the <code class="highlighter-rouge">mets.xml</code>.</p>
+
+<h2 id="packing-a-workspace-as-ocrd-zip">Packing a workspace as OCRD-ZIP</h2>
+
+<p>To pack a workspace to OCRD-ZIP:</p>
+
+<ul>
+  <li>Create a temporary folder <code class="highlighter-rouge">TMP</code></li>
+  <li>Copy source METS to <code class="highlighter-rouge">TMP/mets.xml</code></li>
+  <li>Foreach file <code class="highlighter-rouge">f</code> in <code class="highlighter-rouge">TMP/mets.xml</code>:
+    <ul>
+      <li>If it is not a <code class="highlighter-rouge">file://</code>-URL, continue</li>
+      <li>Copy the file to a location <code class="highlighter-rouge">TMP</code>. The structure SHOULD be <code class="highlighter-rouge">&lt;USE&gt;/&lt;ID&gt;</code> where
+        <ul>
+          <li><code class="highlighter-rouge">&lt;USE&gt;</code> is the <code class="highlighter-rouge">USE</code> attribute of the parent <code class="highlighter-rouge">mets:fileGrp</code></li>
+          <li><code class="highlighter-rouge">&lt;ID&gt;</code> is the <code class="highlighter-rouge">ID</code> attribute of the <code class="highlighter-rouge">mets:file</code></li>
+        </ul>
+      </li>
+      <li>Replace the URL of <code class="highlighter-rouge">f</code> with <code class="highlighter-rouge">file://&lt;USE&gt;/&lt;ID&gt;</code> in
+        <ul>
+          <li>all <code class="highlighter-rouge">mets:FLocat</code> of <code class="highlighter-rouge">TMP/mets.xml</code></li>
+          <li>all other files in the workspace</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>zip the directory with the <code class="highlighter-rouge">zip</code> utility</li>
+</ul>
+
+<h2 id="unpacking-ocrd-zip-to-a-workspace">Unpacking OCRD-ZIP to a workspace</h2>
+
+<ul>
+  <li>Unzip OCRD-ZIP <code class="highlighter-rouge">z</code> to a folder <code class="highlighter-rouge">TMP</code> (e.g. <code class="highlighter-rouge">/tmp/folder-1</code>)</li>
+  <li>Foreach file <code class="highlighter-rouge">f</code> in <code class="highlighter-rouge">TMP/mets.xml</code>:
+    <ul>
+      <li>If it is not a <code class="highlighter-rouge">file://</code>-URL, continue</li>
+      <li>Replace the URL of <code class="highlighter-rouge">f</code> with <code class="highlighter-rouge">file://&lt;ABSPATH&gt;</code>, where <code class="highlighter-rouge">&lt;ABSPATH&gt;</code> is the absolute path to <code class="highlighter-rouge">f</code>, in
+        <ul>
+          <li>`TMP/mets.xml</li>
+          <li>all files within <code class="highlighter-rouge">TMP</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="iana-considerations">IANA considerations</h2>
+
+<p>Proposed media type of OCRD-ZIP: <code class="highlighter-rouge">application/vnd.ocrd+zip</code></p>
+
+<p>Proposed extension: <code class="highlighter-rouge">.ocrd.zip</code></p>
+
+      </main>
+    </div><footer class="level">
+
+  <div class="level-item">
+    <p>
+<!-- BEGIN-EVAL echo "Based on <a href="https://github.com/OCR-D/spec/releases/tag/${SPEC_VERSION:-dev}">OCR-D/spec ${SPEC_VERSION:-dev}</a>." -->
+Based on <a href=https://github.com/OCR-D/spec/releases/tag/v1.1.2>OCR-D/spec v1.1.2</a>.
+
+<!-- END-EVAL -->
+    </p>
+    &nbsp;
+
+
+<!-- BEGIN-EVAL echo "<p>Generated on <code>$(date)</code></p>" -->
+<p>Generated on <code>Mon Apr 23 12:17:49 CEST 2018</code></p>
+
+<!-- END-EVAL -->
+  </div>
+
+</footer>
+<script src="/assets/script.js"></script>
+</body>
+
+</html>
