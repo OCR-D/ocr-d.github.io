@@ -6,6 +6,7 @@ help:
 	@echo ""
 	@echo "    deps   Install dependencies"
 	@echo "    serve  Start local server"
+	@echo "    build  Start local server"
 	@echo ""
 	@echo "  Variables"
 	@echo ""
@@ -21,3 +22,7 @@ deps:
 # Start local server
 serve:
 	bundle exec jekyll serve --incremental
+
+# Build the site in a _site directory
+build:
+	bundle exec jekyll build
