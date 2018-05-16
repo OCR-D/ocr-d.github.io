@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4">
+  <link rel="stylesheet" href="/assets/bulma.css">
+  <link rel="stylesheet" href="/assets/syntax-highlight.css">
+  <style>
+  #swagger-ui pre.version {
+    padding: 2px !important;
+    background: initial !important;
+  }
+  #swagger-ui .topbar {
+    display: none;
+  }
+  blockquote {
+    background: #f99;
+  }
+  aside.menu > ul { 
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+  }
+  body > #swagger-ui,
+  body > .columns {
+    margin-top: 55px;
+  }
+  h2 code, h3 code, h4 code {
+    color: black;
+  }
+
+  </style><link type="application/atom+xml" rel="alternate" href="https://ocr-d.github.io/feed.xml" title="OCR-D" /></head>
+<body><nav class="navbar is-transparent is-fixed-top">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4" height="28">
+    </a>
+    <div class="navbar-burger burger" data-target="ocrd-navbar-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="ocrd-navbar-menu" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="cli">CLI</a>
+      <a class="navbar-item" href="mets">METS</a>
+      <a class="navbar-item" href="ocrd_zip">OCRD-ZIP</a>
+      <a class="navbar-item" href="ocrd_tool">ocrd-tool.json</a>
+      <a class="navbar-item" href="swagger">Swagger</a>
+      <a class="navbar-item" href="docker">Dockerfile</a>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Older versions</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/v1.0.0">v1.0.0</a>
+          <a class="navbar-item" href="/v1.1.0">v1.1.0</a>
+          <a class="navbar-item" href="/v1.1.1">v1.1.1</a>
+          <a class="navbar-item" href="/v1.1.2">v1.1.2</a>
+          <a class="navbar-item" href="/v1.1.3">v1.1.3</a>
+        </div>
+      </div>
+      <span class="navbar-item">
+        <a href="https://github.com/OCR-D"><img src="https://www.vectorlogo.zone/logos/github/github-tile.svg"/></a>
+        &nbsp;
+        <a href="https://hub.docker.com/r/ocrd"><img src="https://www.vectorlogo.zone/logos/docker/docker-tile.svg"/></a>
+        &nbsp;
+        <a href="https://ocr-d.de"><img src="https://www.vectorlogo.zone/logos/fileformatinfo/fileformatinfo-tile.svg"/></a>
+      </span>
+    </div>
+  </div>
+</nav>
+<div class="columns">
+      <aside class="column is-one-third menu">
+        <ul class="menu-list column is-one-third">
+  <li><a href="#requirements-on-handling-metspage">Requirements on handling METS/PAGE</a>
+    <ul>
+      <li><a href="#pixel-density-of-images-must-be-explicit-and-high-enough">Pixel density of images must be explicit and high enough</a></li>
+      <li><a href="#unique-id-for-the-document-processed">Unique ID for the document processed</a></li>
+      <li><a href="#file-group-id-syntax">File Group id syntax</a>
+        <ul>
+          <li><a href="#examples">Examples</a></li>
+        </ul>
+      </li>
+      <li><a href="#file-id-syntax">File ID syntax</a></li>
+      <li><a href="#grouping-files-with-groupid">Grouping files with GROUPID</a>
+        <ul>
+          <li><a href="#example">Example</a></li>
+        </ul>
+      </li>
+      <li><a href="#images-and-coordinates">Images and coordinates</a></li>
+      <li><a href="#one-page-in-one-page">One page in one PAGE</a></li>
+      <li><a href="#media-type-for-page-xml">Media Type for PAGE XML</a></li>
+      <li><a href="#always-use-url-everywhere">Always use URL everywhere</a>
+        <ul>
+          <li><a href="#example-1">Example</a></li>
+        </ul>
+      </li>
+      <li><a href="#if-in-page-then-in-mets">If in PAGE then in METS</a></li>
+    </ul>
+  </li>
+</ul>
+
+      </aside>
+
+      <main class="container content column is-two-thirds" aria-label="Content">
+        <h1 id="requirements-on-handling-metspage">Requirements on handling METS/PAGE</h1>
+
+<p>OCR-D has decided to base its data exchange format on top of <a href="http://www.loc.gov/standards/mets/">METS</a>.</p>
+
+<p>For layout and text recognition results, the primary exchange format is <a href="https://github.com/OCR-D/PAGE-XML">PAGE</a></p>
+
+<p>This document defines a set of conventions and mechanism for using these formats.</p>
+
+<h2 id="pixel-density-of-images-must-be-explicit-and-high-enough">Pixel density of images must be explicit and high enough</h2>
+
+<p>The pixel density is the ratio of the number of pixels that represent a a unit of measure of the scanned object. It is typically measured in pixels per inch (PPI, a.k.a. DPI).</p>
+
+<p>The original input images MUST have &gt;= 150 ppi.</p>
+
+<p>Every processing step that generates new images and changes their dimensions MUST make sure to adapt the density explicitly when serialising the image.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$&gt;</span> exiftool input.tif |grep <span class="s1">'X Resolution'</span>
+<span class="s2">"300"</span>
+
+<span class="c"># WRONG (ppi unchanged)</span>
+<span class="nv">$&gt;</span> convert input.tif <span class="nt">-resize</span> 50% output.tif
+
+<span class="c"># RIGHT:</span>
+<span class="nv">$&gt;</span> convert input.tif <span class="nt">-resize</span> 50% <span class="nt">-density</span> 150 <span class="nt">-unit</span> inches output.tif
+
+<span class="nv">$&gt;</span> exiftool output.tif |grep <span class="s1">'X Resolution'</span>
+<span class="s2">"150"</span>
+</code></pre></div></div>
+
+<h2 id="unique-id-for-the-document-processed">Unique ID for the document processed</h2>
+
+<p>METS provided to the MP must be uniquely addressable within the global library community.</p>
+
+<p>For this purpose, the METS file MUST contain a <code class="highlighter-rouge">mods:identifier</code> that must contain a globally unique identifier for the document and have a <code class="highlighter-rouge">type</code> attribute with a value of, in order of preference:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">purl</code></li>
+  <li><code class="highlighter-rouge">urn</code></li>
+  <li><code class="highlighter-rouge">handle</code></li>
+  <li><code class="highlighter-rouge">url</code></li>
+</ul>
+
+<h2 id="file-group-id-syntax">File Group id syntax</h2>
+
+<p>All <code class="highlighter-rouge">mets:fileGrp</code> must have a <code class="highlighter-rouge">USE</code> attribute that hints at the provenance of the files. It MUST have the structure</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ID := "OCR-D-" + WORKFLOW_STEP + ("-" + PROCESSOR)?
+WORKFLOW_STEP := ("IMG" | "SEG" | "OCR" | "COR")
+PROCESSOR := [A-Z0-9\-]{3,}
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">WORKFLOW_STEP</code> can be one of:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">IMG</code>: Image(s)</li>
+  <li><code class="highlighter-rouge">SEG</code>: Segmented page / regions</li>
+  <li><code class="highlighter-rouge">OCR</code>: OCR produced from image</li>
+  <li><code class="highlighter-rouge">COR</code>: Post-correction</li>
+</ul>
+
+<p><code class="highlighter-rouge">PROCESSOR</code> should be a mnemonic of the processor or result type in a terse, all-caps form, such as the name of the tool (<code class="highlighter-rouge">KRAKEN</code>) or the organisation <code class="highlighter-rouge">CIS</code> or the type of manipulation (<code class="highlighter-rouge">CROP</code>) or a combination of both starting with the type of manipulation (<code class="highlighter-rouge">BIN-KRAKEN</code>).</p>
+
+<h3 id="examples">Examples</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th><code class="highlighter-rouge">&lt;mets:fileGrp USE&gt;</code></th>
+      <th>Type of use for OCR-D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-IMG"&gt;</code></td>
+      <td>The unmanipulated source images</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-IMG-BIN"&gt;</code></td>
+      <td>Black-and-White images</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-IMG-CROP"&gt;</code></td>
+      <td>Cropped images</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-IMG-DESKEW"&gt;</code></td>
+      <td>Deskewed images</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-IMG-DESPECK"&gt;</code></td>
+      <td>Despeckled images</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-IMG-DEWARP"&gt;</code></td>
+      <td>Dewarped images</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-SEG-PAGE"&gt;</code></td>
+      <td>Page segmentation</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-SEG-BLOCK"&gt;</code></td>
+      <td>Block segmentation</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-SEG-LINE"&gt;</code></td>
+      <td>Line segmentation</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-SEG-WORD"&gt;</code></td>
+      <td>Word segmentation</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-SEG-GLYPH"&gt;</code></td>
+      <td>Glyph segmentation</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-OCR-TESS"&gt;</code></td>
+      <td>Tesseract OCR</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-OCR-ANY"&gt;</code></td>
+      <td>AnyOCR</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-COR-CIS"&gt;</code></td>
+      <td>CIS post-correction</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-COR-ASV"&gt;</code></td>
+      <td>ASV post-correction</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-GT-IMG-BIN"&gt;</code></td>
+      <td>Black-and-White images ground truth</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-GT-IMG-CROP"&gt;</code></td>
+      <td>Cropped images ground truth</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-GT-IMG-DESKEW"&gt;</code></td>
+      <td>Deskewed images ground truth</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-GT-IMG-DESPECK"&gt;</code></td>
+      <td>Despeckled images ground truth</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-GT-IMG-DEWARP"&gt;</code></td>
+      <td>Dewarped images ground truth</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-GT-SEG-PAGE"&gt;</code></td>
+      <td>Page segmentation ground truth</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-GT-SEG-BLOCK"&gt;</code></td>
+      <td>Block segmentation ground truth</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-GT-SEG-LINE"&gt;</code></td>
+      <td>Line segmentation ground truth</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-GT-SEG-WORD"&gt;</code></td>
+      <td>Word segmentation ground truth</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">&lt;mets:fileGrp USE="OCR-D-GT-SEG-GLYPH"&gt;</code></td>
+      <td>Glyph segmentation ground truth</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="file-id-syntax">File ID syntax</h2>
+
+<p>The <code class="highlighter-rouge">ID</code> attribute of a <code class="highlighter-rouge">mets:file</code> SHOULD be the <code class="highlighter-rouge">USE</code> of the containing <code class="highlighter-rouge">mets:fileGrp</code> combined with a 4-zero-padded number.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FILEID := ID + "_" + [0-9]{4}
+ID := "OCR-D-" + WORKFLOW_STEP + ("-" + PROCESSOR)?
+WORKFLOW_STEP := ("IMG" | "SEG" | "OCR" | "COR")
+PROCESSOR := [A-Z0-9\-]{3,}
+</code></pre></div></div>
+
+<h2 id="grouping-files-with-groupid">Grouping files with GROUPID</h2>
+
+<p>Files in multiple <code class="highlighter-rouge">mets:fileGrp</code> with different <code class="highlighter-rouge">USE</code> can represent the fact that they encode the same page by using the same <code class="highlighter-rouge">GROUPID</code>.</p>
+
+<p>If used, the <code class="highlighter-rouge">GROUPID</code> of the page MUST BE the <code class="highlighter-rouge">ID</code> of the file that represents the original image. In other words: For the file representing the original image, <code class="highlighter-rouge">ID</code> and <code class="highlighter-rouge">GROUPID</code> must be identical.</p>
+
+<h3 id="example">Example</h3>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;mets:fileGrp</span> <span class="na">USE=</span><span class="s">"OCR-D-IMG"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;mets:file</span> <span class="na">ID=</span><span class="s">"OCR-D-IMG_0001"</span> <span class="na">GROUPID=</span><span class="s">"OCR-D-IMG_0001"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/mets:file&gt;</span>
+<span class="nt">&lt;/mets:fileGrp&gt;</span>
+<span class="nt">&lt;mets:fileGrp</span> <span class="na">USE=</span><span class="s">"OCR-D-OCR"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;mets:file</span> <span class="na">ID=</span><span class="s">"OCR-D-OCR_0001"</span> <span class="na">GROUPID=</span><span class="s">"OCR-D-IMG_0001"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/mets:file&gt;</span>
+
+<span class="nt">&lt;/mets:fileGrp&gt;</span>
+</code></pre></div></div>
+
+<h2 id="images-and-coordinates">Images and coordinates</h2>
+
+<p>Coordinates are always absolute, i.e. relative to extent defined in the <code class="highlighter-rouge">imageWidth</code>/<code class="highlighter-rouge">imageHeight</code> attribute of the nearest <code class="highlighter-rouge">&lt;pc:Page&gt;</code>.</p>
+
+<p>When a processor wants to access the image of a layout element like a TextRegion or TextLine, the algorithm should be:</p>
+
+<ul>
+  <li>If the element in question has an attribute <code class="highlighter-rouge">imageFilename</code>, resolve this value</li>
+  <li>If the element has a <code class="highlighter-rouge">&lt;pc:Coords&gt;</code> subelement, resolve by passing the attribute <code class="highlighter-rouge">imageFilename</code> of the nearest <code class="highlighter-rouge">&lt;pc:Page&gt;</code> and the <code class="highlighter-rouge">points</code> attribute of the <code class="highlighter-rouge">&lt;pc:Coords&gt;</code> element</li>
+</ul>
+
+<h2 id="one-page-in-one-page">One page in one PAGE</h2>
+
+<p>A single PAGE XML file represents one page in the original document.</p>
+
+<p>Every <code class="highlighter-rouge">&lt;pc:Page&gt;</code> element MUST have an attribute <code class="highlighter-rouge">image</code> which MUST always be the source image.</p>
+
+<p>The PAGE XML root element <code class="highlighter-rouge">&lt;pc:PcGts&gt;</code> MUST have exactly one <code class="highlighter-rouge">&lt;pc:Page&gt;</code>.</p>
+
+<h2 id="media-type-for-page-xml">Media Type for PAGE XML</h2>
+
+<p>Every <code class="highlighter-rouge">&lt;mets:file&gt;</code> representing a PAGE document MUST have its <code class="highlighter-rouge">MIMETYPE</code> attribute set to <code class="highlighter-rouge">application/vnd.prima.page+xml</code>.</p>
+
+<h2 id="always-use-url-everywhere">Always use URL everywhere</h2>
+
+<p>Always use URL. If it’s a local file, prefix absolute path with <code class="highlighter-rouge">file://</code>.</p>
+
+<h3 id="example-1">Example</h3>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;mets:fileGrp</span> <span class="na">USE=</span><span class="s">"OCR-D-SEG-PAGE"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;mets:file</span> <span class="na">ID=</span><span class="s">"OCR-D-SEG-PAGE_0001"</span> <span class="na">GROUPID=</span><span class="s">"OCR-D-IMG_0001"</span> <span class="na">MIMETYPE=</span><span class="s">"application/vnd.prima.page+xml"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;mets:FLocat</span> <span class="na">xmlns:xlink=</span><span class="s">"http://www.w3.org/1999/xlink"</span> <span class="na">LOCTYPE=</span><span class="s">"URL"</span> <span class="na">xlink:href=</span><span class="s">"file:///path/to/workingDir/segmentation/page/page_0001.xml"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/mets:file&gt;</span>
+<span class="nt">&lt;/mets:fileGrp&gt;</span>
+</code></pre></div></div>
+
+<h2 id="if-in-page-then-in-mets">If in PAGE then in METS</h2>
+
+<p>Every image URL referenced via <code class="highlighter-rouge">imageFileName</code> or the <code class="highlighter-rouge">filename</code> attribute of any <code class="highlighter-rouge">pc:AlternativeImage</code> MUST be represented in the METS file as a <code class="highlighter-rouge">mets:file</code> with corresponding <code class="highlighter-rouge">mets:FLocat@xlink:href</code>.</p>
+
+<p>For every <code class="highlighter-rouge">mets:file</code> that represents a PAGE document, its <code class="highlighter-rouge">GROUPID</code> should be equal to the <code class="highlighter-rouge">pcGtsId</code> attribute of the <code class="highlighter-rouge">page:PcGts</code>.</p>
+
+      </main>
+    </div><footer class="level">
+
+  <div class="level-item">
+    <p>
+<!-- BEGIN-EVAL echo "Based on <a href="https://github.com/OCR-D/spec/releases/tag/${SPEC_VERSION:-dev}">OCR-D/spec ${SPEC_VERSION:-dev}</a>." -->
+Based on <a href=https://github.com/OCR-D/spec/releases/tag/v1.1.4>OCR-D/spec v1.1.4</a>.
+
+<!-- END-EVAL -->
+    </p>
+    &nbsp;
+
+
+<!-- BEGIN-EVAL echo "<p>Generated on <code>$(date)</code></p>" -->
+<p>Generated on <code>Wed May  2 15:31:49 CEST 2018</code></p>
+
+<!-- END-EVAL -->
+  </div>
+
+</footer>
+<script src="/assets/script.js"></script>
+</body>
+
+</html>

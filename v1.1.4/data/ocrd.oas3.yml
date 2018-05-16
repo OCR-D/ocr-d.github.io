@@ -150,10 +150,9 @@ paths:
                         enum: [preprocessing/characterization, preprocessing/optimization,
                           preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
                           preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
-                          preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
-                          recognition/text-recognition, recognition/font-identification,
-                          layout/segmentation, layout/segmentation/region, layout/segmentation/line,
-                          layout/segmentation/word, layout/segmentation/classification,
+                          preprocessing/optimization/binarization, recognition/text-recognition,
+                          recognition/font-identification, layout/segmentation, layout/segmentation/region,
+                          layout/segmentation/line, layout/segmentation/classification,
                           layout/analysis]
                         type: string
                       tags:
@@ -311,10 +310,9 @@ paths:
                         enum: [preprocessing/characterization, preprocessing/optimization,
                           preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
                           preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
-                          preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
-                          recognition/text-recognition, recognition/font-identification,
-                          layout/segmentation, layout/segmentation/region, layout/segmentation/line,
-                          layout/segmentation/word, layout/segmentation/classification,
+                          preprocessing/optimization/binarization, recognition/text-recognition,
+                          recognition/font-identification, layout/segmentation, layout/segmentation/region,
+                          layout/segmentation/line, layout/segmentation/classification,
                           layout/analysis]
                         type: string
                       tags:
@@ -472,10 +470,9 @@ paths:
                         enum: [preprocessing/characterization, preprocessing/optimization,
                           preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
                           preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
-                          preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
-                          recognition/text-recognition, recognition/font-identification,
-                          layout/segmentation, layout/segmentation/region, layout/segmentation/line,
-                          layout/segmentation/word, layout/segmentation/classification,
+                          preprocessing/optimization/binarization, recognition/text-recognition,
+                          recognition/font-identification, layout/segmentation, layout/segmentation/region,
+                          layout/segmentation/line, layout/segmentation/classification,
                           layout/analysis]
                         type: string
                       tags:
@@ -633,10 +630,9 @@ paths:
                         enum: [preprocessing/characterization, preprocessing/optimization,
                           preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
                           preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
-                          preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
-                          recognition/text-recognition, recognition/font-identification,
-                          layout/segmentation, layout/segmentation/region, layout/segmentation/line,
-                          layout/segmentation/word, layout/segmentation/classification,
+                          preprocessing/optimization/binarization, recognition/text-recognition,
+                          recognition/font-identification, layout/segmentation, layout/segmentation/region,
+                          layout/segmentation/line, layout/segmentation/classification,
                           layout/analysis]
                         type: string
                       tags:
