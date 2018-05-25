@@ -30,56 +30,60 @@ properties:
     description: DockerHub image
     type: string
   tools:
-    type: array
-    items:
-      type: object
-      additionalProperties: false
-      required:
-        - description
-        - step
-        - executable
-      properties:
-        executable:
-          description: The name of the CLI executable in $PATH
-          type: string
-        parameterSchema:
-          description: JSON Schema for the parameters.json file
-          type: object
-        description:
-          description: Concise description what the tool does
-          type: string
-        step:
-          description: Step in the OCR-D functional model for this tool
-          type: string
-          enum:
-            - preprocessing/characterization
-            - preprocessing/optimization
-            - preprocessing/optimization/cropping
-            - preprocessing/optimization/deskewing
-            - preprocessing/optimization/despeckling
-            - preprocessing/optimization/dewarping
-            - preprocessing/optimization/binarization
-            - preprocessing/optimization/grayscale_normalization
-            - recognition/text-recognition
-            - recognition/font-identification
-            - layout/segmentation
-            - layout/segmentation/region
-            - layout/segmentation/line
-            - layout/segmentation/word
-            - layout/segmentation/classification
-            - layout/analysis
-        tags:
-          description: Tools belong to this category, representing modules within the OCR-D project structure
-          type: array
-          items:
+    type: object
+    additionalProperties: false
+    patternProperties:
+      'ocrd-.*':
+        type: object
+        additionalProperties: false
+        required:
+          - description
+          - steps
+          - executable
+          - categories
+        properties:
+          executable:
+            description: The name of the CLI executable in $PATH
             type: string
-            enum:
-              - Image preprocessing
-              - Layout analysis
-              - Text recognition and optimization
-              - Model training
-              - Long-term preservation
-              - Quality assurance
+          parameters:
+            description: Object describing the parameters of a tool. Keys are parameter names, values sub-schemas.
+            type: object
+          description:
+            description: Concise description what the tool does
+          categories:
+            description: Tools belong to this categories, representing modules within the OCR-D project structure
+            type: array
+            items:
+              type: string
+              enum:
+                - Image preprocessing
+                - Layout analysis
+                - Text recognition and optimization
+                - Model training
+                - Long-term preservation
+                - Quality assurance
+          steps:
+            description: This tool can be used at these steps in the OCR-D functional model
+            type: array
+            items:
+              type: string
+              enum:
+                - preprocessing/characterization
+                - preprocessing/optimization
+                - preprocessing/optimization/cropping
+                - preprocessing/optimization/deskewing
+                - preprocessing/optimization/despeckling
+                - preprocessing/optimization/dewarping
+                - preprocessing/optimization/binarization
+                - preprocessing/optimization/grayscale_normalization
+                - recognition/text-recognition
+                - recognition/font-identification
+                - layout/segmentation
+                - layout/segmentation/region
+                - layout/segmentation/line
+                - layout/segmentation/word
+                - layout/segmentation/classification
+                - layout/analysis
 ```
 
 <!-- END-EVAL -->
@@ -92,25 +96,65 @@ This is from the [ocrd_tesserocr sample project](https://github.com/OCR-D/ocrd_t
 ```json
 {
   "git_url": "https://github.com/OCR-D/ocrd_kraken",
-  "tools": [
-    {
+  "tools": {
+    "ocrd-kraken-binarize": {
       "executable": "ocrd-kraken-binarize",
-      "tags": ["Image preprocessing"],
-      "step": "preprocessing/optimization/binarization",
+      "category": "Image preprocessing",
+      "steps": [
+        "preprocessing/optimization/binarization"
+      ],
       "description": "Binarize images with kraken",
       "parameters": {
         "level-of-operation": {
           "type": "string",
           "default": "page",
-          "enum": [
-            "page",
-            "region",
-            "line"
-          ]
+          "enum": ["page", "block", "line"]
+        }
+      }
+    },
+    "ocrd-kraken-segment": {
+      "executable": "ocrd-kraken-segment",
+      "category": "Layout analysis",
+      "steps": [
+        "layout/segmentation/region"
+      ],
+      "description": "Block segmentation with kraken",
+      "parameters": {
+        "text_direction": {
+          "type": "string",
+          "description": "Sets principal text direction",
+          "enum": ["horizontal-lr", "horizontal-rl", "vertical-lr", "vertical-rl"],
+          "default": "horizontal-lr"
+        },
+        "script_detect": {
+          "type": "boolean",
+          "description": "Enable script detection on segmenter output",
+          "default": false
+        },
+        "maxcolseps": {"type": "number", "format": "integer", "default": 2},
+        "scale": {"type": "number", "format": "float", "default": null},
+        "black_colseps": {"type": "boolean", "default": false},
+        "white_colseps": {"type": "boolean", "default": false}
+      }
+    },
+    "ocrd-kraken-ocr": {
+      "executable": "ocrd-kraken-ocr",
+      "category": "Text recognition",
+      "steps": [
+        "recognition"
+      ],
+      "description": "OCR with kraken",
+      "parameters": {
+        "lines-json": {
+          "type": "string",
+          "format": "url",
+          "required": "true",
+          "description": "URL to line segmentation in JSON"
         }
       }
     }
-  ]
+
+  }
 }
 ```
 
