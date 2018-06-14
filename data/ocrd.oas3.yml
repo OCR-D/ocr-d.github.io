@@ -176,7 +176,7 @@ paths:
                   type: object
               required: [git_url, tools]
               type: object
-      tags: &id001 [Image Preprocessing]
+      tags: &id001 [Image preprocessing]
     post:
       description: Binarize images with kraken
       operationId: start-processor
@@ -288,6 +288,173 @@ paths:
         '500': {description: Internal error}
       summary: Get created files.
       tags: *id001
+  /kraken-ocr:
+    get:
+      description: Get ocrd-tool.json
+      produces: []
+      responses:
+        '200':
+          application/json:
+            description: Got ocrd-tool.json
+            schema:
+              additionalProperties: false
+              description: Schema for tools by OCR-D MP
+              properties:
+                dockerhub: {description: DockerHub image, type: string}
+                git_url: {description: Github/Gitlab URL, format: url, type: string}
+                tools:
+                  additionalProperties: false
+                  patternProperties:
+                    ocrd-.*:
+                      additionalProperties: false
+                      properties:
+                        categories:
+                          description: Tools belong to this categories, representing
+                            modules within the OCR-D project structure
+                          items:
+                            enum: [Image preprocessing, Layout analysis, Text recognition
+                                and optimization, Model training, Long-term preservation,
+                              Quality assurance]
+                            type: string
+                          type: array
+                        description: {description: Concise description what the tool
+                            does}
+                        executable: {description: The name of the CLI executable in
+                            $PATH, type: string}
+                        parameters: {description: 'Object describing the parameters
+                            of a tool. Keys are parameter names, values sub-schemas.',
+                          type: object}
+                        steps:
+                          description: This tool can be used at these steps in the
+                            OCR-D functional model
+                          items:
+                            enum: [preprocessing/characterization, preprocessing/optimization,
+                              preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
+                              preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
+                              preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
+                              recognition/text-recognition, recognition/font-identification,
+                              layout/segmentation, layout/segmentation/region, layout/segmentation/line,
+                              layout/segmentation/word, layout/segmentation/classification,
+                              layout/analysis]
+                            type: string
+                          type: array
+                      required: [description, steps, executable, categories]
+                      type: object
+                  type: object
+              required: [git_url, tools]
+              type: object
+      tags: &id002 [Text recognition and optimization]
+    post:
+      description: OCR with kraken
+      operationId: start-processor
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              description: Object holding all parameters needed by most processors.
+              parameters:
+                properties: {}
+                type: object
+              properties:
+                group-id:
+                  description: All IDs of the image files which should be characterized.
+                  items: {type: string}
+                  type: array
+                input-file-grp:
+                  description: ID(s) of the fileGrps which have to be used as input.
+                    (fileGrp@USE).
+                  items: {type: string}
+                  type: array
+                log-level: {$ref: '#/components/schemas/log-level'}
+                mets: {$ref: '#/components/schemas/mets-file'}
+                output-file-grp:
+                  description: ID(s) of the fileGrps which have to be used as output.
+                    (fileGrp@USE).
+                  items: {type: string}
+                  type: array
+                parameter:
+                  description: Parameter file in JSON format.
+                  items: {type: string}
+                  type: array
+              required: [mets, input-file-grp, output-file-grp]
+              type: object
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/job-id'}
+          description: Successful Operation. The created file(s) has/have to be referenced
+            inside the given fileGrp sections.
+          headers:
+            Location:
+              description: URL of the generated job.
+              schema: {format: url, type: string}
+          links:
+            GetFilesByJobId:
+              description: 'The `jobId` value returned in the response can be used
+                as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.
+
+                '
+              operationId: get-created-files-of-processor
+              parameters: {jobID: $response.body#/jobID}
+        '400': {description: Invalid input}
+        '500': {description: Internal error}
+      summary: OCR with kraken
+      tags: *id002
+  /kraken-ocr/{_id}:
+    delete:
+      parameters:
+      - description: job ID of the started process.
+        in: path
+        name: jobID
+        required: true
+        schema: {type: string}
+      responses:
+        '204':
+          content:
+            application/vnd.ocrd+job-status:
+              schema: {$ref: '#/components/schemas/job-status'}
+          description: Successful Operation. All linked resources are removed successfully.
+        '404': {description: Not found.}
+        '410': {description: Resource is not available anymore.}
+        '500': {description: Internal error}
+      summary: Delete all files created by job with ID 'jobID'.
+      tags: *id002
+    get:
+      description: Fetch all file created by job with id 'jobID'. If more than one
+        file is created per mimetype use mimetype 'application/zip' as accept header
+        to fetch all files at once.
+      operationId: get-created-files-of-processor
+      parameters:
+      - description: job ID of the started process.
+        in: path
+        name: jobID
+        required: true
+        schema: {type: string}
+      responses:
+        '200':
+          content:
+            application/mets+xml:
+              schema: {$ref: '#/components/schemas/mets-file'}
+            application/vnd.ocrd+job-status:
+              schema: {$ref: '#/components/schemas/job-status'}
+            application/vnd.ocrd.log+json:
+              schema: {$ref: '#/components/schemas/logging'}
+            application/vnd.ocrd.page+xml:
+              schema: {$ref: '#/components/schemas/page-file'}
+            application/vnd.ocrd.prov+json:
+              schema: {$ref: '#/components/schemas/provenance-file'}
+            application/zip:
+              schema: {$ref: '#/components/schemas/zip-file'}
+            image/*:
+              schema: {$ref: '#/components/schemas/image-file'}
+          description: Successful Operation.
+        '400': {description: Bad request. Maybe more than one file of at least one
+            mimetype was created. Please use mimetype 'application/zip' as accept
+            header to fetch all files at once.}
+        '500': {description: Internal error}
+      summary: Get created files.
+      tags: *id002
   /kraken-segment:
     get:
       description: Get ocrd-tool.json
@@ -343,7 +510,7 @@ paths:
                   type: object
               required: [git_url, tools]
               type: object
-      tags: &id002 [Layout analysis]
+      tags: &id003 [Layout analysis]
     post:
       description: Block segmentation with kraken
       operationId: start-processor
@@ -400,7 +567,7 @@ paths:
         '400': {description: Invalid input}
         '500': {description: Internal error}
       summary: Block segmentation with kraken
-      tags: *id002
+      tags: *id003
   /kraken-segment/{_id}:
     delete:
       parameters:
@@ -419,7 +586,7 @@ paths:
         '410': {description: Resource is not available anymore.}
         '500': {description: Internal error}
       summary: Delete all files created by job with ID 'jobID'.
-      tags: *id002
+      tags: *id003
     get:
       description: Fetch all file created by job with id 'jobID'. If more than one
         file is created per mimetype use mimetype 'application/zip' as accept header
@@ -454,7 +621,7 @@ paths:
             header to fetch all files at once.}
         '500': {description: Internal error}
       summary: Get created files.
-      tags: *id002
+      tags: *id003
   /tesserocr-recognize:
     get:
       description: Get ocrd-tool.json
@@ -510,7 +677,7 @@ paths:
                   type: object
               required: [git_url, tools]
               type: object
-      tags: &id003 [Text recognition and optimization]
+      tags: &id004 [Text recognition and optimization]
     post:
       description: Recognize text in lines with tesseract
       operationId: start-processor
@@ -567,7 +734,7 @@ paths:
         '400': {description: Invalid input}
         '500': {description: Internal error}
       summary: Recognize text in lines with tesseract
-      tags: *id003
+      tags: *id004
   /tesserocr-recognize/{_id}:
     delete:
       parameters:
@@ -586,7 +753,7 @@ paths:
         '410': {description: Resource is not available anymore.}
         '500': {description: Internal error}
       summary: Delete all files created by job with ID 'jobID'.
-      tags: *id003
+      tags: *id004
     get:
       description: Fetch all file created by job with id 'jobID'. If more than one
         file is created per mimetype use mimetype 'application/zip' as accept header
@@ -621,175 +788,8 @@ paths:
             header to fetch all files at once.}
         '500': {description: Internal error}
       summary: Get created files.
-      tags: *id003
+      tags: *id004
   /tesserocr-segment-line:
-    get:
-      description: Get ocrd-tool.json
-      produces: []
-      responses:
-        '200':
-          application/json:
-            description: Got ocrd-tool.json
-            schema:
-              additionalProperties: false
-              description: Schema for tools by OCR-D MP
-              properties:
-                dockerhub: {description: DockerHub image, type: string}
-                git_url: {description: Github/Gitlab URL, format: url, type: string}
-                tools:
-                  additionalProperties: false
-                  patternProperties:
-                    ocrd-.*:
-                      additionalProperties: false
-                      properties:
-                        categories:
-                          description: Tools belong to this categories, representing
-                            modules within the OCR-D project structure
-                          items:
-                            enum: [Image preprocessing, Layout analysis, Text recognition
-                                and optimization, Model training, Long-term preservation,
-                              Quality assurance]
-                            type: string
-                          type: array
-                        description: {description: Concise description what the tool
-                            does}
-                        executable: {description: The name of the CLI executable in
-                            $PATH, type: string}
-                        parameters: {description: 'Object describing the parameters
-                            of a tool. Keys are parameter names, values sub-schemas.',
-                          type: object}
-                        steps:
-                          description: This tool can be used at these steps in the
-                            OCR-D functional model
-                          items:
-                            enum: [preprocessing/characterization, preprocessing/optimization,
-                              preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
-                              preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
-                              preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
-                              recognition/text-recognition, recognition/font-identification,
-                              layout/segmentation, layout/segmentation/region, layout/segmentation/line,
-                              layout/segmentation/word, layout/segmentation/classification,
-                              layout/analysis]
-                            type: string
-                          type: array
-                      required: [description, steps, executable, categories]
-                      type: object
-                  type: object
-              required: [git_url, tools]
-              type: object
-      tags: &id004 [Layout analysis]
-    post:
-      description: Segment page into regions with tesseract
-      operationId: start-processor
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              description: Object holding all parameters needed by most processors.
-              parameters:
-                properties: {}
-                type: object
-              properties:
-                group-id:
-                  description: All IDs of the image files which should be characterized.
-                  items: {type: string}
-                  type: array
-                input-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as input.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                log-level: {$ref: '#/components/schemas/log-level'}
-                mets: {$ref: '#/components/schemas/mets-file'}
-                output-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as output.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                parameter:
-                  description: Parameter file in JSON format.
-                  items: {type: string}
-                  type: array
-              required: [mets, input-file-grp, output-file-grp]
-              type: object
-      responses:
-        '201':
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/job-id'}
-          description: Successful Operation. The created file(s) has/have to be referenced
-            inside the given fileGrp sections.
-          headers:
-            Location:
-              description: URL of the generated job.
-              schema: {format: url, type: string}
-          links:
-            GetFilesByJobId:
-              description: 'The `jobId` value returned in the response can be used
-                as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.
-
-                '
-              operationId: get-created-files-of-processor
-              parameters: {jobID: $response.body#/jobID}
-        '400': {description: Invalid input}
-        '500': {description: Internal error}
-      summary: Segment page into regions with tesseract
-      tags: *id004
-  /tesserocr-segment-line/{_id}:
-    delete:
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '204':
-          content:
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-          description: Successful Operation. All linked resources are removed successfully.
-        '404': {description: Not found.}
-        '410': {description: Resource is not available anymore.}
-        '500': {description: Internal error}
-      summary: Delete all files created by job with ID 'jobID'.
-      tags: *id004
-    get:
-      description: Fetch all file created by job with id 'jobID'. If more than one
-        file is created per mimetype use mimetype 'application/zip' as accept header
-        to fetch all files at once.
-      operationId: get-created-files-of-processor
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '200':
-          content:
-            application/mets+xml:
-              schema: {$ref: '#/components/schemas/mets-file'}
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-            application/vnd.ocrd.log+json:
-              schema: {$ref: '#/components/schemas/logging'}
-            application/vnd.ocrd.page+xml:
-              schema: {$ref: '#/components/schemas/page-file'}
-            application/vnd.ocrd.prov+json:
-              schema: {$ref: '#/components/schemas/provenance-file'}
-            application/zip:
-              schema: {$ref: '#/components/schemas/zip-file'}
-            image/*:
-              schema: {$ref: '#/components/schemas/image-file'}
-          description: Successful Operation.
-        '400': {description: Bad request. Maybe more than one file of at least one
-            mimetype was created. Please use mimetype 'application/zip' as accept
-            header to fetch all files at once.}
-        '500': {description: Internal error}
-      summary: Get created files.
-      tags: *id004
-  /tesserocr-segment-region:
     get:
       description: Get ocrd-tool.json
       produces: []
@@ -846,7 +846,7 @@ paths:
               type: object
       tags: &id005 [Layout analysis]
     post:
-      description: Segment regions into lines with tesseract
+      description: Segment page into regions with tesseract
       operationId: start-processor
       requestBody:
         content:
@@ -900,9 +900,9 @@ paths:
               parameters: {jobID: $response.body#/jobID}
         '400': {description: Invalid input}
         '500': {description: Internal error}
-      summary: Segment regions into lines with tesseract
+      summary: Segment page into regions with tesseract
       tags: *id005
-  /tesserocr-segment-region/{_id}:
+  /tesserocr-segment-line/{_id}:
     delete:
       parameters:
       - description: job ID of the started process.
@@ -956,7 +956,7 @@ paths:
         '500': {description: Internal error}
       summary: Get created files.
       tags: *id005
-  /tesserocr-segment-word:
+  /tesserocr-segment-region:
     get:
       description: Get ocrd-tool.json
       produces: []
@@ -1013,6 +1013,173 @@ paths:
               type: object
       tags: &id006 [Layout analysis]
     post:
+      description: Segment regions into lines with tesseract
+      operationId: start-processor
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              description: Object holding all parameters needed by most processors.
+              parameters:
+                properties: {}
+                type: object
+              properties:
+                group-id:
+                  description: All IDs of the image files which should be characterized.
+                  items: {type: string}
+                  type: array
+                input-file-grp:
+                  description: ID(s) of the fileGrps which have to be used as input.
+                    (fileGrp@USE).
+                  items: {type: string}
+                  type: array
+                log-level: {$ref: '#/components/schemas/log-level'}
+                mets: {$ref: '#/components/schemas/mets-file'}
+                output-file-grp:
+                  description: ID(s) of the fileGrps which have to be used as output.
+                    (fileGrp@USE).
+                  items: {type: string}
+                  type: array
+                parameter:
+                  description: Parameter file in JSON format.
+                  items: {type: string}
+                  type: array
+              required: [mets, input-file-grp, output-file-grp]
+              type: object
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/job-id'}
+          description: Successful Operation. The created file(s) has/have to be referenced
+            inside the given fileGrp sections.
+          headers:
+            Location:
+              description: URL of the generated job.
+              schema: {format: url, type: string}
+          links:
+            GetFilesByJobId:
+              description: 'The `jobId` value returned in the response can be used
+                as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.
+
+                '
+              operationId: get-created-files-of-processor
+              parameters: {jobID: $response.body#/jobID}
+        '400': {description: Invalid input}
+        '500': {description: Internal error}
+      summary: Segment regions into lines with tesseract
+      tags: *id006
+  /tesserocr-segment-region/{_id}:
+    delete:
+      parameters:
+      - description: job ID of the started process.
+        in: path
+        name: jobID
+        required: true
+        schema: {type: string}
+      responses:
+        '204':
+          content:
+            application/vnd.ocrd+job-status:
+              schema: {$ref: '#/components/schemas/job-status'}
+          description: Successful Operation. All linked resources are removed successfully.
+        '404': {description: Not found.}
+        '410': {description: Resource is not available anymore.}
+        '500': {description: Internal error}
+      summary: Delete all files created by job with ID 'jobID'.
+      tags: *id006
+    get:
+      description: Fetch all file created by job with id 'jobID'. If more than one
+        file is created per mimetype use mimetype 'application/zip' as accept header
+        to fetch all files at once.
+      operationId: get-created-files-of-processor
+      parameters:
+      - description: job ID of the started process.
+        in: path
+        name: jobID
+        required: true
+        schema: {type: string}
+      responses:
+        '200':
+          content:
+            application/mets+xml:
+              schema: {$ref: '#/components/schemas/mets-file'}
+            application/vnd.ocrd+job-status:
+              schema: {$ref: '#/components/schemas/job-status'}
+            application/vnd.ocrd.log+json:
+              schema: {$ref: '#/components/schemas/logging'}
+            application/vnd.ocrd.page+xml:
+              schema: {$ref: '#/components/schemas/page-file'}
+            application/vnd.ocrd.prov+json:
+              schema: {$ref: '#/components/schemas/provenance-file'}
+            application/zip:
+              schema: {$ref: '#/components/schemas/zip-file'}
+            image/*:
+              schema: {$ref: '#/components/schemas/image-file'}
+          description: Successful Operation.
+        '400': {description: Bad request. Maybe more than one file of at least one
+            mimetype was created. Please use mimetype 'application/zip' as accept
+            header to fetch all files at once.}
+        '500': {description: Internal error}
+      summary: Get created files.
+      tags: *id006
+  /tesserocr-segment-word:
+    get:
+      description: Get ocrd-tool.json
+      produces: []
+      responses:
+        '200':
+          application/json:
+            description: Got ocrd-tool.json
+            schema:
+              additionalProperties: false
+              description: Schema for tools by OCR-D MP
+              properties:
+                dockerhub: {description: DockerHub image, type: string}
+                git_url: {description: Github/Gitlab URL, format: url, type: string}
+                tools:
+                  additionalProperties: false
+                  patternProperties:
+                    ocrd-.*:
+                      additionalProperties: false
+                      properties:
+                        categories:
+                          description: Tools belong to this categories, representing
+                            modules within the OCR-D project structure
+                          items:
+                            enum: [Image preprocessing, Layout analysis, Text recognition
+                                and optimization, Model training, Long-term preservation,
+                              Quality assurance]
+                            type: string
+                          type: array
+                        description: {description: Concise description what the tool
+                            does}
+                        executable: {description: The name of the CLI executable in
+                            $PATH, type: string}
+                        parameters: {description: 'Object describing the parameters
+                            of a tool. Keys are parameter names, values sub-schemas.',
+                          type: object}
+                        steps:
+                          description: This tool can be used at these steps in the
+                            OCR-D functional model
+                          items:
+                            enum: [preprocessing/characterization, preprocessing/optimization,
+                              preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
+                              preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
+                              preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
+                              recognition/text-recognition, recognition/font-identification,
+                              layout/segmentation, layout/segmentation/region, layout/segmentation/line,
+                              layout/segmentation/word, layout/segmentation/classification,
+                              layout/analysis]
+                            type: string
+                          type: array
+                      required: [description, steps, executable, categories]
+                      type: object
+                  type: object
+              required: [git_url, tools]
+              type: object
+      tags: &id007 [Layout analysis]
+    post:
       description: Segment lines into words with tesseract
       operationId: start-processor
       requestBody:
@@ -1068,7 +1235,7 @@ paths:
         '400': {description: Invalid input}
         '500': {description: Internal error}
       summary: Segment lines into words with tesseract
-      tags: *id006
+      tags: *id007
   /tesserocr-segment-word/{_id}:
     delete:
       parameters:
@@ -1087,7 +1254,7 @@ paths:
         '410': {description: Resource is not available anymore.}
         '500': {description: Internal error}
       summary: Delete all files created by job with ID 'jobID'.
-      tags: *id006
+      tags: *id007
     get:
       description: Fetch all file created by job with id 'jobID'. If more than one
         file is created per mimetype use mimetype 'application/zip' as accept header
@@ -1122,7 +1289,7 @@ paths:
             header to fetch all files at once.}
         '500': {description: Internal error}
       summary: Get created files.
-      tags: *id006
+      tags: *id007
 servers:
 - {url: 'http://test.ocr-d.de/v1'}
 tags:
