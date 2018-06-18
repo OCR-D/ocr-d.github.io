@@ -45,6 +45,10 @@ Minimum Log level. One of `OFF`, `ERROR`, `WARN`, `INFO` (default), `DEBUG`, `TR
 Actual mechanism for filtering log messages must not be implemented by
 processors.
 
+### `-o, --output-mets METS_OUT`
+
+File path where processor MUST write resulting METS to. If not set, output METS is expected to be in the file `mets.xml` in the working directory.
+
 ### `-J, --dump-json`
 
 Instead of processing METS, output the [ocrd-tool](ocrd_tool) description for
@@ -70,6 +74,7 @@ This is how the CLI provided by the MP should work:
 $> ocrd-kraken-binarize \
     --mets "file:///path/to/file/mets.xml" \
     --working-dir "file:///path/to/workingDir/" \
+    --output-mets /path/to/workingDir/metsOutput.xml \
     --parameters "file:///path/to/file/parameters.json" \
     --group-id OCR-D-IMG_0001,OCR-D-IMG_0002 \
     --group-id OCR-D-IMG_0003 \
@@ -83,6 +88,7 @@ And this is how it will be called with the `ocrd` CLI:
 $> ocrd process \
     -m "file:///path/to/file/mets.xml" \
     -w "file:///path/to/workingDir/" \
+    -o /path/to/workingDir/metsOutput.xml \
     -p "file:///path/to/file/parameters.json" \
     -g OCR-D-IMG_0001,OCR-D-IMG_0002 \
     -g OCR-D-IMG_0003 \
@@ -96,7 +102,7 @@ $> ocrd process \
 
 Binarize images from METS file with GROUPIDs id0001, id0002 and id0003.
 
-### METS input
+### Input METS file
 
 ```xml
 <mets:mets>
@@ -130,9 +136,9 @@ Binarize images from METS file with GROUPIDs id0001, id0002 and id0003.
 }
 ```
 
-### METS output
+### Output METS file
 
-This is the METS file after being run through the MP CLI:
+This is the METS file as it is returned by the MP CLI:
 
 ```xml
 <mets:mets>
