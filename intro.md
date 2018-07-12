@@ -31,8 +31,7 @@ about themselves and detailed information about the tools they develop.
 ## REST
 
 OCR-D will offer RESTful access to the MP CLI based on HTTP, described using
-the Open API / Swagger set of tools. A version generated from a snapshot of
-current `ocrd-tool.json` descriptions can be accessed [online](swagger).
+the Open API / Swagger set of tools.
 
 ## Dockerfile
 
