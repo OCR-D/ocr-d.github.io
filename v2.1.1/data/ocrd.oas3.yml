@@ -118,7 +118,7 @@ info:
   license: {name: Apache 2.0, url: 'http://www.apache.org/licenses/LICENSE-2.0.html'}
   termsOfService: http://swagger.io/terms/
   title: OCR-D
-  version: v2.1.2
+  version: v2.1.1
 openapi: 3.0.0
 paths:
   /kraken-binarize:
@@ -174,7 +174,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.1.2
+                version: v2.1.1
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
@@ -343,7 +343,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.1.2
+                version: v2.1.1
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
@@ -512,7 +512,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.1.2
+                version: v2.1.1
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
@@ -681,7 +681,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.1.2
+                version: v2.1.1
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
@@ -850,7 +850,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.1.2
+                version: v2.1.1
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
@@ -1019,7 +1019,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.1.2
+                version: v2.1.1
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
@@ -1188,7 +1188,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.1.2
+                version: v2.1.1
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
