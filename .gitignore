@@ -2,4 +2,3 @@ docs/v*.zip
 _site
 .sass-cache
 .jekyll-metadata
-spec
