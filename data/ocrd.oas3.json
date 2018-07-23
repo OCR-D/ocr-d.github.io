@@ -1,2391 +1,15 @@
 {
-  "openapi": "3.0.0",
-  "servers": [
-    {
-      "url": "http://test.ocr-d.de/v1"
-    }
-  ],
-  "components": {
-    "schemas": {
-      "mets-file": {
-        "type": "string",
-        "description": "XML holding all information of the digitized document. All references of the images and the PAGE XMLs are available via fileGrp section  (see http://www.loc.gov/standards/mets/mets.xsd)"
-      },
-      "logging": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "stdout": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/message-with-timestamp"
-            },
-            "description": "Output of console."
-          },
-          "stderr": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/message-with-timestamp"
-            },
-            "description": "Output of error console."
-          }
-        },
-        "description": "JSON file holding the output of the job."
-      },
-      "processors": {
-        "required": [
-          "mets",
-          "input-file-grp",
-          "output-file-grp"
-        ],
-        "type": "object",
-        "properties": {
-          "parameter": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "Parameter file in JSON format."
-          },
-          "output-file-grp": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE)."
-          },
-          "input-file-grp": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE)."
-          },
-          "group-id": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "All IDs of the image files which should be characterized."
-          },
-          "mets": {
-            "$ref": "#/components/schemas/mets-file"
-          },
-          "log-level": {
-            "$ref": "#/components/schemas/log-level"
-          }
-        },
-        "description": "Object holding all parameters needed by most processors."
-      },
-      "log-level": {
-        "default": "INFO",
-        "type": "string",
-        "enum": [
-          false,
-          "ERROR",
-          "WARN",
-          "INFO",
-          "DEBUG",
-          "TRACE"
-        ],
-        "example": "DEBUG",
-        "description": "Minimum Log level. One of (OFF, ERROR, WARN, INFO (default), DEBUG, TRACE). Actual mechanism for filtering log messages must not be implemented by processors."
-      },
-      "job-id": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "$ref": "#/components/schemas/status"
-          },
-          "jobId": {
-            "type": "string",
-            "description": "ID of the created job."
-          }
-        },
-        "description": "Status and job ID of created job."
-      },
-      "page-file": {
-        "type": "string",
-        "description": "XML holding all information of the digitized page. (see http://schema.primaresearch.org/PAGE/gts/pagecontent/2017-07-15/pagecontent.xsd)"
-      },
-      "zip-file": {
-        "type": "string",
-        "format": "binary",
-        "description": "zip-file containing all files created by the processor.  Content of zip-file: \n  * METS file (mandatory) (default: mets.xml)\n  * Provenance (mandatory) (default: provenance.json)\n  * PAGE XML (optional) \n  * Images (optional) \n  * Output of (error) console. (optional) (default: output.json)\n\nAll files have to be referenced inside the METS file.\n"
-      },
-      "status": {
-        "type": "string",
-        "enum": [
-          "OK"
-        ]
-      },
-      "job-status": {
-        "type": "string",
-        "enum": [
-          "RUNNING",
-          "FINISHED",
-          "ERROR",
-          "STOPPED"
-        ],
-        "description": "Description of the status:\n  * `RUNNING` - Job is not finished yet.\n  * `FINISHED` - Job was executed successfully.\n  * `ERROR` - Job was cancelled due to an error.\n  * `STOPPED` - Job was stopped due to server restrictions.\n"
-      },
-      "provenance-file": {
-        "type": "string",
-        "description": "JSON file holding all information about the provenance."
-      },
-      "image-file": {
-        "type": "string",
-        "format": "binary",
-        "description": "Image created by processor."
-      },
-      "message-with-timestamp": {
-        "type": "object",
-        "properties": {
-          "timestamp": {
-            "type": "string",
-            "format": "date",
-            "description": "timestamp"
-          },
-          "message": {
-            "type": "string",
-            "description": "message"
-          }
-        }
-      }
-    }
-  },
   "info": {
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
-    "version": "v2.1.2",
+    "version": "v2.2.0",
+    "title": "OCR-D",
+    "termsOfService": "http://swagger.io/terms/",
     "contact": {
       "email": "volker.hartmann@kit.edu"
     },
-    "termsOfService": "http://swagger.io/terms/",
-    "title": "OCR-D",
-    "description": "This is a generic definition of the modules used for the OCR-D project.\n* Implementation path for the different processors (description)\n* /preprocessing/characterization (Determine specific characteristics of a digitalization.)\n* /preprocessing/optimization (Execute all steps for image optimization at once.)\n* /preprocessing/optimization/cropping (Crops the digitization to printspace.)\n* /preprocessing/optimization/deskewing (Deskews the digitization.)\n* /preprocessing/optimization/despeckling (Despeckles the digitization.)\n* /preprocessing/optimization/dewarping (Dewarps the digitization.)\n* /preprocessing/optimization/binarization (Binarize the digitization.)\n*  /recognition/text-recognition (Estimate font families and languages used.)\n*  /recognition/font-identification (Estimate font families and languages used.)\n* /layout/segmentation (Detect and classify all regions of a page.)\n* /layout/segmentation/page (Detect all regions of a page.)\n* /layout/segmentation/line (Detect all text line regions inside the text regions of a page.)\n* /layout/segmentation/classification | Fine-grained classification of all detected regions of a page.)\n* /layout/analysis (Analyse regions on document level.)"
-  },
-  "paths": {
-    "/tesserocr-segment-word/{_id}": {
-      "get": {
-        "responses": {
-          "400": {
-            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
-          },
-          "500": {
-            "description": "Internal error"
-          },
-          "200": {
-            "content": {
-              "application/mets+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/mets-file"
-                }
-              },
-              "image/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/image-file"
-                }
-              },
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              },
-              "application/vnd.ocrd.page+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/page-file"
-                }
-              },
-              "application/vnd.ocrd.prov+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/provenance-file"
-                }
-              },
-              "application/vnd.ocrd.log+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/logging"
-                }
-              },
-              "application/zip": {
-                "schema": {
-                  "$ref": "#/components/schemas/zip-file"
-                }
-              }
-            },
-            "description": "Successful Operation."
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "operationId": "get-created-files-of-processor",
-        "summary": "Get created files.",
-        "tags": [
-          "Layout analysis"
-        ],
-        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once."
-      },
-      "delete": {
-        "responses": {
-          "410": {
-            "description": "Resource is not available anymore."
-          },
-          "204": {
-            "content": {
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              }
-            },
-            "description": "Successful Operation. All linked resources are removed successfully."
-          },
-          "404": {
-            "description": "Not found."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "summary": "Delete all files created by job with ID 'jobID'.",
-        "tags": [
-          "Layout analysis"
-        ]
-      }
-    },
-    "/tesserocr-segment-line/{_id}": {
-      "get": {
-        "responses": {
-          "400": {
-            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
-          },
-          "500": {
-            "description": "Internal error"
-          },
-          "200": {
-            "content": {
-              "application/mets+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/mets-file"
-                }
-              },
-              "image/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/image-file"
-                }
-              },
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              },
-              "application/vnd.ocrd.page+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/page-file"
-                }
-              },
-              "application/vnd.ocrd.prov+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/provenance-file"
-                }
-              },
-              "application/vnd.ocrd.log+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/logging"
-                }
-              },
-              "application/zip": {
-                "schema": {
-                  "$ref": "#/components/schemas/zip-file"
-                }
-              }
-            },
-            "description": "Successful Operation."
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "operationId": "get-created-files-of-processor",
-        "summary": "Get created files.",
-        "tags": [
-          "Layout analysis"
-        ],
-        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once."
-      },
-      "delete": {
-        "responses": {
-          "410": {
-            "description": "Resource is not available anymore."
-          },
-          "204": {
-            "content": {
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              }
-            },
-            "description": "Successful Operation. All linked resources are removed successfully."
-          },
-          "404": {
-            "description": "Not found."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "summary": "Delete all files created by job with ID 'jobID'.",
-        "tags": [
-          "Layout analysis"
-        ]
-      }
-    },
-    "/kraken-ocr/{_id}": {
-      "get": {
-        "responses": {
-          "400": {
-            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
-          },
-          "500": {
-            "description": "Internal error"
-          },
-          "200": {
-            "content": {
-              "application/mets+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/mets-file"
-                }
-              },
-              "image/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/image-file"
-                }
-              },
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              },
-              "application/vnd.ocrd.page+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/page-file"
-                }
-              },
-              "application/vnd.ocrd.prov+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/provenance-file"
-                }
-              },
-              "application/vnd.ocrd.log+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/logging"
-                }
-              },
-              "application/zip": {
-                "schema": {
-                  "$ref": "#/components/schemas/zip-file"
-                }
-              }
-            },
-            "description": "Successful Operation."
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "operationId": "get-created-files-of-processor",
-        "summary": "Get created files.",
-        "tags": [
-          "Text recognition and optimization"
-        ],
-        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once."
-      },
-      "delete": {
-        "responses": {
-          "410": {
-            "description": "Resource is not available anymore."
-          },
-          "204": {
-            "content": {
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              }
-            },
-            "description": "Successful Operation. All linked resources are removed successfully."
-          },
-          "404": {
-            "description": "Not found."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "summary": "Delete all files created by job with ID 'jobID'.",
-        "tags": [
-          "Text recognition and optimization"
-        ]
-      }
-    },
-    "/tesserocr-segment-line": {
-      "post": {
-        "responses": {
-          "400": {
-            "description": "Invalid input"
-          },
-          "201": {
-            "headers": {
-              "Location": {
-                "schema": {
-                  "type": "string",
-                  "format": "url"
-                },
-                "description": "URL of the generated job."
-              }
-            },
-            "links": {
-              "GetFilesByJobId": {
-                "parameters": {
-                  "jobID": "$response.body#/jobID"
-                },
-                "operationId": "get-created-files-of-processor",
-                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-id"
-                }
-              }
-            },
-            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "operationId": "start-processor",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "required": [
-                  "mets",
-                  "input-file-grp",
-                  "output-file-grp"
-                ],
-                "type": "object",
-                "parameters": {
-                  "type": "object",
-                  "properties": {}
-                },
-                "properties": {
-                  "parameter": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "Parameter file in JSON format."
-                  },
-                  "output-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE)."
-                  },
-                  "input-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE)."
-                  },
-                  "group-id": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "All IDs of the image files which should be characterized."
-                  },
-                  "mets": {
-                    "$ref": "#/components/schemas/mets-file"
-                  },
-                  "log-level": {
-                    "$ref": "#/components/schemas/log-level"
-                  }
-                },
-                "description": "Object holding all parameters needed by most processors."
-              }
-            }
-          }
-        },
-        "summary": "Segment page into regions with tesseract",
-        "tags": [
-          "Layout analysis"
-        ],
-        "description": "Segment page into regions with tesseract"
-      },
-      "get": {
-        "responses": {
-          "200": {
-            "application/json": {
-              "schema": {
-                "required": [
-                  "version",
-                  "git_url",
-                  "tools"
-                ],
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "version": "v2.1.2",
-                    "type": "string",
-                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
-                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH."
-                  },
-                  "git_url": {
-                    "type": "string",
-                    "format": "url",
-                    "description": "Github/Gitlab URL"
-                  },
-                  "dockerhub": {
-                    "type": "string",
-                    "description": "DockerHub image"
-                  },
-                  "tools": {
-                    "patternProperties": {
-                      "ocrd-.*": {
-                        "required": [
-                          "description",
-                          "steps",
-                          "executable",
-                          "categories"
-                        ],
-                        "type": "object",
-                        "properties": {
-                          "executable": {
-                            "type": "string",
-                            "description": "The name of the CLI executable in $PATH"
-                          },
-                          "parameters": {
-                            "type": "object",
-                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas."
-                          },
-                          "categories": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "Image preprocessing",
-                                "Layout analysis",
-                                "Text recognition and optimization",
-                                "Model training",
-                                "Long-term preservation",
-                                "Quality assurance"
-                              ]
-                            },
-                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure"
-                          },
-                          "steps": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "preprocessing/characterization",
-                                "preprocessing/optimization",
-                                "preprocessing/optimization/cropping",
-                                "preprocessing/optimization/deskewing",
-                                "preprocessing/optimization/despeckling",
-                                "preprocessing/optimization/dewarping",
-                                "preprocessing/optimization/binarization",
-                                "preprocessing/optimization/grayscale_normalization",
-                                "recognition/text-recognition",
-                                "recognition/font-identification",
-                                "layout/segmentation",
-                                "layout/segmentation/region",
-                                "layout/segmentation/line",
-                                "layout/segmentation/word",
-                                "layout/segmentation/classification",
-                                "layout/analysis"
-                              ]
-                            },
-                            "description": "This tool can be used at these steps in the OCR-D functional model"
-                          },
-                          "description": {
-                            "description": "Concise description what the tool does"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "type": "object",
-                    "additionalProperties": false
-                  }
-                },
-                "description": "Schema for tools by OCR-D MP"
-              },
-              "description": "Got ocrd-tool.json"
-            }
-          }
-        },
-        "tags": [
-          "Layout analysis"
-        ],
-        "produces": [],
-        "description": "Get ocrd-tool.json"
-      }
-    },
-    "/kraken-binarize": {
-      "post": {
-        "responses": {
-          "400": {
-            "description": "Invalid input"
-          },
-          "201": {
-            "headers": {
-              "Location": {
-                "schema": {
-                  "type": "string",
-                  "format": "url"
-                },
-                "description": "URL of the generated job."
-              }
-            },
-            "links": {
-              "GetFilesByJobId": {
-                "parameters": {
-                  "jobID": "$response.body#/jobID"
-                },
-                "operationId": "get-created-files-of-processor",
-                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-id"
-                }
-              }
-            },
-            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "operationId": "start-processor",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "required": [
-                  "mets",
-                  "input-file-grp",
-                  "output-file-grp"
-                ],
-                "type": "object",
-                "parameters": {
-                  "type": "object",
-                  "properties": {}
-                },
-                "properties": {
-                  "parameter": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "Parameter file in JSON format."
-                  },
-                  "output-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE)."
-                  },
-                  "input-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE)."
-                  },
-                  "group-id": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "All IDs of the image files which should be characterized."
-                  },
-                  "mets": {
-                    "$ref": "#/components/schemas/mets-file"
-                  },
-                  "log-level": {
-                    "$ref": "#/components/schemas/log-level"
-                  }
-                },
-                "description": "Object holding all parameters needed by most processors."
-              }
-            }
-          }
-        },
-        "summary": "Binarize images with kraken",
-        "tags": [
-          "Image preprocessing"
-        ],
-        "description": "Binarize images with kraken"
-      },
-      "get": {
-        "responses": {
-          "200": {
-            "application/json": {
-              "schema": {
-                "required": [
-                  "version",
-                  "git_url",
-                  "tools"
-                ],
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "version": "v2.1.2",
-                    "type": "string",
-                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
-                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH."
-                  },
-                  "git_url": {
-                    "type": "string",
-                    "format": "url",
-                    "description": "Github/Gitlab URL"
-                  },
-                  "dockerhub": {
-                    "type": "string",
-                    "description": "DockerHub image"
-                  },
-                  "tools": {
-                    "patternProperties": {
-                      "ocrd-.*": {
-                        "required": [
-                          "description",
-                          "steps",
-                          "executable",
-                          "categories"
-                        ],
-                        "type": "object",
-                        "properties": {
-                          "executable": {
-                            "type": "string",
-                            "description": "The name of the CLI executable in $PATH"
-                          },
-                          "parameters": {
-                            "type": "object",
-                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas."
-                          },
-                          "categories": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "Image preprocessing",
-                                "Layout analysis",
-                                "Text recognition and optimization",
-                                "Model training",
-                                "Long-term preservation",
-                                "Quality assurance"
-                              ]
-                            },
-                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure"
-                          },
-                          "steps": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "preprocessing/characterization",
-                                "preprocessing/optimization",
-                                "preprocessing/optimization/cropping",
-                                "preprocessing/optimization/deskewing",
-                                "preprocessing/optimization/despeckling",
-                                "preprocessing/optimization/dewarping",
-                                "preprocessing/optimization/binarization",
-                                "preprocessing/optimization/grayscale_normalization",
-                                "recognition/text-recognition",
-                                "recognition/font-identification",
-                                "layout/segmentation",
-                                "layout/segmentation/region",
-                                "layout/segmentation/line",
-                                "layout/segmentation/word",
-                                "layout/segmentation/classification",
-                                "layout/analysis"
-                              ]
-                            },
-                            "description": "This tool can be used at these steps in the OCR-D functional model"
-                          },
-                          "description": {
-                            "description": "Concise description what the tool does"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "type": "object",
-                    "additionalProperties": false
-                  }
-                },
-                "description": "Schema for tools by OCR-D MP"
-              },
-              "description": "Got ocrd-tool.json"
-            }
-          }
-        },
-        "tags": [
-          "Image preprocessing"
-        ],
-        "produces": [],
-        "description": "Get ocrd-tool.json"
-      }
-    },
-    "/tesserocr-segment-region": {
-      "post": {
-        "responses": {
-          "400": {
-            "description": "Invalid input"
-          },
-          "201": {
-            "headers": {
-              "Location": {
-                "schema": {
-                  "type": "string",
-                  "format": "url"
-                },
-                "description": "URL of the generated job."
-              }
-            },
-            "links": {
-              "GetFilesByJobId": {
-                "parameters": {
-                  "jobID": "$response.body#/jobID"
-                },
-                "operationId": "get-created-files-of-processor",
-                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-id"
-                }
-              }
-            },
-            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "operationId": "start-processor",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "required": [
-                  "mets",
-                  "input-file-grp",
-                  "output-file-grp"
-                ],
-                "type": "object",
-                "parameters": {
-                  "type": "object",
-                  "properties": {}
-                },
-                "properties": {
-                  "parameter": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "Parameter file in JSON format."
-                  },
-                  "output-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE)."
-                  },
-                  "input-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE)."
-                  },
-                  "group-id": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "All IDs of the image files which should be characterized."
-                  },
-                  "mets": {
-                    "$ref": "#/components/schemas/mets-file"
-                  },
-                  "log-level": {
-                    "$ref": "#/components/schemas/log-level"
-                  }
-                },
-                "description": "Object holding all parameters needed by most processors."
-              }
-            }
-          }
-        },
-        "summary": "Segment regions into lines with tesseract",
-        "tags": [
-          "Layout analysis"
-        ],
-        "description": "Segment regions into lines with tesseract"
-      },
-      "get": {
-        "responses": {
-          "200": {
-            "application/json": {
-              "schema": {
-                "required": [
-                  "version",
-                  "git_url",
-                  "tools"
-                ],
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "version": "v2.1.2",
-                    "type": "string",
-                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
-                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH."
-                  },
-                  "git_url": {
-                    "type": "string",
-                    "format": "url",
-                    "description": "Github/Gitlab URL"
-                  },
-                  "dockerhub": {
-                    "type": "string",
-                    "description": "DockerHub image"
-                  },
-                  "tools": {
-                    "patternProperties": {
-                      "ocrd-.*": {
-                        "required": [
-                          "description",
-                          "steps",
-                          "executable",
-                          "categories"
-                        ],
-                        "type": "object",
-                        "properties": {
-                          "executable": {
-                            "type": "string",
-                            "description": "The name of the CLI executable in $PATH"
-                          },
-                          "parameters": {
-                            "type": "object",
-                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas."
-                          },
-                          "categories": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "Image preprocessing",
-                                "Layout analysis",
-                                "Text recognition and optimization",
-                                "Model training",
-                                "Long-term preservation",
-                                "Quality assurance"
-                              ]
-                            },
-                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure"
-                          },
-                          "steps": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "preprocessing/characterization",
-                                "preprocessing/optimization",
-                                "preprocessing/optimization/cropping",
-                                "preprocessing/optimization/deskewing",
-                                "preprocessing/optimization/despeckling",
-                                "preprocessing/optimization/dewarping",
-                                "preprocessing/optimization/binarization",
-                                "preprocessing/optimization/grayscale_normalization",
-                                "recognition/text-recognition",
-                                "recognition/font-identification",
-                                "layout/segmentation",
-                                "layout/segmentation/region",
-                                "layout/segmentation/line",
-                                "layout/segmentation/word",
-                                "layout/segmentation/classification",
-                                "layout/analysis"
-                              ]
-                            },
-                            "description": "This tool can be used at these steps in the OCR-D functional model"
-                          },
-                          "description": {
-                            "description": "Concise description what the tool does"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "type": "object",
-                    "additionalProperties": false
-                  }
-                },
-                "description": "Schema for tools by OCR-D MP"
-              },
-              "description": "Got ocrd-tool.json"
-            }
-          }
-        },
-        "tags": [
-          "Layout analysis"
-        ],
-        "produces": [],
-        "description": "Get ocrd-tool.json"
-      }
-    },
-    "/tesserocr-segment-word": {
-      "post": {
-        "responses": {
-          "400": {
-            "description": "Invalid input"
-          },
-          "201": {
-            "headers": {
-              "Location": {
-                "schema": {
-                  "type": "string",
-                  "format": "url"
-                },
-                "description": "URL of the generated job."
-              }
-            },
-            "links": {
-              "GetFilesByJobId": {
-                "parameters": {
-                  "jobID": "$response.body#/jobID"
-                },
-                "operationId": "get-created-files-of-processor",
-                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-id"
-                }
-              }
-            },
-            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "operationId": "start-processor",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "required": [
-                  "mets",
-                  "input-file-grp",
-                  "output-file-grp"
-                ],
-                "type": "object",
-                "parameters": {
-                  "type": "object",
-                  "properties": {}
-                },
-                "properties": {
-                  "parameter": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "Parameter file in JSON format."
-                  },
-                  "output-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE)."
-                  },
-                  "input-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE)."
-                  },
-                  "group-id": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "All IDs of the image files which should be characterized."
-                  },
-                  "mets": {
-                    "$ref": "#/components/schemas/mets-file"
-                  },
-                  "log-level": {
-                    "$ref": "#/components/schemas/log-level"
-                  }
-                },
-                "description": "Object holding all parameters needed by most processors."
-              }
-            }
-          }
-        },
-        "summary": "Segment lines into words with tesseract",
-        "tags": [
-          "Layout analysis"
-        ],
-        "description": "Segment lines into words with tesseract"
-      },
-      "get": {
-        "responses": {
-          "200": {
-            "application/json": {
-              "schema": {
-                "required": [
-                  "version",
-                  "git_url",
-                  "tools"
-                ],
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "version": "v2.1.2",
-                    "type": "string",
-                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
-                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH."
-                  },
-                  "git_url": {
-                    "type": "string",
-                    "format": "url",
-                    "description": "Github/Gitlab URL"
-                  },
-                  "dockerhub": {
-                    "type": "string",
-                    "description": "DockerHub image"
-                  },
-                  "tools": {
-                    "patternProperties": {
-                      "ocrd-.*": {
-                        "required": [
-                          "description",
-                          "steps",
-                          "executable",
-                          "categories"
-                        ],
-                        "type": "object",
-                        "properties": {
-                          "executable": {
-                            "type": "string",
-                            "description": "The name of the CLI executable in $PATH"
-                          },
-                          "parameters": {
-                            "type": "object",
-                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas."
-                          },
-                          "categories": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "Image preprocessing",
-                                "Layout analysis",
-                                "Text recognition and optimization",
-                                "Model training",
-                                "Long-term preservation",
-                                "Quality assurance"
-                              ]
-                            },
-                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure"
-                          },
-                          "steps": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "preprocessing/characterization",
-                                "preprocessing/optimization",
-                                "preprocessing/optimization/cropping",
-                                "preprocessing/optimization/deskewing",
-                                "preprocessing/optimization/despeckling",
-                                "preprocessing/optimization/dewarping",
-                                "preprocessing/optimization/binarization",
-                                "preprocessing/optimization/grayscale_normalization",
-                                "recognition/text-recognition",
-                                "recognition/font-identification",
-                                "layout/segmentation",
-                                "layout/segmentation/region",
-                                "layout/segmentation/line",
-                                "layout/segmentation/word",
-                                "layout/segmentation/classification",
-                                "layout/analysis"
-                              ]
-                            },
-                            "description": "This tool can be used at these steps in the OCR-D functional model"
-                          },
-                          "description": {
-                            "description": "Concise description what the tool does"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "type": "object",
-                    "additionalProperties": false
-                  }
-                },
-                "description": "Schema for tools by OCR-D MP"
-              },
-              "description": "Got ocrd-tool.json"
-            }
-          }
-        },
-        "tags": [
-          "Layout analysis"
-        ],
-        "produces": [],
-        "description": "Get ocrd-tool.json"
-      }
-    },
-    "/kraken-segment/{_id}": {
-      "get": {
-        "responses": {
-          "400": {
-            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
-          },
-          "500": {
-            "description": "Internal error"
-          },
-          "200": {
-            "content": {
-              "application/mets+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/mets-file"
-                }
-              },
-              "image/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/image-file"
-                }
-              },
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              },
-              "application/vnd.ocrd.page+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/page-file"
-                }
-              },
-              "application/vnd.ocrd.prov+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/provenance-file"
-                }
-              },
-              "application/vnd.ocrd.log+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/logging"
-                }
-              },
-              "application/zip": {
-                "schema": {
-                  "$ref": "#/components/schemas/zip-file"
-                }
-              }
-            },
-            "description": "Successful Operation."
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "operationId": "get-created-files-of-processor",
-        "summary": "Get created files.",
-        "tags": [
-          "Layout analysis"
-        ],
-        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once."
-      },
-      "delete": {
-        "responses": {
-          "410": {
-            "description": "Resource is not available anymore."
-          },
-          "204": {
-            "content": {
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              }
-            },
-            "description": "Successful Operation. All linked resources are removed successfully."
-          },
-          "404": {
-            "description": "Not found."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "summary": "Delete all files created by job with ID 'jobID'.",
-        "tags": [
-          "Layout analysis"
-        ]
-      }
-    },
-    "/tesserocr-recognize/{_id}": {
-      "get": {
-        "responses": {
-          "400": {
-            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
-          },
-          "500": {
-            "description": "Internal error"
-          },
-          "200": {
-            "content": {
-              "application/mets+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/mets-file"
-                }
-              },
-              "image/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/image-file"
-                }
-              },
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              },
-              "application/vnd.ocrd.page+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/page-file"
-                }
-              },
-              "application/vnd.ocrd.prov+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/provenance-file"
-                }
-              },
-              "application/vnd.ocrd.log+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/logging"
-                }
-              },
-              "application/zip": {
-                "schema": {
-                  "$ref": "#/components/schemas/zip-file"
-                }
-              }
-            },
-            "description": "Successful Operation."
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "operationId": "get-created-files-of-processor",
-        "summary": "Get created files.",
-        "tags": [
-          "Text recognition and optimization"
-        ],
-        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once."
-      },
-      "delete": {
-        "responses": {
-          "410": {
-            "description": "Resource is not available anymore."
-          },
-          "204": {
-            "content": {
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              }
-            },
-            "description": "Successful Operation. All linked resources are removed successfully."
-          },
-          "404": {
-            "description": "Not found."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "summary": "Delete all files created by job with ID 'jobID'.",
-        "tags": [
-          "Text recognition and optimization"
-        ]
-      }
-    },
-    "/kraken-segment": {
-      "post": {
-        "responses": {
-          "400": {
-            "description": "Invalid input"
-          },
-          "201": {
-            "headers": {
-              "Location": {
-                "schema": {
-                  "type": "string",
-                  "format": "url"
-                },
-                "description": "URL of the generated job."
-              }
-            },
-            "links": {
-              "GetFilesByJobId": {
-                "parameters": {
-                  "jobID": "$response.body#/jobID"
-                },
-                "operationId": "get-created-files-of-processor",
-                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-id"
-                }
-              }
-            },
-            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "operationId": "start-processor",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "required": [
-                  "mets",
-                  "input-file-grp",
-                  "output-file-grp"
-                ],
-                "type": "object",
-                "parameters": {
-                  "type": "object",
-                  "properties": {}
-                },
-                "properties": {
-                  "parameter": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "Parameter file in JSON format."
-                  },
-                  "output-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE)."
-                  },
-                  "input-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE)."
-                  },
-                  "group-id": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "All IDs of the image files which should be characterized."
-                  },
-                  "mets": {
-                    "$ref": "#/components/schemas/mets-file"
-                  },
-                  "log-level": {
-                    "$ref": "#/components/schemas/log-level"
-                  }
-                },
-                "description": "Object holding all parameters needed by most processors."
-              }
-            }
-          }
-        },
-        "summary": "Block segmentation with kraken",
-        "tags": [
-          "Layout analysis"
-        ],
-        "description": "Block segmentation with kraken"
-      },
-      "get": {
-        "responses": {
-          "200": {
-            "application/json": {
-              "schema": {
-                "required": [
-                  "version",
-                  "git_url",
-                  "tools"
-                ],
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "version": "v2.1.2",
-                    "type": "string",
-                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
-                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH."
-                  },
-                  "git_url": {
-                    "type": "string",
-                    "format": "url",
-                    "description": "Github/Gitlab URL"
-                  },
-                  "dockerhub": {
-                    "type": "string",
-                    "description": "DockerHub image"
-                  },
-                  "tools": {
-                    "patternProperties": {
-                      "ocrd-.*": {
-                        "required": [
-                          "description",
-                          "steps",
-                          "executable",
-                          "categories"
-                        ],
-                        "type": "object",
-                        "properties": {
-                          "executable": {
-                            "type": "string",
-                            "description": "The name of the CLI executable in $PATH"
-                          },
-                          "parameters": {
-                            "type": "object",
-                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas."
-                          },
-                          "categories": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "Image preprocessing",
-                                "Layout analysis",
-                                "Text recognition and optimization",
-                                "Model training",
-                                "Long-term preservation",
-                                "Quality assurance"
-                              ]
-                            },
-                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure"
-                          },
-                          "steps": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "preprocessing/characterization",
-                                "preprocessing/optimization",
-                                "preprocessing/optimization/cropping",
-                                "preprocessing/optimization/deskewing",
-                                "preprocessing/optimization/despeckling",
-                                "preprocessing/optimization/dewarping",
-                                "preprocessing/optimization/binarization",
-                                "preprocessing/optimization/grayscale_normalization",
-                                "recognition/text-recognition",
-                                "recognition/font-identification",
-                                "layout/segmentation",
-                                "layout/segmentation/region",
-                                "layout/segmentation/line",
-                                "layout/segmentation/word",
-                                "layout/segmentation/classification",
-                                "layout/analysis"
-                              ]
-                            },
-                            "description": "This tool can be used at these steps in the OCR-D functional model"
-                          },
-                          "description": {
-                            "description": "Concise description what the tool does"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "type": "object",
-                    "additionalProperties": false
-                  }
-                },
-                "description": "Schema for tools by OCR-D MP"
-              },
-              "description": "Got ocrd-tool.json"
-            }
-          }
-        },
-        "tags": [
-          "Layout analysis"
-        ],
-        "produces": [],
-        "description": "Get ocrd-tool.json"
-      }
-    },
-    "/kraken-ocr": {
-      "post": {
-        "responses": {
-          "400": {
-            "description": "Invalid input"
-          },
-          "201": {
-            "headers": {
-              "Location": {
-                "schema": {
-                  "type": "string",
-                  "format": "url"
-                },
-                "description": "URL of the generated job."
-              }
-            },
-            "links": {
-              "GetFilesByJobId": {
-                "parameters": {
-                  "jobID": "$response.body#/jobID"
-                },
-                "operationId": "get-created-files-of-processor",
-                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-id"
-                }
-              }
-            },
-            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "operationId": "start-processor",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "required": [
-                  "mets",
-                  "input-file-grp",
-                  "output-file-grp"
-                ],
-                "type": "object",
-                "parameters": {
-                  "type": "object",
-                  "properties": {}
-                },
-                "properties": {
-                  "parameter": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "Parameter file in JSON format."
-                  },
-                  "output-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE)."
-                  },
-                  "input-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE)."
-                  },
-                  "group-id": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "All IDs of the image files which should be characterized."
-                  },
-                  "mets": {
-                    "$ref": "#/components/schemas/mets-file"
-                  },
-                  "log-level": {
-                    "$ref": "#/components/schemas/log-level"
-                  }
-                },
-                "description": "Object holding all parameters needed by most processors."
-              }
-            }
-          }
-        },
-        "summary": "OCR with kraken",
-        "tags": [
-          "Text recognition and optimization"
-        ],
-        "description": "OCR with kraken"
-      },
-      "get": {
-        "responses": {
-          "200": {
-            "application/json": {
-              "schema": {
-                "required": [
-                  "version",
-                  "git_url",
-                  "tools"
-                ],
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "version": "v2.1.2",
-                    "type": "string",
-                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
-                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH."
-                  },
-                  "git_url": {
-                    "type": "string",
-                    "format": "url",
-                    "description": "Github/Gitlab URL"
-                  },
-                  "dockerhub": {
-                    "type": "string",
-                    "description": "DockerHub image"
-                  },
-                  "tools": {
-                    "patternProperties": {
-                      "ocrd-.*": {
-                        "required": [
-                          "description",
-                          "steps",
-                          "executable",
-                          "categories"
-                        ],
-                        "type": "object",
-                        "properties": {
-                          "executable": {
-                            "type": "string",
-                            "description": "The name of the CLI executable in $PATH"
-                          },
-                          "parameters": {
-                            "type": "object",
-                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas."
-                          },
-                          "categories": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "Image preprocessing",
-                                "Layout analysis",
-                                "Text recognition and optimization",
-                                "Model training",
-                                "Long-term preservation",
-                                "Quality assurance"
-                              ]
-                            },
-                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure"
-                          },
-                          "steps": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "preprocessing/characterization",
-                                "preprocessing/optimization",
-                                "preprocessing/optimization/cropping",
-                                "preprocessing/optimization/deskewing",
-                                "preprocessing/optimization/despeckling",
-                                "preprocessing/optimization/dewarping",
-                                "preprocessing/optimization/binarization",
-                                "preprocessing/optimization/grayscale_normalization",
-                                "recognition/text-recognition",
-                                "recognition/font-identification",
-                                "layout/segmentation",
-                                "layout/segmentation/region",
-                                "layout/segmentation/line",
-                                "layout/segmentation/word",
-                                "layout/segmentation/classification",
-                                "layout/analysis"
-                              ]
-                            },
-                            "description": "This tool can be used at these steps in the OCR-D functional model"
-                          },
-                          "description": {
-                            "description": "Concise description what the tool does"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "type": "object",
-                    "additionalProperties": false
-                  }
-                },
-                "description": "Schema for tools by OCR-D MP"
-              },
-              "description": "Got ocrd-tool.json"
-            }
-          }
-        },
-        "tags": [
-          "Text recognition and optimization"
-        ],
-        "produces": [],
-        "description": "Get ocrd-tool.json"
-      }
-    },
-    "/kraken-binarize/{_id}": {
-      "get": {
-        "responses": {
-          "400": {
-            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
-          },
-          "500": {
-            "description": "Internal error"
-          },
-          "200": {
-            "content": {
-              "application/mets+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/mets-file"
-                }
-              },
-              "image/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/image-file"
-                }
-              },
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              },
-              "application/vnd.ocrd.page+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/page-file"
-                }
-              },
-              "application/vnd.ocrd.prov+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/provenance-file"
-                }
-              },
-              "application/vnd.ocrd.log+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/logging"
-                }
-              },
-              "application/zip": {
-                "schema": {
-                  "$ref": "#/components/schemas/zip-file"
-                }
-              }
-            },
-            "description": "Successful Operation."
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "operationId": "get-created-files-of-processor",
-        "summary": "Get created files.",
-        "tags": [
-          "Image preprocessing"
-        ],
-        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once."
-      },
-      "delete": {
-        "responses": {
-          "410": {
-            "description": "Resource is not available anymore."
-          },
-          "204": {
-            "content": {
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              }
-            },
-            "description": "Successful Operation. All linked resources are removed successfully."
-          },
-          "404": {
-            "description": "Not found."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "summary": "Delete all files created by job with ID 'jobID'.",
-        "tags": [
-          "Image preprocessing"
-        ]
-      }
-    },
-    "/tesserocr-recognize": {
-      "post": {
-        "responses": {
-          "400": {
-            "description": "Invalid input"
-          },
-          "201": {
-            "headers": {
-              "Location": {
-                "schema": {
-                  "type": "string",
-                  "format": "url"
-                },
-                "description": "URL of the generated job."
-              }
-            },
-            "links": {
-              "GetFilesByJobId": {
-                "parameters": {
-                  "jobID": "$response.body#/jobID"
-                },
-                "operationId": "get-created-files-of-processor",
-                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-id"
-                }
-              }
-            },
-            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "operationId": "start-processor",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "required": [
-                  "mets",
-                  "input-file-grp",
-                  "output-file-grp"
-                ],
-                "type": "object",
-                "parameters": {
-                  "type": "object",
-                  "properties": {}
-                },
-                "properties": {
-                  "parameter": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "Parameter file in JSON format."
-                  },
-                  "output-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE)."
-                  },
-                  "input-file-grp": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE)."
-                  },
-                  "group-id": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "All IDs of the image files which should be characterized."
-                  },
-                  "mets": {
-                    "$ref": "#/components/schemas/mets-file"
-                  },
-                  "log-level": {
-                    "$ref": "#/components/schemas/log-level"
-                  }
-                },
-                "description": "Object holding all parameters needed by most processors."
-              }
-            }
-          }
-        },
-        "summary": "Recognize text in lines with tesseract",
-        "tags": [
-          "Text recognition and optimization"
-        ],
-        "description": "Recognize text in lines with tesseract"
-      },
-      "get": {
-        "responses": {
-          "200": {
-            "application/json": {
-              "schema": {
-                "required": [
-                  "version",
-                  "git_url",
-                  "tools"
-                ],
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "version": "v2.1.2",
-                    "type": "string",
-                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
-                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH."
-                  },
-                  "git_url": {
-                    "type": "string",
-                    "format": "url",
-                    "description": "Github/Gitlab URL"
-                  },
-                  "dockerhub": {
-                    "type": "string",
-                    "description": "DockerHub image"
-                  },
-                  "tools": {
-                    "patternProperties": {
-                      "ocrd-.*": {
-                        "required": [
-                          "description",
-                          "steps",
-                          "executable",
-                          "categories"
-                        ],
-                        "type": "object",
-                        "properties": {
-                          "executable": {
-                            "type": "string",
-                            "description": "The name of the CLI executable in $PATH"
-                          },
-                          "parameters": {
-                            "type": "object",
-                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas."
-                          },
-                          "categories": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "Image preprocessing",
-                                "Layout analysis",
-                                "Text recognition and optimization",
-                                "Model training",
-                                "Long-term preservation",
-                                "Quality assurance"
-                              ]
-                            },
-                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure"
-                          },
-                          "steps": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
-                                "preprocessing/characterization",
-                                "preprocessing/optimization",
-                                "preprocessing/optimization/cropping",
-                                "preprocessing/optimization/deskewing",
-                                "preprocessing/optimization/despeckling",
-                                "preprocessing/optimization/dewarping",
-                                "preprocessing/optimization/binarization",
-                                "preprocessing/optimization/grayscale_normalization",
-                                "recognition/text-recognition",
-                                "recognition/font-identification",
-                                "layout/segmentation",
-                                "layout/segmentation/region",
-                                "layout/segmentation/line",
-                                "layout/segmentation/word",
-                                "layout/segmentation/classification",
-                                "layout/analysis"
-                              ]
-                            },
-                            "description": "This tool can be used at these steps in the OCR-D functional model"
-                          },
-                          "description": {
-                            "description": "Concise description what the tool does"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "type": "object",
-                    "additionalProperties": false
-                  }
-                },
-                "description": "Schema for tools by OCR-D MP"
-              },
-              "description": "Got ocrd-tool.json"
-            }
-          }
-        },
-        "tags": [
-          "Text recognition and optimization"
-        ],
-        "produces": [],
-        "description": "Get ocrd-tool.json"
-      }
-    },
-    "/tesserocr-segment-region/{_id}": {
-      "get": {
-        "responses": {
-          "400": {
-            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
-          },
-          "500": {
-            "description": "Internal error"
-          },
-          "200": {
-            "content": {
-              "application/mets+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/mets-file"
-                }
-              },
-              "image/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/image-file"
-                }
-              },
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              },
-              "application/vnd.ocrd.page+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/page-file"
-                }
-              },
-              "application/vnd.ocrd.prov+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/provenance-file"
-                }
-              },
-              "application/vnd.ocrd.log+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/logging"
-                }
-              },
-              "application/zip": {
-                "schema": {
-                  "$ref": "#/components/schemas/zip-file"
-                }
-              }
-            },
-            "description": "Successful Operation."
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "operationId": "get-created-files-of-processor",
-        "summary": "Get created files.",
-        "tags": [
-          "Layout analysis"
-        ],
-        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once."
-      },
-      "delete": {
-        "responses": {
-          "410": {
-            "description": "Resource is not available anymore."
-          },
-          "204": {
-            "content": {
-              "application/vnd.ocrd+job-status": {
-                "schema": {
-                  "$ref": "#/components/schemas/job-status"
-                }
-              }
-            },
-            "description": "Successful Operation. All linked resources are removed successfully."
-          },
-          "404": {
-            "description": "Not found."
-          },
-          "500": {
-            "description": "Internal error"
-          }
-        },
-        "parameters": [
-          {
-            "name": "jobID",
-            "schema": {
-              "type": "string"
-            },
-            "description": "job ID of the started process.",
-            "required": true,
-            "in": "path"
-          }
-        ],
-        "summary": "Delete all files created by job with ID 'jobID'.",
-        "tags": [
-          "Layout analysis"
-        ]
-      }
+    "description": "This is a generic definition of the modules used for the OCR-D project.\n* Implementation path for the different processors (description)\n* /preprocessing/characterization (Determine specific characteristics of a digitalization.)\n* /preprocessing/optimization (Execute all steps for image optimization at once.)\n* /preprocessing/optimization/cropping (Crops the digitization to printspace.)\n* /preprocessing/optimization/deskewing (Deskews the digitization.)\n* /preprocessing/optimization/despeckling (Despeckles the digitization.)\n* /preprocessing/optimization/dewarping (Dewarps the digitization.)\n* /preprocessing/optimization/binarization (Binarize the digitization.)\n*  /recognition/text-recognition (Estimate font families and languages used.)\n*  /recognition/font-identification (Estimate font families and languages used.)\n* /layout/segmentation (Detect and classify all regions of a page.)\n* /layout/segmentation/page (Detect all regions of a page.)\n* /layout/segmentation/line (Detect all text line regions inside the text regions of a page.)\n* /layout/segmentation/classification | Fine-grained classification of all detected regions of a page.)\n* /layout/analysis (Analyse regions on document level.)",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
   "tags": [
@@ -2412,6 +36,2382 @@
     {
       "name": "Quality assurance",
       "description": "Determination/estimation of the potential of each component."
+    }
+  ],
+  "components": {
+    "schemas": {
+      "job-status": {
+        "enum": [
+          "RUNNING",
+          "FINISHED",
+          "ERROR",
+          "STOPPED"
+        ],
+        "description": "Description of the status:\n  * `RUNNING` - Job is not finished yet.\n  * `FINISHED` - Job was executed successfully.\n  * `ERROR` - Job was cancelled due to an error.\n  * `STOPPED` - Job was stopped due to server restrictions.\n",
+        "type": "string"
+      },
+      "message-with-timestamp": {
+        "properties": {
+          "message": {
+            "description": "message",
+            "type": "string"
+          },
+          "timestamp": {
+            "format": "date",
+            "description": "timestamp",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "logging": {
+        "additionalProperties": false,
+        "description": "JSON file holding the output of the job.",
+        "properties": {
+          "stdout": {
+            "items": {
+              "$ref": "#/components/schemas/message-with-timestamp"
+            },
+            "description": "Output of console.",
+            "type": "array"
+          },
+          "stderr": {
+            "items": {
+              "$ref": "#/components/schemas/message-with-timestamp"
+            },
+            "description": "Output of error console.",
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "provenance-file": {
+        "description": "JSON file holding all information about the provenance.",
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "OK"
+        ],
+        "type": "string"
+      },
+      "job-id": {
+        "description": "Status and job ID of created job.",
+        "properties": {
+          "jobId": {
+            "description": "ID of the created job.",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/status"
+          }
+        },
+        "type": "object"
+      },
+      "log-level": {
+        "default": "INFO",
+        "enum": [
+          false,
+          "ERROR",
+          "WARN",
+          "INFO",
+          "DEBUG",
+          "TRACE"
+        ],
+        "description": "Minimum Log level. One of (OFF, ERROR, WARN, INFO (default), DEBUG, TRACE). Actual mechanism for filtering log messages must not be implemented by processors.",
+        "example": "DEBUG",
+        "type": "string"
+      },
+      "page-file": {
+        "description": "XML holding all information of the digitized page. (see http://schema.primaresearch.org/PAGE/gts/pagecontent/2017-07-15/pagecontent.xsd)",
+        "type": "string"
+      },
+      "image-file": {
+        "format": "binary",
+        "description": "Image created by processor.",
+        "type": "string"
+      },
+      "zip-file": {
+        "format": "binary",
+        "description": "zip-file containing all files created by the processor.  Content of zip-file: \n  * METS file (mandatory) (default: mets.xml)\n  * Provenance (mandatory) (default: provenance.json)\n  * PAGE XML (optional) \n  * Images (optional) \n  * Output of (error) console. (optional) (default: output.json)\n\nAll files have to be referenced inside the METS file.\n",
+        "type": "string"
+      },
+      "mets-file": {
+        "description": "XML holding all information of the digitized document. All references of the images and the PAGE XMLs are available via fileGrp section  (see http://www.loc.gov/standards/mets/mets.xsd)",
+        "type": "string"
+      },
+      "processors": {
+        "type": "object",
+        "description": "Object holding all parameters needed by most processors.",
+        "properties": {
+          "output-file-grp": {
+            "items": {
+              "type": "string"
+            },
+            "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE).",
+            "type": "array"
+          },
+          "parameter": {
+            "items": {
+              "type": "string"
+            },
+            "description": "Parameter file in JSON format.",
+            "type": "array"
+          },
+          "mets": {
+            "$ref": "#/components/schemas/mets-file"
+          },
+          "group-id": {
+            "items": {
+              "type": "string"
+            },
+            "description": "All IDs of the image files which should be characterized.",
+            "type": "array"
+          },
+          "log-level": {
+            "$ref": "#/components/schemas/log-level"
+          },
+          "input-file-grp": {
+            "items": {
+              "type": "string"
+            },
+            "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE).",
+            "type": "array"
+          }
+        },
+        "required": [
+          "mets",
+          "input-file-grp",
+          "output-file-grp"
+        ]
+      }
+    }
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/tesserocr-recognize/{_id}": {
+      "delete": {
+        "summary": "Delete all files created by job with ID 'jobID'.",
+        "tags": [
+          "Text recognition and optimization"
+        ],
+        "responses": {
+          "204": {
+            "content": {
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              }
+            },
+            "description": "Successful Operation. All linked resources are removed successfully."
+          },
+          "500": {
+            "description": "Internal error"
+          },
+          "404": {
+            "description": "Not found."
+          },
+          "410": {
+            "description": "Resource is not available anymore."
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "summary": "Get created files.",
+        "tags": [
+          "Text recognition and optimization"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/vnd.ocrd.prov+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/provenance-file"
+                }
+              },
+              "application/vnd.ocrd.log+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/logging"
+                }
+              },
+              "application/zip": {
+                "schema": {
+                  "$ref": "#/components/schemas/zip-file"
+                }
+              },
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              },
+              "application/vnd.ocrd.page+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/page-file"
+                }
+              },
+              "application/mets+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/mets-file"
+                }
+              },
+              "image/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/image-file"
+                }
+              }
+            },
+            "description": "Successful Operation."
+          },
+          "400": {
+            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
+        "operationId": "get-created-files-of-processor"
+      }
+    },
+    "/tesserocr-segment-line/{_id}": {
+      "delete": {
+        "summary": "Delete all files created by job with ID 'jobID'.",
+        "tags": [
+          "Layout analysis"
+        ],
+        "responses": {
+          "204": {
+            "content": {
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              }
+            },
+            "description": "Successful Operation. All linked resources are removed successfully."
+          },
+          "500": {
+            "description": "Internal error"
+          },
+          "404": {
+            "description": "Not found."
+          },
+          "410": {
+            "description": "Resource is not available anymore."
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "summary": "Get created files.",
+        "tags": [
+          "Layout analysis"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/vnd.ocrd.prov+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/provenance-file"
+                }
+              },
+              "application/vnd.ocrd.log+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/logging"
+                }
+              },
+              "application/zip": {
+                "schema": {
+                  "$ref": "#/components/schemas/zip-file"
+                }
+              },
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              },
+              "application/vnd.ocrd.page+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/page-file"
+                }
+              },
+              "application/mets+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/mets-file"
+                }
+              },
+              "image/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/image-file"
+                }
+              }
+            },
+            "description": "Successful Operation."
+          },
+          "400": {
+            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
+        "operationId": "get-created-files-of-processor"
+      }
+    },
+    "/tesserocr-segment-region/{_id}": {
+      "delete": {
+        "summary": "Delete all files created by job with ID 'jobID'.",
+        "tags": [
+          "Layout analysis"
+        ],
+        "responses": {
+          "204": {
+            "content": {
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              }
+            },
+            "description": "Successful Operation. All linked resources are removed successfully."
+          },
+          "500": {
+            "description": "Internal error"
+          },
+          "404": {
+            "description": "Not found."
+          },
+          "410": {
+            "description": "Resource is not available anymore."
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "summary": "Get created files.",
+        "tags": [
+          "Layout analysis"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/vnd.ocrd.prov+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/provenance-file"
+                }
+              },
+              "application/vnd.ocrd.log+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/logging"
+                }
+              },
+              "application/zip": {
+                "schema": {
+                  "$ref": "#/components/schemas/zip-file"
+                }
+              },
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              },
+              "application/vnd.ocrd.page+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/page-file"
+                }
+              },
+              "application/mets+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/mets-file"
+                }
+              },
+              "image/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/image-file"
+                }
+              }
+            },
+            "description": "Successful Operation."
+          },
+          "400": {
+            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
+        "operationId": "get-created-files-of-processor"
+      }
+    },
+    "/kraken-binarize": {
+      "post": {
+        "summary": "Binarize images with kraken",
+        "tags": [
+          "Image preprocessing"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-id"
+                }
+              }
+            },
+            "links": {
+              "GetFilesByJobId": {
+                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n",
+                "parameters": {
+                  "jobID": "$response.body#/jobID"
+                },
+                "operationId": "get-created-files-of-processor"
+              }
+            },
+            "headers": {
+              "Location": {
+                "description": "URL of the generated job.",
+                "schema": {
+                  "format": "url",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "mets",
+                  "input-file-grp",
+                  "output-file-grp"
+                ],
+                "description": "Object holding all parameters needed by most processors.",
+                "parameters": {
+                  "properties": {},
+                  "type": "object"
+                },
+                "properties": {
+                  "output-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE).",
+                    "type": "array"
+                  },
+                  "parameter": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Parameter file in JSON format.",
+                    "type": "array"
+                  },
+                  "mets": {
+                    "$ref": "#/components/schemas/mets-file"
+                  },
+                  "group-id": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "All IDs of the image files which should be characterized.",
+                    "type": "array"
+                  },
+                  "log-level": {
+                    "$ref": "#/components/schemas/log-level"
+                  },
+                  "input-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE).",
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "description": "Binarize images with kraken",
+        "operationId": "start-processor"
+      },
+      "get": {
+        "produces": [],
+        "tags": [
+          "Image preprocessing"
+        ],
+        "description": "Get ocrd-tool.json",
+        "responses": {
+          "200": {
+            "application/json": {
+              "description": "Got ocrd-tool.json",
+              "schema": {
+                "required": [
+                  "version",
+                  "git_url",
+                  "tools"
+                ],
+                "additionalProperties": false,
+                "description": "Schema for tools by OCR-D MP",
+                "properties": {
+                  "version": "v2.2.0",
+                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH.",
+                    "type": "string"
+                  },
+                  "git_url": {
+                    "format": "url",
+                    "description": "Github/Gitlab URL",
+                    "type": "string"
+                  },
+                  "dockerhub": {
+                    "description": "DockerHub image",
+                    "type": "string"
+                  },
+                  "tools": {
+                    "patternProperties": {
+                      "ocrd-.*": {
+                        "required": [
+                          "description",
+                          "steps",
+                          "executable",
+                          "categories"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "executable": {
+                            "description": "The name of the CLI executable in $PATH",
+                            "type": "string"
+                          },
+                          "description": {
+                            "description": "Concise description what the tool does"
+                          },
+                          "categories": {
+                            "items": {
+                              "enum": [
+                                "Image preprocessing",
+                                "Layout analysis",
+                                "Text recognition and optimization",
+                                "Model training",
+                                "Long-term preservation",
+                                "Quality assurance"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure",
+                            "type": "array"
+                          },
+                          "parameters": {
+                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas.",
+                            "type": "object"
+                          },
+                          "steps": {
+                            "items": {
+                              "enum": [
+                                "preprocessing/characterization",
+                                "preprocessing/optimization",
+                                "preprocessing/optimization/cropping",
+                                "preprocessing/optimization/deskewing",
+                                "preprocessing/optimization/despeckling",
+                                "preprocessing/optimization/dewarping",
+                                "preprocessing/optimization/binarization",
+                                "preprocessing/optimization/grayscale_normalization",
+                                "recognition/text-recognition",
+                                "recognition/font-identification",
+                                "layout/segmentation",
+                                "layout/segmentation/region",
+                                "layout/segmentation/line",
+                                "layout/segmentation/word",
+                                "layout/segmentation/classification",
+                                "layout/analysis"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "This tool can be used at these steps in the OCR-D functional model",
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tesserocr-segment-line": {
+      "post": {
+        "summary": "Segment page into regions with tesseract",
+        "tags": [
+          "Layout analysis"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-id"
+                }
+              }
+            },
+            "links": {
+              "GetFilesByJobId": {
+                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n",
+                "parameters": {
+                  "jobID": "$response.body#/jobID"
+                },
+                "operationId": "get-created-files-of-processor"
+              }
+            },
+            "headers": {
+              "Location": {
+                "description": "URL of the generated job.",
+                "schema": {
+                  "format": "url",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "mets",
+                  "input-file-grp",
+                  "output-file-grp"
+                ],
+                "description": "Object holding all parameters needed by most processors.",
+                "parameters": {
+                  "properties": {},
+                  "type": "object"
+                },
+                "properties": {
+                  "output-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE).",
+                    "type": "array"
+                  },
+                  "parameter": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Parameter file in JSON format.",
+                    "type": "array"
+                  },
+                  "mets": {
+                    "$ref": "#/components/schemas/mets-file"
+                  },
+                  "group-id": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "All IDs of the image files which should be characterized.",
+                    "type": "array"
+                  },
+                  "log-level": {
+                    "$ref": "#/components/schemas/log-level"
+                  },
+                  "input-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE).",
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "description": "Segment page into regions with tesseract",
+        "operationId": "start-processor"
+      },
+      "get": {
+        "produces": [],
+        "tags": [
+          "Layout analysis"
+        ],
+        "description": "Get ocrd-tool.json",
+        "responses": {
+          "200": {
+            "application/json": {
+              "description": "Got ocrd-tool.json",
+              "schema": {
+                "required": [
+                  "version",
+                  "git_url",
+                  "tools"
+                ],
+                "additionalProperties": false,
+                "description": "Schema for tools by OCR-D MP",
+                "properties": {
+                  "version": "v2.2.0",
+                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH.",
+                    "type": "string"
+                  },
+                  "git_url": {
+                    "format": "url",
+                    "description": "Github/Gitlab URL",
+                    "type": "string"
+                  },
+                  "dockerhub": {
+                    "description": "DockerHub image",
+                    "type": "string"
+                  },
+                  "tools": {
+                    "patternProperties": {
+                      "ocrd-.*": {
+                        "required": [
+                          "description",
+                          "steps",
+                          "executable",
+                          "categories"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "executable": {
+                            "description": "The name of the CLI executable in $PATH",
+                            "type": "string"
+                          },
+                          "description": {
+                            "description": "Concise description what the tool does"
+                          },
+                          "categories": {
+                            "items": {
+                              "enum": [
+                                "Image preprocessing",
+                                "Layout analysis",
+                                "Text recognition and optimization",
+                                "Model training",
+                                "Long-term preservation",
+                                "Quality assurance"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure",
+                            "type": "array"
+                          },
+                          "parameters": {
+                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas.",
+                            "type": "object"
+                          },
+                          "steps": {
+                            "items": {
+                              "enum": [
+                                "preprocessing/characterization",
+                                "preprocessing/optimization",
+                                "preprocessing/optimization/cropping",
+                                "preprocessing/optimization/deskewing",
+                                "preprocessing/optimization/despeckling",
+                                "preprocessing/optimization/dewarping",
+                                "preprocessing/optimization/binarization",
+                                "preprocessing/optimization/grayscale_normalization",
+                                "recognition/text-recognition",
+                                "recognition/font-identification",
+                                "layout/segmentation",
+                                "layout/segmentation/region",
+                                "layout/segmentation/line",
+                                "layout/segmentation/word",
+                                "layout/segmentation/classification",
+                                "layout/analysis"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "This tool can be used at these steps in the OCR-D functional model",
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tesserocr-segment-region": {
+      "post": {
+        "summary": "Segment regions into lines with tesseract",
+        "tags": [
+          "Layout analysis"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-id"
+                }
+              }
+            },
+            "links": {
+              "GetFilesByJobId": {
+                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n",
+                "parameters": {
+                  "jobID": "$response.body#/jobID"
+                },
+                "operationId": "get-created-files-of-processor"
+              }
+            },
+            "headers": {
+              "Location": {
+                "description": "URL of the generated job.",
+                "schema": {
+                  "format": "url",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "mets",
+                  "input-file-grp",
+                  "output-file-grp"
+                ],
+                "description": "Object holding all parameters needed by most processors.",
+                "parameters": {
+                  "properties": {},
+                  "type": "object"
+                },
+                "properties": {
+                  "output-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE).",
+                    "type": "array"
+                  },
+                  "parameter": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Parameter file in JSON format.",
+                    "type": "array"
+                  },
+                  "mets": {
+                    "$ref": "#/components/schemas/mets-file"
+                  },
+                  "group-id": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "All IDs of the image files which should be characterized.",
+                    "type": "array"
+                  },
+                  "log-level": {
+                    "$ref": "#/components/schemas/log-level"
+                  },
+                  "input-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE).",
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "description": "Segment regions into lines with tesseract",
+        "operationId": "start-processor"
+      },
+      "get": {
+        "produces": [],
+        "tags": [
+          "Layout analysis"
+        ],
+        "description": "Get ocrd-tool.json",
+        "responses": {
+          "200": {
+            "application/json": {
+              "description": "Got ocrd-tool.json",
+              "schema": {
+                "required": [
+                  "version",
+                  "git_url",
+                  "tools"
+                ],
+                "additionalProperties": false,
+                "description": "Schema for tools by OCR-D MP",
+                "properties": {
+                  "version": "v2.2.0",
+                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH.",
+                    "type": "string"
+                  },
+                  "git_url": {
+                    "format": "url",
+                    "description": "Github/Gitlab URL",
+                    "type": "string"
+                  },
+                  "dockerhub": {
+                    "description": "DockerHub image",
+                    "type": "string"
+                  },
+                  "tools": {
+                    "patternProperties": {
+                      "ocrd-.*": {
+                        "required": [
+                          "description",
+                          "steps",
+                          "executable",
+                          "categories"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "executable": {
+                            "description": "The name of the CLI executable in $PATH",
+                            "type": "string"
+                          },
+                          "description": {
+                            "description": "Concise description what the tool does"
+                          },
+                          "categories": {
+                            "items": {
+                              "enum": [
+                                "Image preprocessing",
+                                "Layout analysis",
+                                "Text recognition and optimization",
+                                "Model training",
+                                "Long-term preservation",
+                                "Quality assurance"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure",
+                            "type": "array"
+                          },
+                          "parameters": {
+                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas.",
+                            "type": "object"
+                          },
+                          "steps": {
+                            "items": {
+                              "enum": [
+                                "preprocessing/characterization",
+                                "preprocessing/optimization",
+                                "preprocessing/optimization/cropping",
+                                "preprocessing/optimization/deskewing",
+                                "preprocessing/optimization/despeckling",
+                                "preprocessing/optimization/dewarping",
+                                "preprocessing/optimization/binarization",
+                                "preprocessing/optimization/grayscale_normalization",
+                                "recognition/text-recognition",
+                                "recognition/font-identification",
+                                "layout/segmentation",
+                                "layout/segmentation/region",
+                                "layout/segmentation/line",
+                                "layout/segmentation/word",
+                                "layout/segmentation/classification",
+                                "layout/analysis"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "This tool can be used at these steps in the OCR-D functional model",
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kraken-ocr/{_id}": {
+      "delete": {
+        "summary": "Delete all files created by job with ID 'jobID'.",
+        "tags": [
+          "Text recognition and optimization"
+        ],
+        "responses": {
+          "204": {
+            "content": {
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              }
+            },
+            "description": "Successful Operation. All linked resources are removed successfully."
+          },
+          "500": {
+            "description": "Internal error"
+          },
+          "404": {
+            "description": "Not found."
+          },
+          "410": {
+            "description": "Resource is not available anymore."
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "summary": "Get created files.",
+        "tags": [
+          "Text recognition and optimization"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/vnd.ocrd.prov+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/provenance-file"
+                }
+              },
+              "application/vnd.ocrd.log+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/logging"
+                }
+              },
+              "application/zip": {
+                "schema": {
+                  "$ref": "#/components/schemas/zip-file"
+                }
+              },
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              },
+              "application/vnd.ocrd.page+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/page-file"
+                }
+              },
+              "application/mets+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/mets-file"
+                }
+              },
+              "image/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/image-file"
+                }
+              }
+            },
+            "description": "Successful Operation."
+          },
+          "400": {
+            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
+        "operationId": "get-created-files-of-processor"
+      }
+    },
+    "/kraken-segment/{_id}": {
+      "delete": {
+        "summary": "Delete all files created by job with ID 'jobID'.",
+        "tags": [
+          "Layout analysis"
+        ],
+        "responses": {
+          "204": {
+            "content": {
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              }
+            },
+            "description": "Successful Operation. All linked resources are removed successfully."
+          },
+          "500": {
+            "description": "Internal error"
+          },
+          "404": {
+            "description": "Not found."
+          },
+          "410": {
+            "description": "Resource is not available anymore."
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "summary": "Get created files.",
+        "tags": [
+          "Layout analysis"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/vnd.ocrd.prov+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/provenance-file"
+                }
+              },
+              "application/vnd.ocrd.log+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/logging"
+                }
+              },
+              "application/zip": {
+                "schema": {
+                  "$ref": "#/components/schemas/zip-file"
+                }
+              },
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              },
+              "application/vnd.ocrd.page+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/page-file"
+                }
+              },
+              "application/mets+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/mets-file"
+                }
+              },
+              "image/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/image-file"
+                }
+              }
+            },
+            "description": "Successful Operation."
+          },
+          "400": {
+            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
+        "operationId": "get-created-files-of-processor"
+      }
+    },
+    "/kraken-segment": {
+      "post": {
+        "summary": "Block segmentation with kraken",
+        "tags": [
+          "Layout analysis"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-id"
+                }
+              }
+            },
+            "links": {
+              "GetFilesByJobId": {
+                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n",
+                "parameters": {
+                  "jobID": "$response.body#/jobID"
+                },
+                "operationId": "get-created-files-of-processor"
+              }
+            },
+            "headers": {
+              "Location": {
+                "description": "URL of the generated job.",
+                "schema": {
+                  "format": "url",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "mets",
+                  "input-file-grp",
+                  "output-file-grp"
+                ],
+                "description": "Object holding all parameters needed by most processors.",
+                "parameters": {
+                  "properties": {},
+                  "type": "object"
+                },
+                "properties": {
+                  "output-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE).",
+                    "type": "array"
+                  },
+                  "parameter": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Parameter file in JSON format.",
+                    "type": "array"
+                  },
+                  "mets": {
+                    "$ref": "#/components/schemas/mets-file"
+                  },
+                  "group-id": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "All IDs of the image files which should be characterized.",
+                    "type": "array"
+                  },
+                  "log-level": {
+                    "$ref": "#/components/schemas/log-level"
+                  },
+                  "input-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE).",
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "description": "Block segmentation with kraken",
+        "operationId": "start-processor"
+      },
+      "get": {
+        "produces": [],
+        "tags": [
+          "Layout analysis"
+        ],
+        "description": "Get ocrd-tool.json",
+        "responses": {
+          "200": {
+            "application/json": {
+              "description": "Got ocrd-tool.json",
+              "schema": {
+                "required": [
+                  "version",
+                  "git_url",
+                  "tools"
+                ],
+                "additionalProperties": false,
+                "description": "Schema for tools by OCR-D MP",
+                "properties": {
+                  "version": "v2.2.0",
+                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH.",
+                    "type": "string"
+                  },
+                  "git_url": {
+                    "format": "url",
+                    "description": "Github/Gitlab URL",
+                    "type": "string"
+                  },
+                  "dockerhub": {
+                    "description": "DockerHub image",
+                    "type": "string"
+                  },
+                  "tools": {
+                    "patternProperties": {
+                      "ocrd-.*": {
+                        "required": [
+                          "description",
+                          "steps",
+                          "executable",
+                          "categories"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "executable": {
+                            "description": "The name of the CLI executable in $PATH",
+                            "type": "string"
+                          },
+                          "description": {
+                            "description": "Concise description what the tool does"
+                          },
+                          "categories": {
+                            "items": {
+                              "enum": [
+                                "Image preprocessing",
+                                "Layout analysis",
+                                "Text recognition and optimization",
+                                "Model training",
+                                "Long-term preservation",
+                                "Quality assurance"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure",
+                            "type": "array"
+                          },
+                          "parameters": {
+                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas.",
+                            "type": "object"
+                          },
+                          "steps": {
+                            "items": {
+                              "enum": [
+                                "preprocessing/characterization",
+                                "preprocessing/optimization",
+                                "preprocessing/optimization/cropping",
+                                "preprocessing/optimization/deskewing",
+                                "preprocessing/optimization/despeckling",
+                                "preprocessing/optimization/dewarping",
+                                "preprocessing/optimization/binarization",
+                                "preprocessing/optimization/grayscale_normalization",
+                                "recognition/text-recognition",
+                                "recognition/font-identification",
+                                "layout/segmentation",
+                                "layout/segmentation/region",
+                                "layout/segmentation/line",
+                                "layout/segmentation/word",
+                                "layout/segmentation/classification",
+                                "layout/analysis"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "This tool can be used at these steps in the OCR-D functional model",
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tesserocr-segment-word": {
+      "post": {
+        "summary": "Segment lines into words with tesseract",
+        "tags": [
+          "Layout analysis"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-id"
+                }
+              }
+            },
+            "links": {
+              "GetFilesByJobId": {
+                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n",
+                "parameters": {
+                  "jobID": "$response.body#/jobID"
+                },
+                "operationId": "get-created-files-of-processor"
+              }
+            },
+            "headers": {
+              "Location": {
+                "description": "URL of the generated job.",
+                "schema": {
+                  "format": "url",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "mets",
+                  "input-file-grp",
+                  "output-file-grp"
+                ],
+                "description": "Object holding all parameters needed by most processors.",
+                "parameters": {
+                  "properties": {},
+                  "type": "object"
+                },
+                "properties": {
+                  "output-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE).",
+                    "type": "array"
+                  },
+                  "parameter": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Parameter file in JSON format.",
+                    "type": "array"
+                  },
+                  "mets": {
+                    "$ref": "#/components/schemas/mets-file"
+                  },
+                  "group-id": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "All IDs of the image files which should be characterized.",
+                    "type": "array"
+                  },
+                  "log-level": {
+                    "$ref": "#/components/schemas/log-level"
+                  },
+                  "input-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE).",
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "description": "Segment lines into words with tesseract",
+        "operationId": "start-processor"
+      },
+      "get": {
+        "produces": [],
+        "tags": [
+          "Layout analysis"
+        ],
+        "description": "Get ocrd-tool.json",
+        "responses": {
+          "200": {
+            "application/json": {
+              "description": "Got ocrd-tool.json",
+              "schema": {
+                "required": [
+                  "version",
+                  "git_url",
+                  "tools"
+                ],
+                "additionalProperties": false,
+                "description": "Schema for tools by OCR-D MP",
+                "properties": {
+                  "version": "v2.2.0",
+                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH.",
+                    "type": "string"
+                  },
+                  "git_url": {
+                    "format": "url",
+                    "description": "Github/Gitlab URL",
+                    "type": "string"
+                  },
+                  "dockerhub": {
+                    "description": "DockerHub image",
+                    "type": "string"
+                  },
+                  "tools": {
+                    "patternProperties": {
+                      "ocrd-.*": {
+                        "required": [
+                          "description",
+                          "steps",
+                          "executable",
+                          "categories"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "executable": {
+                            "description": "The name of the CLI executable in $PATH",
+                            "type": "string"
+                          },
+                          "description": {
+                            "description": "Concise description what the tool does"
+                          },
+                          "categories": {
+                            "items": {
+                              "enum": [
+                                "Image preprocessing",
+                                "Layout analysis",
+                                "Text recognition and optimization",
+                                "Model training",
+                                "Long-term preservation",
+                                "Quality assurance"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure",
+                            "type": "array"
+                          },
+                          "parameters": {
+                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas.",
+                            "type": "object"
+                          },
+                          "steps": {
+                            "items": {
+                              "enum": [
+                                "preprocessing/characterization",
+                                "preprocessing/optimization",
+                                "preprocessing/optimization/cropping",
+                                "preprocessing/optimization/deskewing",
+                                "preprocessing/optimization/despeckling",
+                                "preprocessing/optimization/dewarping",
+                                "preprocessing/optimization/binarization",
+                                "preprocessing/optimization/grayscale_normalization",
+                                "recognition/text-recognition",
+                                "recognition/font-identification",
+                                "layout/segmentation",
+                                "layout/segmentation/region",
+                                "layout/segmentation/line",
+                                "layout/segmentation/word",
+                                "layout/segmentation/classification",
+                                "layout/analysis"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "This tool can be used at these steps in the OCR-D functional model",
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kraken-binarize/{_id}": {
+      "delete": {
+        "summary": "Delete all files created by job with ID 'jobID'.",
+        "tags": [
+          "Image preprocessing"
+        ],
+        "responses": {
+          "204": {
+            "content": {
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              }
+            },
+            "description": "Successful Operation. All linked resources are removed successfully."
+          },
+          "500": {
+            "description": "Internal error"
+          },
+          "404": {
+            "description": "Not found."
+          },
+          "410": {
+            "description": "Resource is not available anymore."
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "summary": "Get created files.",
+        "tags": [
+          "Image preprocessing"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/vnd.ocrd.prov+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/provenance-file"
+                }
+              },
+              "application/vnd.ocrd.log+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/logging"
+                }
+              },
+              "application/zip": {
+                "schema": {
+                  "$ref": "#/components/schemas/zip-file"
+                }
+              },
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              },
+              "application/vnd.ocrd.page+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/page-file"
+                }
+              },
+              "application/mets+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/mets-file"
+                }
+              },
+              "image/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/image-file"
+                }
+              }
+            },
+            "description": "Successful Operation."
+          },
+          "400": {
+            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
+        "operationId": "get-created-files-of-processor"
+      }
+    },
+    "/kraken-ocr": {
+      "post": {
+        "summary": "OCR with kraken",
+        "tags": [
+          "Text recognition and optimization"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-id"
+                }
+              }
+            },
+            "links": {
+              "GetFilesByJobId": {
+                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n",
+                "parameters": {
+                  "jobID": "$response.body#/jobID"
+                },
+                "operationId": "get-created-files-of-processor"
+              }
+            },
+            "headers": {
+              "Location": {
+                "description": "URL of the generated job.",
+                "schema": {
+                  "format": "url",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "mets",
+                  "input-file-grp",
+                  "output-file-grp"
+                ],
+                "description": "Object holding all parameters needed by most processors.",
+                "parameters": {
+                  "properties": {},
+                  "type": "object"
+                },
+                "properties": {
+                  "output-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE).",
+                    "type": "array"
+                  },
+                  "parameter": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Parameter file in JSON format.",
+                    "type": "array"
+                  },
+                  "mets": {
+                    "$ref": "#/components/schemas/mets-file"
+                  },
+                  "group-id": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "All IDs of the image files which should be characterized.",
+                    "type": "array"
+                  },
+                  "log-level": {
+                    "$ref": "#/components/schemas/log-level"
+                  },
+                  "input-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE).",
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "description": "OCR with kraken",
+        "operationId": "start-processor"
+      },
+      "get": {
+        "produces": [],
+        "tags": [
+          "Text recognition and optimization"
+        ],
+        "description": "Get ocrd-tool.json",
+        "responses": {
+          "200": {
+            "application/json": {
+              "description": "Got ocrd-tool.json",
+              "schema": {
+                "required": [
+                  "version",
+                  "git_url",
+                  "tools"
+                ],
+                "additionalProperties": false,
+                "description": "Schema for tools by OCR-D MP",
+                "properties": {
+                  "version": "v2.2.0",
+                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH.",
+                    "type": "string"
+                  },
+                  "git_url": {
+                    "format": "url",
+                    "description": "Github/Gitlab URL",
+                    "type": "string"
+                  },
+                  "dockerhub": {
+                    "description": "DockerHub image",
+                    "type": "string"
+                  },
+                  "tools": {
+                    "patternProperties": {
+                      "ocrd-.*": {
+                        "required": [
+                          "description",
+                          "steps",
+                          "executable",
+                          "categories"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "executable": {
+                            "description": "The name of the CLI executable in $PATH",
+                            "type": "string"
+                          },
+                          "description": {
+                            "description": "Concise description what the tool does"
+                          },
+                          "categories": {
+                            "items": {
+                              "enum": [
+                                "Image preprocessing",
+                                "Layout analysis",
+                                "Text recognition and optimization",
+                                "Model training",
+                                "Long-term preservation",
+                                "Quality assurance"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure",
+                            "type": "array"
+                          },
+                          "parameters": {
+                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas.",
+                            "type": "object"
+                          },
+                          "steps": {
+                            "items": {
+                              "enum": [
+                                "preprocessing/characterization",
+                                "preprocessing/optimization",
+                                "preprocessing/optimization/cropping",
+                                "preprocessing/optimization/deskewing",
+                                "preprocessing/optimization/despeckling",
+                                "preprocessing/optimization/dewarping",
+                                "preprocessing/optimization/binarization",
+                                "preprocessing/optimization/grayscale_normalization",
+                                "recognition/text-recognition",
+                                "recognition/font-identification",
+                                "layout/segmentation",
+                                "layout/segmentation/region",
+                                "layout/segmentation/line",
+                                "layout/segmentation/word",
+                                "layout/segmentation/classification",
+                                "layout/analysis"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "This tool can be used at these steps in the OCR-D functional model",
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tesserocr-recognize": {
+      "post": {
+        "summary": "Recognize text in lines with tesseract",
+        "tags": [
+          "Text recognition and optimization"
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-id"
+                }
+              }
+            },
+            "links": {
+              "GetFilesByJobId": {
+                "description": "The `jobId` value returned in the response can be used as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.\n",
+                "parameters": {
+                  "jobID": "$response.body#/jobID"
+                },
+                "operationId": "get-created-files-of-processor"
+              }
+            },
+            "headers": {
+              "Location": {
+                "description": "URL of the generated job.",
+                "schema": {
+                  "format": "url",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Successful Operation. The created file(s) has/have to be referenced inside the given fileGrp sections."
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "mets",
+                  "input-file-grp",
+                  "output-file-grp"
+                ],
+                "description": "Object holding all parameters needed by most processors.",
+                "parameters": {
+                  "properties": {},
+                  "type": "object"
+                },
+                "properties": {
+                  "output-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as output. (fileGrp@USE).",
+                    "type": "array"
+                  },
+                  "parameter": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Parameter file in JSON format.",
+                    "type": "array"
+                  },
+                  "mets": {
+                    "$ref": "#/components/schemas/mets-file"
+                  },
+                  "group-id": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "All IDs of the image files which should be characterized.",
+                    "type": "array"
+                  },
+                  "log-level": {
+                    "$ref": "#/components/schemas/log-level"
+                  },
+                  "input-file-grp": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "ID(s) of the fileGrps which have to be used as input. (fileGrp@USE).",
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "description": "Recognize text in lines with tesseract",
+        "operationId": "start-processor"
+      },
+      "get": {
+        "produces": [],
+        "tags": [
+          "Text recognition and optimization"
+        ],
+        "description": "Get ocrd-tool.json",
+        "responses": {
+          "200": {
+            "application/json": {
+              "description": "Got ocrd-tool.json",
+              "schema": {
+                "required": [
+                  "version",
+                  "git_url",
+                  "tools"
+                ],
+                "additionalProperties": false,
+                "description": "Schema for tools by OCR-D MP",
+                "properties": {
+                  "version": "v2.2.0",
+                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+                    "description": "Version of the tool, expressed as MAJOR.MINOR.PATCH.",
+                    "type": "string"
+                  },
+                  "git_url": {
+                    "format": "url",
+                    "description": "Github/Gitlab URL",
+                    "type": "string"
+                  },
+                  "dockerhub": {
+                    "description": "DockerHub image",
+                    "type": "string"
+                  },
+                  "tools": {
+                    "patternProperties": {
+                      "ocrd-.*": {
+                        "required": [
+                          "description",
+                          "steps",
+                          "executable",
+                          "categories"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "executable": {
+                            "description": "The name of the CLI executable in $PATH",
+                            "type": "string"
+                          },
+                          "description": {
+                            "description": "Concise description what the tool does"
+                          },
+                          "categories": {
+                            "items": {
+                              "enum": [
+                                "Image preprocessing",
+                                "Layout analysis",
+                                "Text recognition and optimization",
+                                "Model training",
+                                "Long-term preservation",
+                                "Quality assurance"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "Tools belong to this categories, representing modules within the OCR-D project structure",
+                            "type": "array"
+                          },
+                          "parameters": {
+                            "description": "Object describing the parameters of a tool. Keys are parameter names, values sub-schemas.",
+                            "type": "object"
+                          },
+                          "steps": {
+                            "items": {
+                              "enum": [
+                                "preprocessing/characterization",
+                                "preprocessing/optimization",
+                                "preprocessing/optimization/cropping",
+                                "preprocessing/optimization/deskewing",
+                                "preprocessing/optimization/despeckling",
+                                "preprocessing/optimization/dewarping",
+                                "preprocessing/optimization/binarization",
+                                "preprocessing/optimization/grayscale_normalization",
+                                "recognition/text-recognition",
+                                "recognition/font-identification",
+                                "layout/segmentation",
+                                "layout/segmentation/region",
+                                "layout/segmentation/line",
+                                "layout/segmentation/word",
+                                "layout/segmentation/classification",
+                                "layout/analysis"
+                              ],
+                              "type": "string"
+                            },
+                            "description": "This tool can be used at these steps in the OCR-D functional model",
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tesserocr-segment-word/{_id}": {
+      "delete": {
+        "summary": "Delete all files created by job with ID 'jobID'.",
+        "tags": [
+          "Layout analysis"
+        ],
+        "responses": {
+          "204": {
+            "content": {
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              }
+            },
+            "description": "Successful Operation. All linked resources are removed successfully."
+          },
+          "500": {
+            "description": "Internal error"
+          },
+          "404": {
+            "description": "Not found."
+          },
+          "410": {
+            "description": "Resource is not available anymore."
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "get": {
+        "summary": "Get created files.",
+        "tags": [
+          "Layout analysis"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/vnd.ocrd.prov+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/provenance-file"
+                }
+              },
+              "application/vnd.ocrd.log+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/logging"
+                }
+              },
+              "application/zip": {
+                "schema": {
+                  "$ref": "#/components/schemas/zip-file"
+                }
+              },
+              "application/vnd.ocrd+job-status": {
+                "schema": {
+                  "$ref": "#/components/schemas/job-status"
+                }
+              },
+              "application/vnd.ocrd.page+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/page-file"
+                }
+              },
+              "application/mets+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/mets-file"
+                }
+              },
+              "image/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/image-file"
+                }
+              }
+            },
+            "description": "Successful Operation."
+          },
+          "400": {
+            "description": "Bad request. Maybe more than one file of at least one mimetype was created. Please use mimetype 'application/zip' as accept header to fetch all files at once."
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobID",
+            "description": "job ID of the started process.",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "description": "Fetch all file created by job with id 'jobID'. If more than one file is created per mimetype use mimetype 'application/zip' as accept header to fetch all files at once.",
+        "operationId": "get-created-files-of-processor"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://test.ocr-d.de/v1"
     }
   ]
 }
