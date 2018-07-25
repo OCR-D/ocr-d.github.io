@@ -118,7 +118,7 @@ info:
   license: {name: Apache 2.0, url: 'http://www.apache.org/licenses/LICENSE-2.0.html'}
   termsOfService: http://swagger.io/terms/
   title: OCR-D
-  version: v2.2.1
+  version: v2.2.0
 openapi: 3.0.0
 paths:
   /kraken-binarize:
@@ -154,28 +154,9 @@ paths:
                             does}
                         executable: {description: The name of the CLI executable in
                             $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
+                        parameters: {description: 'Object describing the parameters
+                            of a tool. Keys are parameter names, values sub-schemas.',
+                          type: object}
                         steps:
                           description: This tool can be used at these steps in the
                             OCR-D functional model
@@ -193,7 +174,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.2.1
+                version: v2.2.0
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
@@ -342,28 +323,9 @@ paths:
                             does}
                         executable: {description: The name of the CLI executable in
                             $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
+                        parameters: {description: 'Object describing the parameters
+                            of a tool. Keys are parameter names, values sub-schemas.',
+                          type: object}
                         steps:
                           description: This tool can be used at these steps in the
                             OCR-D functional model
@@ -381,7 +343,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.2.1
+                version: v2.2.0
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
@@ -530,28 +492,9 @@ paths:
                             does}
                         executable: {description: The name of the CLI executable in
                             $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
+                        parameters: {description: 'Object describing the parameters
+                            of a tool. Keys are parameter names, values sub-schemas.',
+                          type: object}
                         steps:
                           description: This tool can be used at these steps in the
                             OCR-D functional model
@@ -569,7 +512,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.2.1
+                version: v2.2.0
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
@@ -718,28 +661,9 @@ paths:
                             does}
                         executable: {description: The name of the CLI executable in
                             $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
+                        parameters: {description: 'Object describing the parameters
+                            of a tool. Keys are parameter names, values sub-schemas.',
+                          type: object}
                         steps:
                           description: This tool can be used at these steps in the
                             OCR-D functional model
@@ -757,7 +681,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.2.1
+                version: v2.2.0
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
@@ -906,28 +830,9 @@ paths:
                             does}
                         executable: {description: The name of the CLI executable in
                             $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
+                        parameters: {description: 'Object describing the parameters
+                            of a tool. Keys are parameter names, values sub-schemas.',
+                          type: object}
                         steps:
                           description: This tool can be used at these steps in the
                             OCR-D functional model
@@ -945,7 +850,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.2.1
+                version: v2.2.0
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
@@ -1094,28 +999,9 @@ paths:
                             does}
                         executable: {description: The name of the CLI executable in
                             $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
+                        parameters: {description: 'Object describing the parameters
+                            of a tool. Keys are parameter names, values sub-schemas.',
+                          type: object}
                         steps:
                           description: This tool can be used at these steps in the
                             OCR-D functional model
@@ -1133,7 +1019,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.2.1
+                version: v2.2.0
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
@@ -1282,28 +1168,9 @@ paths:
                             does}
                         executable: {description: The name of the CLI executable in
                             $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
+                        parameters: {description: 'Object describing the parameters
+                            of a tool. Keys are parameter names, values sub-schemas.',
+                          type: object}
                         steps:
                           description: This tool can be used at these steps in the
                             OCR-D functional model
@@ -1321,7 +1188,7 @@ paths:
                       required: [description, steps, executable, categories]
                       type: object
                   type: object
-                version: v2.2.1
+                version: v2.2.0
                   pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
               required: [version, git_url, tools]
               type: object
