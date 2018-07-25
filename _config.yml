@@ -31,5 +31,4 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
 theme: minima
-plugins:
-  - jemoji
+plugins: []
