@@ -281,11 +281,35 @@ Example:
 
 #### Metadata about the tools
 
-:fire: TODO :fire:
+The `tools` section is an object with the key being the name of the executable described and the value being an object with the following properties (bold means required):
+
+  * **`executable`**: Name of the exceutable. Must match the key and start with `ocrd-`.
+  * `parameters`: Description of [the parameters this tool accepts](#metadata-about-parameters)
+  * **`description`**: Concise description what the tool does
+  * **`categories`**: Tools belong to this categories, representing modules within the OCR-D project structure, [list is part of the specs](https://ocr-d.github.io/ocrd_tool).
+  * **`steps`**: This tool can be used at these steps in the OCR-D functional model, [list of values in the specs](https://ocr-d.github.io/ocrd_tool).
+
+#### Metadata about parameters
+
+Required properties are bold.
+
+  * **`type`**: What kind of parameter this is, either a `string`, a `number` or a `boolean`.
+  * `format`: Subtype defining the syntax of the value such as `float`/`integer` for numbers or `uri` for `string`
+  * `required`: If true, this parameter must be provided by the user
+  * `default`: Default value if not required
+  * `enum`: List of possible values if a fixed list.
+
+`required: true` and setting `default` are mutually exclusive.
 
 ### `Makefile`
 
-:fire: TODO :fire:
+All MP should provide a [Makefile](https://en.wikipedia.org/wiki/Makefile) with at least two targets: `deps` and `install`.
+
+`make deps` should install any dependencies, such as required python modules.
+
+`make install` should install the executable(s) into `$(PREFIX)/bin`.
+
+`make test` should start the unit/regression test suite if provided.
 
 #### `Makefile` for python MP
 
