@@ -1,5 +1,5 @@
-components:
-  schemas:
+!!python/unicode 'components':
+  !!python/unicode 'schemas':
     image-file: {description: Image created by processor., format: binary, type: string}
     job-id:
       description: Status and job ID of created job.
@@ -80,9 +80,10 @@ components:
         \ \n  * Images (optional) \n  * Output of (error) console. (optional) (default:\
         \ output.json)\n\nAll files have to be referenced inside the METS file.\n",
       format: binary, type: string}
-info:
-  contact: {email: volker.hartmann@kit.edu}
-  description: 'This is a generic definition of the modules used for the OCR-D project.
+!!python/unicode 'info':
+  !!python/unicode 'contact': {!!python/unicode 'email': !!python/unicode 'volker.hartmann@kit.edu'}
+  !!python/unicode 'description': !!python/unicode 'This is a generic definition of
+    the modules used for the OCR-D project.
 
     * Implementation path for the different processors (description)
 
@@ -115,1340 +116,1592 @@ info:
     regions of a page.)
 
     * /layout/analysis (Analyse regions on document level.)'
-  license: {name: Apache 2.0, url: 'http://www.apache.org/licenses/LICENSE-2.0.html'}
-  termsOfService: http://swagger.io/terms/
-  title: OCR-D
-  version: v2.2.1
-openapi: 3.0.0
-paths:
-  /kraken-binarize:
+  !!python/unicode 'license': {!!python/unicode 'name': !!python/unicode 'Apache 2.0',
+    !!python/unicode 'url': !!python/unicode 'http://www.apache.org/licenses/LICENSE-2.0.html'}
+  !!python/unicode 'termsOfService': !!python/unicode 'http://swagger.io/terms/'
+  !!python/unicode 'title': !!python/unicode 'OCR-D'
+  !!python/unicode 'version': !!python/unicode '1.1.0'
+!!python/unicode 'openapi': !!python/unicode '3.0.0'
+!!python/unicode 'paths':
+  !!python/unicode '/kraken-binarize':
     get:
-      description: Get ocrd-tool.json
-      produces: []
-      responses:
-        '200':
-          application/json:
-            description: Got ocrd-tool.json
-            schema:
-              additionalProperties: false
-              description: Schema for tools by OCR-D MP
-              properties:
-                dockerhub: {description: DockerHub image, type: string}
-                git_url: {description: Github/Gitlab URL, format: url, type: string}
-                tools:
-                  additionalProperties: false
-                  patternProperties:
-                    ocrd-.*:
-                      additionalProperties: false
-                      properties:
-                        categories:
-                          description: Tools belong to this categories, representing
-                            modules within the OCR-D project structure
-                          items:
-                            enum: [Image preprocessing, Layout analysis, Text recognition
-                                and optimization, Model training, Long-term preservation,
-                              Quality assurance]
-                            type: string
-                          type: array
-                        description: {description: Concise description what the tool
-                            does}
-                        executable: {description: The name of the CLI executable in
-                            $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
-                        steps:
-                          description: This tool can be used at these steps in the
-                            OCR-D functional model
-                          items:
-                            enum: [preprocessing/characterization, preprocessing/optimization,
-                              preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
-                              preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
-                              preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
-                              recognition/text-recognition, recognition/font-identification,
-                              layout/segmentation, layout/segmentation/region, layout/segmentation/line,
-                              layout/segmentation/word, layout/segmentation/classification,
-                              layout/analysis]
-                            type: string
-                          type: array
-                      required: [description, steps, executable, categories]
-                      type: object
-                  type: object
-                version: v2.2.1
-                  pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
-              required: [version, git_url, tools]
-              type: object
-      tags: &id001 [Image preprocessing]
+      !!python/unicode 'description': !!python/unicode 'Get ocrd-tool.json'
+      !!python/unicode 'produces': []
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'application/json':
+            !!python/unicode 'description': !!python/unicode 'Got ocrd-tool.json'
+            !!python/unicode 'schema':
+              !!python/unicode 'additionalProperties': false
+              !!python/unicode 'description': !!python/unicode 'Schema for tools by
+                OCR-D MP'
+              !!python/unicode 'properties':
+                !!python/unicode 'dockerhub': {!!python/unicode 'description': !!python/unicode 'DockerHub
+                    image', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'git_url': {!!python/unicode 'description': !!python/unicode 'Github/Gitlab
+                    URL', !!python/unicode 'format': !!python/unicode 'url', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'tools':
+                  !!python/unicode 'additionalProperties': false
+                  !!python/unicode 'patternProperties':
+                    !!python/unicode 'ocrd-.*':
+                      !!python/unicode 'additionalProperties': false
+                      !!python/unicode 'properties':
+                        !!python/unicode 'categories':
+                          !!python/unicode 'description': !!python/unicode 'Tools
+                            belong to this categories, representing modules within
+                            the OCR-D project structure'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'Image preprocessing',
+                              !!python/unicode 'Layout analysis', !!python/unicode 'Text
+                                recognition and optimization', !!python/unicode 'Model
+                                training', !!python/unicode 'Long-term preservation',
+                              !!python/unicode 'Quality assurance']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                        !!python/unicode 'description': {!!python/unicode 'description': !!python/unicode 'Concise
+                            description what the tool does'}
+                        !!python/unicode 'executable': {!!python/unicode 'description': !!python/unicode 'The
+                            name of the CLI executable in $PATH', !!python/unicode 'type': !!python/unicode 'string'}
+                        !!python/unicode 'parameters':
+                          !!python/unicode 'description': !!python/unicode 'Object
+                            describing the parameters of a tool. Keys are parameter
+                            names, values sub-schemas.'
+                          !!python/unicode 'patternProperties':
+                            !!python/unicode '.*':
+                              !!python/unicode 'additionalProperties': false
+                              !!python/unicode 'properties':
+                                !!python/unicode 'default': {!!python/unicode 'description': !!python/unicode 'Default
+                                    value when not provided by the user'}
+                                !!python/unicode 'enum': {!!python/unicode 'description': !!python/unicode 'List
+                                    the allowed values if a fixed list.', !!python/unicode 'type': !!python/unicode 'array'}
+                                !!python/unicode 'format': {!!python/unicode 'description': !!python/unicode 'Subtype,
+                                    such as `float` for type `number` or `uri` for
+                                    type `string`.'}
+                                !!python/unicode 'required': {!!python/unicode 'description': !!python/unicode 'Whether
+                                    this parameter is required', !!python/unicode 'type': !!python/unicode 'boolean'}
+                                !!python/unicode 'type':
+                                  !!python/unicode 'description': !!python/unicode 'Data
+                                    type of this parameter'
+                                  !!python/unicode 'enum': [!!python/unicode 'string',
+                                    !!python/unicode 'number', !!python/unicode 'boolean']
+                                  !!python/unicode 'type': !!python/unicode 'string'
+                              !!python/unicode 'required': [!!python/unicode 'type']
+                              !!python/unicode 'type': !!python/unicode 'object'
+                          !!python/unicode 'type': !!python/unicode 'object'
+                        !!python/unicode 'steps':
+                          !!python/unicode 'description': !!python/unicode 'This tool
+                            can be used at these steps in the OCR-D functional model'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'preprocessing/characterization',
+                              !!python/unicode 'preprocessing/optimization', !!python/unicode 'preprocessing/optimization/cropping',
+                              !!python/unicode 'preprocessing/optimization/deskewing',
+                              !!python/unicode 'preprocessing/optimization/despeckling',
+                              !!python/unicode 'preprocessing/optimization/dewarping',
+                              !!python/unicode 'preprocessing/optimization/binarization',
+                              !!python/unicode 'preprocessing/optimization/grayscale_normalization',
+                              !!python/unicode 'recognition/text-recognition', !!python/unicode 'recognition/font-identification',
+                              !!python/unicode 'layout/segmentation', !!python/unicode 'layout/segmentation/region',
+                              !!python/unicode 'layout/segmentation/line', !!python/unicode 'layout/segmentation/word',
+                              !!python/unicode 'layout/segmentation/classification',
+                              !!python/unicode 'layout/analysis']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                      !!python/unicode 'required': [!!python/unicode 'description',
+                        !!python/unicode 'steps', !!python/unicode 'executable', !!python/unicode 'categories']
+                      !!python/unicode 'type': !!python/unicode 'object'
+                  !!python/unicode 'type': !!python/unicode 'object'
+                !!python/unicode 'version': {!!python/unicode 'description': !!python/unicode 'Version
+                    of the tool, expressed as MAJOR.MINOR.PATCH.', !!python/unicode 'pattern': !!python/unicode '^[0-9]+\.[0-9]+\.[0-9]+$',
+                  !!python/unicode 'type': !!python/unicode 'string'}
+              !!python/unicode 'required': [!!python/unicode 'version', !!python/unicode 'git_url',
+                !!python/unicode 'tools']
+              !!python/unicode 'type': !!python/unicode 'object'
+      tags: &id001 [!!python/unicode 'Image preprocessing']
     post:
-      description: Binarize images with kraken
-      operationId: start-processor
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              description: Object holding all parameters needed by most processors.
+      !!python/unicode 'description': !!python/unicode 'Binarize images with kraken'
+      !!python/unicode 'operationId': !!python/unicode 'start-processor'
+      !!python/unicode 'requestBody':
+        !!python/unicode 'content':
+          !!python/unicode 'multipart/form-data':
+            !!python/unicode 'schema':
+              !!python/unicode 'description': !!python/unicode 'Object holding all
+                parameters needed by most processors.'
               parameters:
                 properties: {}
                 type: object
-              properties:
-                group-id:
-                  description: All IDs of the image files which should be characterized.
-                  items: {type: string}
-                  type: array
-                input-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as input.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                log-level: {$ref: '#/components/schemas/log-level'}
-                mets: {$ref: '#/components/schemas/mets-file'}
-                output-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as output.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                parameter:
-                  description: Parameter file in JSON format.
-                  items: {type: string}
-                  type: array
-              required: [mets, input-file-grp, output-file-grp]
-              type: object
-      responses:
-        '201':
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/job-id'}
-          description: Successful Operation. The created file(s) has/have to be referenced
-            inside the given fileGrp sections.
-          headers:
-            Location:
-              description: URL of the generated job.
-              schema: {format: url, type: string}
-          links:
-            GetFilesByJobId:
-              description: 'The `jobId` value returned in the response can be used
-                as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.
+              !!python/unicode 'properties':
+                !!python/unicode 'group-id':
+                  !!python/unicode 'description': !!python/unicode 'All IDs of the
+                    image files which should be characterized.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'input-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as input. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'log-level': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/log-level'}
+                !!python/unicode 'mets': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+                !!python/unicode 'output-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as output. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'parameter':
+                  !!python/unicode 'description': !!python/unicode 'Parameter file
+                    in JSON format.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+              !!python/unicode 'required': [!!python/unicode 'mets', !!python/unicode 'input-file-grp',
+                !!python/unicode 'output-file-grp']
+              !!python/unicode 'type': !!python/unicode 'object'
+      !!python/unicode 'responses':
+        !!python/unicode '201':
+          !!python/unicode 'content':
+            !!python/unicode 'application/json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-id'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            The created file(s) has/have to be referenced inside the given fileGrp
+            sections.'
+          !!python/unicode 'headers':
+            !!python/unicode 'Location':
+              !!python/unicode 'description': !!python/unicode 'URL of the generated
+                job.'
+              !!python/unicode 'schema': {!!python/unicode 'format': !!python/unicode 'url',
+                !!python/unicode 'type': !!python/unicode 'string'}
+          !!python/unicode 'links':
+            !!python/unicode 'GetFilesByJobId':
+              !!python/unicode 'description': !!python/unicode 'The `jobId` value
+                returned in the response can be used as the `jobID` parameter in `GET
+                /ocrd/processor/jobid/{jobID}`.
 
                 '
-              operationId: get-created-files-of-processor
-              parameters: {jobID: $response.body#/jobID}
-        '400': {description: Invalid input}
-        '500': {description: Internal error}
-      summary: Binarize images with kraken
-      tags: *id001
-  /kraken-binarize/{_id}:
+              !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+              !!python/unicode 'parameters': {!!python/unicode 'jobID': !!python/unicode '$response.body#/jobID'}
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Invalid
+            input'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Binarize images with kraken'
+      !!python/unicode 'tags': *id001
+  !!python/unicode '/kraken-binarize/{_id}':
     delete:
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '204':
-          content:
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-          description: Successful Operation. All linked resources are removed successfully.
-        '404': {description: Not found.}
-        '410': {description: Resource is not available anymore.}
-        '500': {description: Internal error}
-      summary: Delete all files created by job with ID 'jobID'.
-      tags: *id001
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '204':
+          !!python/unicode 'content':
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            All linked resources are removed successfully.'
+        !!python/unicode '404': {!!python/unicode 'description': !!python/unicode 'Not
+            found.'}
+        !!python/unicode '410': {!!python/unicode 'description': !!python/unicode 'Resource
+            is not available anymore.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Delete all files created by job
+        with ID ''jobID''.'
+      !!python/unicode 'tags': *id001
     get:
-      description: Fetch all file created by job with id 'jobID'. If more than one
-        file is created per mimetype use mimetype 'application/zip' as accept header
-        to fetch all files at once.
-      operationId: get-created-files-of-processor
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '200':
-          content:
-            application/mets+xml:
-              schema: {$ref: '#/components/schemas/mets-file'}
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-            application/vnd.ocrd.log+json:
-              schema: {$ref: '#/components/schemas/logging'}
-            application/vnd.ocrd.page+xml:
-              schema: {$ref: '#/components/schemas/page-file'}
-            application/vnd.ocrd.prov+json:
-              schema: {$ref: '#/components/schemas/provenance-file'}
-            application/zip:
-              schema: {$ref: '#/components/schemas/zip-file'}
-            image/*:
-              schema: {$ref: '#/components/schemas/image-file'}
-          description: Successful Operation.
-        '400': {description: Bad request. Maybe more than one file of at least one
-            mimetype was created. Please use mimetype 'application/zip' as accept
-            header to fetch all files at once.}
-        '500': {description: Internal error}
-      summary: Get created files.
-      tags: *id001
-  /kraken-ocr:
+      !!python/unicode 'description': !!python/unicode 'Fetch all file created by
+        job with id ''jobID''. If more than one file is created per mimetype use mimetype
+        ''application/zip'' as accept header to fetch all files at once.'
+      !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'content':
+            !!python/unicode 'application/mets+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+            !!python/unicode 'application/vnd.ocrd.log+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/logging'}
+            !!python/unicode 'application/vnd.ocrd.page+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/page-file'}
+            !!python/unicode 'application/vnd.ocrd.prov+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/provenance-file'}
+            !!python/unicode 'application/zip':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/zip-file'}
+            !!python/unicode 'image/*':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/image-file'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.'
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Bad
+            request. Maybe more than one file of at least one mimetype was created.
+            Please use mimetype ''application/zip'' as accept header to fetch all
+            files at once.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Get created files.'
+      !!python/unicode 'tags': *id001
+  !!python/unicode '/kraken-ocr':
     get:
-      description: Get ocrd-tool.json
-      produces: []
-      responses:
-        '200':
-          application/json:
-            description: Got ocrd-tool.json
-            schema:
-              additionalProperties: false
-              description: Schema for tools by OCR-D MP
-              properties:
-                dockerhub: {description: DockerHub image, type: string}
-                git_url: {description: Github/Gitlab URL, format: url, type: string}
-                tools:
-                  additionalProperties: false
-                  patternProperties:
-                    ocrd-.*:
-                      additionalProperties: false
-                      properties:
-                        categories:
-                          description: Tools belong to this categories, representing
-                            modules within the OCR-D project structure
-                          items:
-                            enum: [Image preprocessing, Layout analysis, Text recognition
-                                and optimization, Model training, Long-term preservation,
-                              Quality assurance]
-                            type: string
-                          type: array
-                        description: {description: Concise description what the tool
-                            does}
-                        executable: {description: The name of the CLI executable in
-                            $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
-                        steps:
-                          description: This tool can be used at these steps in the
-                            OCR-D functional model
-                          items:
-                            enum: [preprocessing/characterization, preprocessing/optimization,
-                              preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
-                              preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
-                              preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
-                              recognition/text-recognition, recognition/font-identification,
-                              layout/segmentation, layout/segmentation/region, layout/segmentation/line,
-                              layout/segmentation/word, layout/segmentation/classification,
-                              layout/analysis]
-                            type: string
-                          type: array
-                      required: [description, steps, executable, categories]
-                      type: object
-                  type: object
-                version: v2.2.1
-                  pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
-              required: [version, git_url, tools]
-              type: object
-      tags: &id002 [Text recognition and optimization]
+      !!python/unicode 'description': !!python/unicode 'Get ocrd-tool.json'
+      !!python/unicode 'produces': []
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'application/json':
+            !!python/unicode 'description': !!python/unicode 'Got ocrd-tool.json'
+            !!python/unicode 'schema':
+              !!python/unicode 'additionalProperties': false
+              !!python/unicode 'description': !!python/unicode 'Schema for tools by
+                OCR-D MP'
+              !!python/unicode 'properties':
+                !!python/unicode 'dockerhub': {!!python/unicode 'description': !!python/unicode 'DockerHub
+                    image', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'git_url': {!!python/unicode 'description': !!python/unicode 'Github/Gitlab
+                    URL', !!python/unicode 'format': !!python/unicode 'url', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'tools':
+                  !!python/unicode 'additionalProperties': false
+                  !!python/unicode 'patternProperties':
+                    !!python/unicode 'ocrd-.*':
+                      !!python/unicode 'additionalProperties': false
+                      !!python/unicode 'properties':
+                        !!python/unicode 'categories':
+                          !!python/unicode 'description': !!python/unicode 'Tools
+                            belong to this categories, representing modules within
+                            the OCR-D project structure'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'Image preprocessing',
+                              !!python/unicode 'Layout analysis', !!python/unicode 'Text
+                                recognition and optimization', !!python/unicode 'Model
+                                training', !!python/unicode 'Long-term preservation',
+                              !!python/unicode 'Quality assurance']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                        !!python/unicode 'description': {!!python/unicode 'description': !!python/unicode 'Concise
+                            description what the tool does'}
+                        !!python/unicode 'executable': {!!python/unicode 'description': !!python/unicode 'The
+                            name of the CLI executable in $PATH', !!python/unicode 'type': !!python/unicode 'string'}
+                        !!python/unicode 'parameters':
+                          !!python/unicode 'description': !!python/unicode 'Object
+                            describing the parameters of a tool. Keys are parameter
+                            names, values sub-schemas.'
+                          !!python/unicode 'patternProperties':
+                            !!python/unicode '.*':
+                              !!python/unicode 'additionalProperties': false
+                              !!python/unicode 'properties':
+                                !!python/unicode 'default': {!!python/unicode 'description': !!python/unicode 'Default
+                                    value when not provided by the user'}
+                                !!python/unicode 'enum': {!!python/unicode 'description': !!python/unicode 'List
+                                    the allowed values if a fixed list.', !!python/unicode 'type': !!python/unicode 'array'}
+                                !!python/unicode 'format': {!!python/unicode 'description': !!python/unicode 'Subtype,
+                                    such as `float` for type `number` or `uri` for
+                                    type `string`.'}
+                                !!python/unicode 'required': {!!python/unicode 'description': !!python/unicode 'Whether
+                                    this parameter is required', !!python/unicode 'type': !!python/unicode 'boolean'}
+                                !!python/unicode 'type':
+                                  !!python/unicode 'description': !!python/unicode 'Data
+                                    type of this parameter'
+                                  !!python/unicode 'enum': [!!python/unicode 'string',
+                                    !!python/unicode 'number', !!python/unicode 'boolean']
+                                  !!python/unicode 'type': !!python/unicode 'string'
+                              !!python/unicode 'required': [!!python/unicode 'type']
+                              !!python/unicode 'type': !!python/unicode 'object'
+                          !!python/unicode 'type': !!python/unicode 'object'
+                        !!python/unicode 'steps':
+                          !!python/unicode 'description': !!python/unicode 'This tool
+                            can be used at these steps in the OCR-D functional model'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'preprocessing/characterization',
+                              !!python/unicode 'preprocessing/optimization', !!python/unicode 'preprocessing/optimization/cropping',
+                              !!python/unicode 'preprocessing/optimization/deskewing',
+                              !!python/unicode 'preprocessing/optimization/despeckling',
+                              !!python/unicode 'preprocessing/optimization/dewarping',
+                              !!python/unicode 'preprocessing/optimization/binarization',
+                              !!python/unicode 'preprocessing/optimization/grayscale_normalization',
+                              !!python/unicode 'recognition/text-recognition', !!python/unicode 'recognition/font-identification',
+                              !!python/unicode 'layout/segmentation', !!python/unicode 'layout/segmentation/region',
+                              !!python/unicode 'layout/segmentation/line', !!python/unicode 'layout/segmentation/word',
+                              !!python/unicode 'layout/segmentation/classification',
+                              !!python/unicode 'layout/analysis']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                      !!python/unicode 'required': [!!python/unicode 'description',
+                        !!python/unicode 'steps', !!python/unicode 'executable', !!python/unicode 'categories']
+                      !!python/unicode 'type': !!python/unicode 'object'
+                  !!python/unicode 'type': !!python/unicode 'object'
+                !!python/unicode 'version': {!!python/unicode 'description': !!python/unicode 'Version
+                    of the tool, expressed as MAJOR.MINOR.PATCH.', !!python/unicode 'pattern': !!python/unicode '^[0-9]+\.[0-9]+\.[0-9]+$',
+                  !!python/unicode 'type': !!python/unicode 'string'}
+              !!python/unicode 'required': [!!python/unicode 'version', !!python/unicode 'git_url',
+                !!python/unicode 'tools']
+              !!python/unicode 'type': !!python/unicode 'object'
+      tags: &id002 [!!python/unicode 'Text recognition and optimization']
     post:
-      description: OCR with kraken
-      operationId: start-processor
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              description: Object holding all parameters needed by most processors.
+      !!python/unicode 'description': !!python/unicode 'OCR with kraken'
+      !!python/unicode 'operationId': !!python/unicode 'start-processor'
+      !!python/unicode 'requestBody':
+        !!python/unicode 'content':
+          !!python/unicode 'multipart/form-data':
+            !!python/unicode 'schema':
+              !!python/unicode 'description': !!python/unicode 'Object holding all
+                parameters needed by most processors.'
               parameters:
                 properties: {}
                 type: object
-              properties:
-                group-id:
-                  description: All IDs of the image files which should be characterized.
-                  items: {type: string}
-                  type: array
-                input-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as input.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                log-level: {$ref: '#/components/schemas/log-level'}
-                mets: {$ref: '#/components/schemas/mets-file'}
-                output-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as output.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                parameter:
-                  description: Parameter file in JSON format.
-                  items: {type: string}
-                  type: array
-              required: [mets, input-file-grp, output-file-grp]
-              type: object
-      responses:
-        '201':
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/job-id'}
-          description: Successful Operation. The created file(s) has/have to be referenced
-            inside the given fileGrp sections.
-          headers:
-            Location:
-              description: URL of the generated job.
-              schema: {format: url, type: string}
-          links:
-            GetFilesByJobId:
-              description: 'The `jobId` value returned in the response can be used
-                as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.
+              !!python/unicode 'properties':
+                !!python/unicode 'group-id':
+                  !!python/unicode 'description': !!python/unicode 'All IDs of the
+                    image files which should be characterized.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'input-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as input. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'log-level': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/log-level'}
+                !!python/unicode 'mets': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+                !!python/unicode 'output-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as output. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'parameter':
+                  !!python/unicode 'description': !!python/unicode 'Parameter file
+                    in JSON format.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+              !!python/unicode 'required': [!!python/unicode 'mets', !!python/unicode 'input-file-grp',
+                !!python/unicode 'output-file-grp']
+              !!python/unicode 'type': !!python/unicode 'object'
+      !!python/unicode 'responses':
+        !!python/unicode '201':
+          !!python/unicode 'content':
+            !!python/unicode 'application/json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-id'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            The created file(s) has/have to be referenced inside the given fileGrp
+            sections.'
+          !!python/unicode 'headers':
+            !!python/unicode 'Location':
+              !!python/unicode 'description': !!python/unicode 'URL of the generated
+                job.'
+              !!python/unicode 'schema': {!!python/unicode 'format': !!python/unicode 'url',
+                !!python/unicode 'type': !!python/unicode 'string'}
+          !!python/unicode 'links':
+            !!python/unicode 'GetFilesByJobId':
+              !!python/unicode 'description': !!python/unicode 'The `jobId` value
+                returned in the response can be used as the `jobID` parameter in `GET
+                /ocrd/processor/jobid/{jobID}`.
 
                 '
-              operationId: get-created-files-of-processor
-              parameters: {jobID: $response.body#/jobID}
-        '400': {description: Invalid input}
-        '500': {description: Internal error}
-      summary: OCR with kraken
-      tags: *id002
-  /kraken-ocr/{_id}:
+              !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+              !!python/unicode 'parameters': {!!python/unicode 'jobID': !!python/unicode '$response.body#/jobID'}
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Invalid
+            input'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'OCR with kraken'
+      !!python/unicode 'tags': *id002
+  !!python/unicode '/kraken-ocr/{_id}':
     delete:
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '204':
-          content:
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-          description: Successful Operation. All linked resources are removed successfully.
-        '404': {description: Not found.}
-        '410': {description: Resource is not available anymore.}
-        '500': {description: Internal error}
-      summary: Delete all files created by job with ID 'jobID'.
-      tags: *id002
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '204':
+          !!python/unicode 'content':
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            All linked resources are removed successfully.'
+        !!python/unicode '404': {!!python/unicode 'description': !!python/unicode 'Not
+            found.'}
+        !!python/unicode '410': {!!python/unicode 'description': !!python/unicode 'Resource
+            is not available anymore.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Delete all files created by job
+        with ID ''jobID''.'
+      !!python/unicode 'tags': *id002
     get:
-      description: Fetch all file created by job with id 'jobID'. If more than one
-        file is created per mimetype use mimetype 'application/zip' as accept header
-        to fetch all files at once.
-      operationId: get-created-files-of-processor
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '200':
-          content:
-            application/mets+xml:
-              schema: {$ref: '#/components/schemas/mets-file'}
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-            application/vnd.ocrd.log+json:
-              schema: {$ref: '#/components/schemas/logging'}
-            application/vnd.ocrd.page+xml:
-              schema: {$ref: '#/components/schemas/page-file'}
-            application/vnd.ocrd.prov+json:
-              schema: {$ref: '#/components/schemas/provenance-file'}
-            application/zip:
-              schema: {$ref: '#/components/schemas/zip-file'}
-            image/*:
-              schema: {$ref: '#/components/schemas/image-file'}
-          description: Successful Operation.
-        '400': {description: Bad request. Maybe more than one file of at least one
-            mimetype was created. Please use mimetype 'application/zip' as accept
-            header to fetch all files at once.}
-        '500': {description: Internal error}
-      summary: Get created files.
-      tags: *id002
-  /kraken-segment:
+      !!python/unicode 'description': !!python/unicode 'Fetch all file created by
+        job with id ''jobID''. If more than one file is created per mimetype use mimetype
+        ''application/zip'' as accept header to fetch all files at once.'
+      !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'content':
+            !!python/unicode 'application/mets+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+            !!python/unicode 'application/vnd.ocrd.log+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/logging'}
+            !!python/unicode 'application/vnd.ocrd.page+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/page-file'}
+            !!python/unicode 'application/vnd.ocrd.prov+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/provenance-file'}
+            !!python/unicode 'application/zip':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/zip-file'}
+            !!python/unicode 'image/*':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/image-file'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.'
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Bad
+            request. Maybe more than one file of at least one mimetype was created.
+            Please use mimetype ''application/zip'' as accept header to fetch all
+            files at once.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Get created files.'
+      !!python/unicode 'tags': *id002
+  !!python/unicode '/kraken-segment':
     get:
-      description: Get ocrd-tool.json
-      produces: []
-      responses:
-        '200':
-          application/json:
-            description: Got ocrd-tool.json
-            schema:
-              additionalProperties: false
-              description: Schema for tools by OCR-D MP
-              properties:
-                dockerhub: {description: DockerHub image, type: string}
-                git_url: {description: Github/Gitlab URL, format: url, type: string}
-                tools:
-                  additionalProperties: false
-                  patternProperties:
-                    ocrd-.*:
-                      additionalProperties: false
-                      properties:
-                        categories:
-                          description: Tools belong to this categories, representing
-                            modules within the OCR-D project structure
-                          items:
-                            enum: [Image preprocessing, Layout analysis, Text recognition
-                                and optimization, Model training, Long-term preservation,
-                              Quality assurance]
-                            type: string
-                          type: array
-                        description: {description: Concise description what the tool
-                            does}
-                        executable: {description: The name of the CLI executable in
-                            $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
-                        steps:
-                          description: This tool can be used at these steps in the
-                            OCR-D functional model
-                          items:
-                            enum: [preprocessing/characterization, preprocessing/optimization,
-                              preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
-                              preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
-                              preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
-                              recognition/text-recognition, recognition/font-identification,
-                              layout/segmentation, layout/segmentation/region, layout/segmentation/line,
-                              layout/segmentation/word, layout/segmentation/classification,
-                              layout/analysis]
-                            type: string
-                          type: array
-                      required: [description, steps, executable, categories]
-                      type: object
-                  type: object
-                version: v2.2.1
-                  pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
-              required: [version, git_url, tools]
-              type: object
-      tags: &id003 [Layout analysis]
+      !!python/unicode 'description': !!python/unicode 'Get ocrd-tool.json'
+      !!python/unicode 'produces': []
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'application/json':
+            !!python/unicode 'description': !!python/unicode 'Got ocrd-tool.json'
+            !!python/unicode 'schema':
+              !!python/unicode 'additionalProperties': false
+              !!python/unicode 'description': !!python/unicode 'Schema for tools by
+                OCR-D MP'
+              !!python/unicode 'properties':
+                !!python/unicode 'dockerhub': {!!python/unicode 'description': !!python/unicode 'DockerHub
+                    image', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'git_url': {!!python/unicode 'description': !!python/unicode 'Github/Gitlab
+                    URL', !!python/unicode 'format': !!python/unicode 'url', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'tools':
+                  !!python/unicode 'additionalProperties': false
+                  !!python/unicode 'patternProperties':
+                    !!python/unicode 'ocrd-.*':
+                      !!python/unicode 'additionalProperties': false
+                      !!python/unicode 'properties':
+                        !!python/unicode 'categories':
+                          !!python/unicode 'description': !!python/unicode 'Tools
+                            belong to this categories, representing modules within
+                            the OCR-D project structure'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'Image preprocessing',
+                              !!python/unicode 'Layout analysis', !!python/unicode 'Text
+                                recognition and optimization', !!python/unicode 'Model
+                                training', !!python/unicode 'Long-term preservation',
+                              !!python/unicode 'Quality assurance']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                        !!python/unicode 'description': {!!python/unicode 'description': !!python/unicode 'Concise
+                            description what the tool does'}
+                        !!python/unicode 'executable': {!!python/unicode 'description': !!python/unicode 'The
+                            name of the CLI executable in $PATH', !!python/unicode 'type': !!python/unicode 'string'}
+                        !!python/unicode 'parameters':
+                          !!python/unicode 'description': !!python/unicode 'Object
+                            describing the parameters of a tool. Keys are parameter
+                            names, values sub-schemas.'
+                          !!python/unicode 'patternProperties':
+                            !!python/unicode '.*':
+                              !!python/unicode 'additionalProperties': false
+                              !!python/unicode 'properties':
+                                !!python/unicode 'default': {!!python/unicode 'description': !!python/unicode 'Default
+                                    value when not provided by the user'}
+                                !!python/unicode 'enum': {!!python/unicode 'description': !!python/unicode 'List
+                                    the allowed values if a fixed list.', !!python/unicode 'type': !!python/unicode 'array'}
+                                !!python/unicode 'format': {!!python/unicode 'description': !!python/unicode 'Subtype,
+                                    such as `float` for type `number` or `uri` for
+                                    type `string`.'}
+                                !!python/unicode 'required': {!!python/unicode 'description': !!python/unicode 'Whether
+                                    this parameter is required', !!python/unicode 'type': !!python/unicode 'boolean'}
+                                !!python/unicode 'type':
+                                  !!python/unicode 'description': !!python/unicode 'Data
+                                    type of this parameter'
+                                  !!python/unicode 'enum': [!!python/unicode 'string',
+                                    !!python/unicode 'number', !!python/unicode 'boolean']
+                                  !!python/unicode 'type': !!python/unicode 'string'
+                              !!python/unicode 'required': [!!python/unicode 'type']
+                              !!python/unicode 'type': !!python/unicode 'object'
+                          !!python/unicode 'type': !!python/unicode 'object'
+                        !!python/unicode 'steps':
+                          !!python/unicode 'description': !!python/unicode 'This tool
+                            can be used at these steps in the OCR-D functional model'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'preprocessing/characterization',
+                              !!python/unicode 'preprocessing/optimization', !!python/unicode 'preprocessing/optimization/cropping',
+                              !!python/unicode 'preprocessing/optimization/deskewing',
+                              !!python/unicode 'preprocessing/optimization/despeckling',
+                              !!python/unicode 'preprocessing/optimization/dewarping',
+                              !!python/unicode 'preprocessing/optimization/binarization',
+                              !!python/unicode 'preprocessing/optimization/grayscale_normalization',
+                              !!python/unicode 'recognition/text-recognition', !!python/unicode 'recognition/font-identification',
+                              !!python/unicode 'layout/segmentation', !!python/unicode 'layout/segmentation/region',
+                              !!python/unicode 'layout/segmentation/line', !!python/unicode 'layout/segmentation/word',
+                              !!python/unicode 'layout/segmentation/classification',
+                              !!python/unicode 'layout/analysis']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                      !!python/unicode 'required': [!!python/unicode 'description',
+                        !!python/unicode 'steps', !!python/unicode 'executable', !!python/unicode 'categories']
+                      !!python/unicode 'type': !!python/unicode 'object'
+                  !!python/unicode 'type': !!python/unicode 'object'
+                !!python/unicode 'version': {!!python/unicode 'description': !!python/unicode 'Version
+                    of the tool, expressed as MAJOR.MINOR.PATCH.', !!python/unicode 'pattern': !!python/unicode '^[0-9]+\.[0-9]+\.[0-9]+$',
+                  !!python/unicode 'type': !!python/unicode 'string'}
+              !!python/unicode 'required': [!!python/unicode 'version', !!python/unicode 'git_url',
+                !!python/unicode 'tools']
+              !!python/unicode 'type': !!python/unicode 'object'
+      tags: &id003 [!!python/unicode 'Layout analysis']
     post:
-      description: Block segmentation with kraken
-      operationId: start-processor
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              description: Object holding all parameters needed by most processors.
+      !!python/unicode 'description': !!python/unicode 'Block segmentation with kraken'
+      !!python/unicode 'operationId': !!python/unicode 'start-processor'
+      !!python/unicode 'requestBody':
+        !!python/unicode 'content':
+          !!python/unicode 'multipart/form-data':
+            !!python/unicode 'schema':
+              !!python/unicode 'description': !!python/unicode 'Object holding all
+                parameters needed by most processors.'
               parameters:
                 properties: {}
                 type: object
-              properties:
-                group-id:
-                  description: All IDs of the image files which should be characterized.
-                  items: {type: string}
-                  type: array
-                input-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as input.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                log-level: {$ref: '#/components/schemas/log-level'}
-                mets: {$ref: '#/components/schemas/mets-file'}
-                output-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as output.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                parameter:
-                  description: Parameter file in JSON format.
-                  items: {type: string}
-                  type: array
-              required: [mets, input-file-grp, output-file-grp]
-              type: object
-      responses:
-        '201':
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/job-id'}
-          description: Successful Operation. The created file(s) has/have to be referenced
-            inside the given fileGrp sections.
-          headers:
-            Location:
-              description: URL of the generated job.
-              schema: {format: url, type: string}
-          links:
-            GetFilesByJobId:
-              description: 'The `jobId` value returned in the response can be used
-                as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.
+              !!python/unicode 'properties':
+                !!python/unicode 'group-id':
+                  !!python/unicode 'description': !!python/unicode 'All IDs of the
+                    image files which should be characterized.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'input-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as input. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'log-level': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/log-level'}
+                !!python/unicode 'mets': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+                !!python/unicode 'output-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as output. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'parameter':
+                  !!python/unicode 'description': !!python/unicode 'Parameter file
+                    in JSON format.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+              !!python/unicode 'required': [!!python/unicode 'mets', !!python/unicode 'input-file-grp',
+                !!python/unicode 'output-file-grp']
+              !!python/unicode 'type': !!python/unicode 'object'
+      !!python/unicode 'responses':
+        !!python/unicode '201':
+          !!python/unicode 'content':
+            !!python/unicode 'application/json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-id'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            The created file(s) has/have to be referenced inside the given fileGrp
+            sections.'
+          !!python/unicode 'headers':
+            !!python/unicode 'Location':
+              !!python/unicode 'description': !!python/unicode 'URL of the generated
+                job.'
+              !!python/unicode 'schema': {!!python/unicode 'format': !!python/unicode 'url',
+                !!python/unicode 'type': !!python/unicode 'string'}
+          !!python/unicode 'links':
+            !!python/unicode 'GetFilesByJobId':
+              !!python/unicode 'description': !!python/unicode 'The `jobId` value
+                returned in the response can be used as the `jobID` parameter in `GET
+                /ocrd/processor/jobid/{jobID}`.
 
                 '
-              operationId: get-created-files-of-processor
-              parameters: {jobID: $response.body#/jobID}
-        '400': {description: Invalid input}
-        '500': {description: Internal error}
-      summary: Block segmentation with kraken
-      tags: *id003
-  /kraken-segment/{_id}:
+              !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+              !!python/unicode 'parameters': {!!python/unicode 'jobID': !!python/unicode '$response.body#/jobID'}
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Invalid
+            input'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Block segmentation with kraken'
+      !!python/unicode 'tags': *id003
+  !!python/unicode '/kraken-segment/{_id}':
     delete:
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '204':
-          content:
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-          description: Successful Operation. All linked resources are removed successfully.
-        '404': {description: Not found.}
-        '410': {description: Resource is not available anymore.}
-        '500': {description: Internal error}
-      summary: Delete all files created by job with ID 'jobID'.
-      tags: *id003
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '204':
+          !!python/unicode 'content':
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            All linked resources are removed successfully.'
+        !!python/unicode '404': {!!python/unicode 'description': !!python/unicode 'Not
+            found.'}
+        !!python/unicode '410': {!!python/unicode 'description': !!python/unicode 'Resource
+            is not available anymore.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Delete all files created by job
+        with ID ''jobID''.'
+      !!python/unicode 'tags': *id003
     get:
-      description: Fetch all file created by job with id 'jobID'. If more than one
-        file is created per mimetype use mimetype 'application/zip' as accept header
-        to fetch all files at once.
-      operationId: get-created-files-of-processor
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '200':
-          content:
-            application/mets+xml:
-              schema: {$ref: '#/components/schemas/mets-file'}
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-            application/vnd.ocrd.log+json:
-              schema: {$ref: '#/components/schemas/logging'}
-            application/vnd.ocrd.page+xml:
-              schema: {$ref: '#/components/schemas/page-file'}
-            application/vnd.ocrd.prov+json:
-              schema: {$ref: '#/components/schemas/provenance-file'}
-            application/zip:
-              schema: {$ref: '#/components/schemas/zip-file'}
-            image/*:
-              schema: {$ref: '#/components/schemas/image-file'}
-          description: Successful Operation.
-        '400': {description: Bad request. Maybe more than one file of at least one
-            mimetype was created. Please use mimetype 'application/zip' as accept
-            header to fetch all files at once.}
-        '500': {description: Internal error}
-      summary: Get created files.
-      tags: *id003
-  /tesserocr-recognize:
+      !!python/unicode 'description': !!python/unicode 'Fetch all file created by
+        job with id ''jobID''. If more than one file is created per mimetype use mimetype
+        ''application/zip'' as accept header to fetch all files at once.'
+      !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'content':
+            !!python/unicode 'application/mets+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+            !!python/unicode 'application/vnd.ocrd.log+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/logging'}
+            !!python/unicode 'application/vnd.ocrd.page+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/page-file'}
+            !!python/unicode 'application/vnd.ocrd.prov+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/provenance-file'}
+            !!python/unicode 'application/zip':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/zip-file'}
+            !!python/unicode 'image/*':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/image-file'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.'
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Bad
+            request. Maybe more than one file of at least one mimetype was created.
+            Please use mimetype ''application/zip'' as accept header to fetch all
+            files at once.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Get created files.'
+      !!python/unicode 'tags': *id003
+  !!python/unicode '/tesserocr-recognize':
     get:
-      description: Get ocrd-tool.json
-      produces: []
-      responses:
-        '200':
-          application/json:
-            description: Got ocrd-tool.json
-            schema:
-              additionalProperties: false
-              description: Schema for tools by OCR-D MP
-              properties:
-                dockerhub: {description: DockerHub image, type: string}
-                git_url: {description: Github/Gitlab URL, format: url, type: string}
-                tools:
-                  additionalProperties: false
-                  patternProperties:
-                    ocrd-.*:
-                      additionalProperties: false
-                      properties:
-                        categories:
-                          description: Tools belong to this categories, representing
-                            modules within the OCR-D project structure
-                          items:
-                            enum: [Image preprocessing, Layout analysis, Text recognition
-                                and optimization, Model training, Long-term preservation,
-                              Quality assurance]
-                            type: string
-                          type: array
-                        description: {description: Concise description what the tool
-                            does}
-                        executable: {description: The name of the CLI executable in
-                            $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
-                        steps:
-                          description: This tool can be used at these steps in the
-                            OCR-D functional model
-                          items:
-                            enum: [preprocessing/characterization, preprocessing/optimization,
-                              preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
-                              preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
-                              preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
-                              recognition/text-recognition, recognition/font-identification,
-                              layout/segmentation, layout/segmentation/region, layout/segmentation/line,
-                              layout/segmentation/word, layout/segmentation/classification,
-                              layout/analysis]
-                            type: string
-                          type: array
-                      required: [description, steps, executable, categories]
-                      type: object
-                  type: object
-                version: v2.2.1
-                  pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
-              required: [version, git_url, tools]
-              type: object
-      tags: &id004 [Text recognition and optimization]
+      !!python/unicode 'description': !!python/unicode 'Get ocrd-tool.json'
+      !!python/unicode 'produces': []
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'application/json':
+            !!python/unicode 'description': !!python/unicode 'Got ocrd-tool.json'
+            !!python/unicode 'schema':
+              !!python/unicode 'additionalProperties': false
+              !!python/unicode 'description': !!python/unicode 'Schema for tools by
+                OCR-D MP'
+              !!python/unicode 'properties':
+                !!python/unicode 'dockerhub': {!!python/unicode 'description': !!python/unicode 'DockerHub
+                    image', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'git_url': {!!python/unicode 'description': !!python/unicode 'Github/Gitlab
+                    URL', !!python/unicode 'format': !!python/unicode 'url', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'tools':
+                  !!python/unicode 'additionalProperties': false
+                  !!python/unicode 'patternProperties':
+                    !!python/unicode 'ocrd-.*':
+                      !!python/unicode 'additionalProperties': false
+                      !!python/unicode 'properties':
+                        !!python/unicode 'categories':
+                          !!python/unicode 'description': !!python/unicode 'Tools
+                            belong to this categories, representing modules within
+                            the OCR-D project structure'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'Image preprocessing',
+                              !!python/unicode 'Layout analysis', !!python/unicode 'Text
+                                recognition and optimization', !!python/unicode 'Model
+                                training', !!python/unicode 'Long-term preservation',
+                              !!python/unicode 'Quality assurance']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                        !!python/unicode 'description': {!!python/unicode 'description': !!python/unicode 'Concise
+                            description what the tool does'}
+                        !!python/unicode 'executable': {!!python/unicode 'description': !!python/unicode 'The
+                            name of the CLI executable in $PATH', !!python/unicode 'type': !!python/unicode 'string'}
+                        !!python/unicode 'parameters':
+                          !!python/unicode 'description': !!python/unicode 'Object
+                            describing the parameters of a tool. Keys are parameter
+                            names, values sub-schemas.'
+                          !!python/unicode 'patternProperties':
+                            !!python/unicode '.*':
+                              !!python/unicode 'additionalProperties': false
+                              !!python/unicode 'properties':
+                                !!python/unicode 'default': {!!python/unicode 'description': !!python/unicode 'Default
+                                    value when not provided by the user'}
+                                !!python/unicode 'enum': {!!python/unicode 'description': !!python/unicode 'List
+                                    the allowed values if a fixed list.', !!python/unicode 'type': !!python/unicode 'array'}
+                                !!python/unicode 'format': {!!python/unicode 'description': !!python/unicode 'Subtype,
+                                    such as `float` for type `number` or `uri` for
+                                    type `string`.'}
+                                !!python/unicode 'required': {!!python/unicode 'description': !!python/unicode 'Whether
+                                    this parameter is required', !!python/unicode 'type': !!python/unicode 'boolean'}
+                                !!python/unicode 'type':
+                                  !!python/unicode 'description': !!python/unicode 'Data
+                                    type of this parameter'
+                                  !!python/unicode 'enum': [!!python/unicode 'string',
+                                    !!python/unicode 'number', !!python/unicode 'boolean']
+                                  !!python/unicode 'type': !!python/unicode 'string'
+                              !!python/unicode 'required': [!!python/unicode 'type']
+                              !!python/unicode 'type': !!python/unicode 'object'
+                          !!python/unicode 'type': !!python/unicode 'object'
+                        !!python/unicode 'steps':
+                          !!python/unicode 'description': !!python/unicode 'This tool
+                            can be used at these steps in the OCR-D functional model'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'preprocessing/characterization',
+                              !!python/unicode 'preprocessing/optimization', !!python/unicode 'preprocessing/optimization/cropping',
+                              !!python/unicode 'preprocessing/optimization/deskewing',
+                              !!python/unicode 'preprocessing/optimization/despeckling',
+                              !!python/unicode 'preprocessing/optimization/dewarping',
+                              !!python/unicode 'preprocessing/optimization/binarization',
+                              !!python/unicode 'preprocessing/optimization/grayscale_normalization',
+                              !!python/unicode 'recognition/text-recognition', !!python/unicode 'recognition/font-identification',
+                              !!python/unicode 'layout/segmentation', !!python/unicode 'layout/segmentation/region',
+                              !!python/unicode 'layout/segmentation/line', !!python/unicode 'layout/segmentation/word',
+                              !!python/unicode 'layout/segmentation/classification',
+                              !!python/unicode 'layout/analysis']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                      !!python/unicode 'required': [!!python/unicode 'description',
+                        !!python/unicode 'steps', !!python/unicode 'executable', !!python/unicode 'categories']
+                      !!python/unicode 'type': !!python/unicode 'object'
+                  !!python/unicode 'type': !!python/unicode 'object'
+                !!python/unicode 'version': {!!python/unicode 'description': !!python/unicode 'Version
+                    of the tool, expressed as MAJOR.MINOR.PATCH.', !!python/unicode 'pattern': !!python/unicode '^[0-9]+\.[0-9]+\.[0-9]+$',
+                  !!python/unicode 'type': !!python/unicode 'string'}
+              !!python/unicode 'required': [!!python/unicode 'version', !!python/unicode 'git_url',
+                !!python/unicode 'tools']
+              !!python/unicode 'type': !!python/unicode 'object'
+      tags: &id004 [!!python/unicode 'Text recognition and optimization']
     post:
-      description: Recognize text in lines with tesseract
-      operationId: start-processor
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              description: Object holding all parameters needed by most processors.
+      !!python/unicode 'description': !!python/unicode 'Recognize text in lines with
+        tesseract'
+      !!python/unicode 'operationId': !!python/unicode 'start-processor'
+      !!python/unicode 'requestBody':
+        !!python/unicode 'content':
+          !!python/unicode 'multipart/form-data':
+            !!python/unicode 'schema':
+              !!python/unicode 'description': !!python/unicode 'Object holding all
+                parameters needed by most processors.'
               parameters:
                 properties: {}
                 type: object
-              properties:
-                group-id:
-                  description: All IDs of the image files which should be characterized.
-                  items: {type: string}
-                  type: array
-                input-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as input.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                log-level: {$ref: '#/components/schemas/log-level'}
-                mets: {$ref: '#/components/schemas/mets-file'}
-                output-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as output.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                parameter:
-                  description: Parameter file in JSON format.
-                  items: {type: string}
-                  type: array
-              required: [mets, input-file-grp, output-file-grp]
-              type: object
-      responses:
-        '201':
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/job-id'}
-          description: Successful Operation. The created file(s) has/have to be referenced
-            inside the given fileGrp sections.
-          headers:
-            Location:
-              description: URL of the generated job.
-              schema: {format: url, type: string}
-          links:
-            GetFilesByJobId:
-              description: 'The `jobId` value returned in the response can be used
-                as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.
+              !!python/unicode 'properties':
+                !!python/unicode 'group-id':
+                  !!python/unicode 'description': !!python/unicode 'All IDs of the
+                    image files which should be characterized.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'input-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as input. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'log-level': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/log-level'}
+                !!python/unicode 'mets': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+                !!python/unicode 'output-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as output. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'parameter':
+                  !!python/unicode 'description': !!python/unicode 'Parameter file
+                    in JSON format.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+              !!python/unicode 'required': [!!python/unicode 'mets', !!python/unicode 'input-file-grp',
+                !!python/unicode 'output-file-grp']
+              !!python/unicode 'type': !!python/unicode 'object'
+      !!python/unicode 'responses':
+        !!python/unicode '201':
+          !!python/unicode 'content':
+            !!python/unicode 'application/json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-id'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            The created file(s) has/have to be referenced inside the given fileGrp
+            sections.'
+          !!python/unicode 'headers':
+            !!python/unicode 'Location':
+              !!python/unicode 'description': !!python/unicode 'URL of the generated
+                job.'
+              !!python/unicode 'schema': {!!python/unicode 'format': !!python/unicode 'url',
+                !!python/unicode 'type': !!python/unicode 'string'}
+          !!python/unicode 'links':
+            !!python/unicode 'GetFilesByJobId':
+              !!python/unicode 'description': !!python/unicode 'The `jobId` value
+                returned in the response can be used as the `jobID` parameter in `GET
+                /ocrd/processor/jobid/{jobID}`.
 
                 '
-              operationId: get-created-files-of-processor
-              parameters: {jobID: $response.body#/jobID}
-        '400': {description: Invalid input}
-        '500': {description: Internal error}
-      summary: Recognize text in lines with tesseract
-      tags: *id004
-  /tesserocr-recognize/{_id}:
+              !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+              !!python/unicode 'parameters': {!!python/unicode 'jobID': !!python/unicode '$response.body#/jobID'}
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Invalid
+            input'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Recognize text in lines with tesseract'
+      !!python/unicode 'tags': *id004
+  !!python/unicode '/tesserocr-recognize/{_id}':
     delete:
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '204':
-          content:
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-          description: Successful Operation. All linked resources are removed successfully.
-        '404': {description: Not found.}
-        '410': {description: Resource is not available anymore.}
-        '500': {description: Internal error}
-      summary: Delete all files created by job with ID 'jobID'.
-      tags: *id004
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '204':
+          !!python/unicode 'content':
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            All linked resources are removed successfully.'
+        !!python/unicode '404': {!!python/unicode 'description': !!python/unicode 'Not
+            found.'}
+        !!python/unicode '410': {!!python/unicode 'description': !!python/unicode 'Resource
+            is not available anymore.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Delete all files created by job
+        with ID ''jobID''.'
+      !!python/unicode 'tags': *id004
     get:
-      description: Fetch all file created by job with id 'jobID'. If more than one
-        file is created per mimetype use mimetype 'application/zip' as accept header
-        to fetch all files at once.
-      operationId: get-created-files-of-processor
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '200':
-          content:
-            application/mets+xml:
-              schema: {$ref: '#/components/schemas/mets-file'}
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-            application/vnd.ocrd.log+json:
-              schema: {$ref: '#/components/schemas/logging'}
-            application/vnd.ocrd.page+xml:
-              schema: {$ref: '#/components/schemas/page-file'}
-            application/vnd.ocrd.prov+json:
-              schema: {$ref: '#/components/schemas/provenance-file'}
-            application/zip:
-              schema: {$ref: '#/components/schemas/zip-file'}
-            image/*:
-              schema: {$ref: '#/components/schemas/image-file'}
-          description: Successful Operation.
-        '400': {description: Bad request. Maybe more than one file of at least one
-            mimetype was created. Please use mimetype 'application/zip' as accept
-            header to fetch all files at once.}
-        '500': {description: Internal error}
-      summary: Get created files.
-      tags: *id004
-  /tesserocr-segment-line:
+      !!python/unicode 'description': !!python/unicode 'Fetch all file created by
+        job with id ''jobID''. If more than one file is created per mimetype use mimetype
+        ''application/zip'' as accept header to fetch all files at once.'
+      !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'content':
+            !!python/unicode 'application/mets+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+            !!python/unicode 'application/vnd.ocrd.log+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/logging'}
+            !!python/unicode 'application/vnd.ocrd.page+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/page-file'}
+            !!python/unicode 'application/vnd.ocrd.prov+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/provenance-file'}
+            !!python/unicode 'application/zip':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/zip-file'}
+            !!python/unicode 'image/*':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/image-file'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.'
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Bad
+            request. Maybe more than one file of at least one mimetype was created.
+            Please use mimetype ''application/zip'' as accept header to fetch all
+            files at once.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Get created files.'
+      !!python/unicode 'tags': *id004
+  !!python/unicode '/tesserocr-segment-line':
     get:
-      description: Get ocrd-tool.json
-      produces: []
-      responses:
-        '200':
-          application/json:
-            description: Got ocrd-tool.json
-            schema:
-              additionalProperties: false
-              description: Schema for tools by OCR-D MP
-              properties:
-                dockerhub: {description: DockerHub image, type: string}
-                git_url: {description: Github/Gitlab URL, format: url, type: string}
-                tools:
-                  additionalProperties: false
-                  patternProperties:
-                    ocrd-.*:
-                      additionalProperties: false
-                      properties:
-                        categories:
-                          description: Tools belong to this categories, representing
-                            modules within the OCR-D project structure
-                          items:
-                            enum: [Image preprocessing, Layout analysis, Text recognition
-                                and optimization, Model training, Long-term preservation,
-                              Quality assurance]
-                            type: string
-                          type: array
-                        description: {description: Concise description what the tool
-                            does}
-                        executable: {description: The name of the CLI executable in
-                            $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
-                        steps:
-                          description: This tool can be used at these steps in the
-                            OCR-D functional model
-                          items:
-                            enum: [preprocessing/characterization, preprocessing/optimization,
-                              preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
-                              preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
-                              preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
-                              recognition/text-recognition, recognition/font-identification,
-                              layout/segmentation, layout/segmentation/region, layout/segmentation/line,
-                              layout/segmentation/word, layout/segmentation/classification,
-                              layout/analysis]
-                            type: string
-                          type: array
-                      required: [description, steps, executable, categories]
-                      type: object
-                  type: object
-                version: v2.2.1
-                  pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
-              required: [version, git_url, tools]
-              type: object
-      tags: &id005 [Layout analysis]
+      !!python/unicode 'description': !!python/unicode 'Get ocrd-tool.json'
+      !!python/unicode 'produces': []
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'application/json':
+            !!python/unicode 'description': !!python/unicode 'Got ocrd-tool.json'
+            !!python/unicode 'schema':
+              !!python/unicode 'additionalProperties': false
+              !!python/unicode 'description': !!python/unicode 'Schema for tools by
+                OCR-D MP'
+              !!python/unicode 'properties':
+                !!python/unicode 'dockerhub': {!!python/unicode 'description': !!python/unicode 'DockerHub
+                    image', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'git_url': {!!python/unicode 'description': !!python/unicode 'Github/Gitlab
+                    URL', !!python/unicode 'format': !!python/unicode 'url', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'tools':
+                  !!python/unicode 'additionalProperties': false
+                  !!python/unicode 'patternProperties':
+                    !!python/unicode 'ocrd-.*':
+                      !!python/unicode 'additionalProperties': false
+                      !!python/unicode 'properties':
+                        !!python/unicode 'categories':
+                          !!python/unicode 'description': !!python/unicode 'Tools
+                            belong to this categories, representing modules within
+                            the OCR-D project structure'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'Image preprocessing',
+                              !!python/unicode 'Layout analysis', !!python/unicode 'Text
+                                recognition and optimization', !!python/unicode 'Model
+                                training', !!python/unicode 'Long-term preservation',
+                              !!python/unicode 'Quality assurance']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                        !!python/unicode 'description': {!!python/unicode 'description': !!python/unicode 'Concise
+                            description what the tool does'}
+                        !!python/unicode 'executable': {!!python/unicode 'description': !!python/unicode 'The
+                            name of the CLI executable in $PATH', !!python/unicode 'type': !!python/unicode 'string'}
+                        !!python/unicode 'parameters':
+                          !!python/unicode 'description': !!python/unicode 'Object
+                            describing the parameters of a tool. Keys are parameter
+                            names, values sub-schemas.'
+                          !!python/unicode 'patternProperties':
+                            !!python/unicode '.*':
+                              !!python/unicode 'additionalProperties': false
+                              !!python/unicode 'properties':
+                                !!python/unicode 'default': {!!python/unicode 'description': !!python/unicode 'Default
+                                    value when not provided by the user'}
+                                !!python/unicode 'enum': {!!python/unicode 'description': !!python/unicode 'List
+                                    the allowed values if a fixed list.', !!python/unicode 'type': !!python/unicode 'array'}
+                                !!python/unicode 'format': {!!python/unicode 'description': !!python/unicode 'Subtype,
+                                    such as `float` for type `number` or `uri` for
+                                    type `string`.'}
+                                !!python/unicode 'required': {!!python/unicode 'description': !!python/unicode 'Whether
+                                    this parameter is required', !!python/unicode 'type': !!python/unicode 'boolean'}
+                                !!python/unicode 'type':
+                                  !!python/unicode 'description': !!python/unicode 'Data
+                                    type of this parameter'
+                                  !!python/unicode 'enum': [!!python/unicode 'string',
+                                    !!python/unicode 'number', !!python/unicode 'boolean']
+                                  !!python/unicode 'type': !!python/unicode 'string'
+                              !!python/unicode 'required': [!!python/unicode 'type']
+                              !!python/unicode 'type': !!python/unicode 'object'
+                          !!python/unicode 'type': !!python/unicode 'object'
+                        !!python/unicode 'steps':
+                          !!python/unicode 'description': !!python/unicode 'This tool
+                            can be used at these steps in the OCR-D functional model'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'preprocessing/characterization',
+                              !!python/unicode 'preprocessing/optimization', !!python/unicode 'preprocessing/optimization/cropping',
+                              !!python/unicode 'preprocessing/optimization/deskewing',
+                              !!python/unicode 'preprocessing/optimization/despeckling',
+                              !!python/unicode 'preprocessing/optimization/dewarping',
+                              !!python/unicode 'preprocessing/optimization/binarization',
+                              !!python/unicode 'preprocessing/optimization/grayscale_normalization',
+                              !!python/unicode 'recognition/text-recognition', !!python/unicode 'recognition/font-identification',
+                              !!python/unicode 'layout/segmentation', !!python/unicode 'layout/segmentation/region',
+                              !!python/unicode 'layout/segmentation/line', !!python/unicode 'layout/segmentation/word',
+                              !!python/unicode 'layout/segmentation/classification',
+                              !!python/unicode 'layout/analysis']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                      !!python/unicode 'required': [!!python/unicode 'description',
+                        !!python/unicode 'steps', !!python/unicode 'executable', !!python/unicode 'categories']
+                      !!python/unicode 'type': !!python/unicode 'object'
+                  !!python/unicode 'type': !!python/unicode 'object'
+                !!python/unicode 'version': {!!python/unicode 'description': !!python/unicode 'Version
+                    of the tool, expressed as MAJOR.MINOR.PATCH.', !!python/unicode 'pattern': !!python/unicode '^[0-9]+\.[0-9]+\.[0-9]+$',
+                  !!python/unicode 'type': !!python/unicode 'string'}
+              !!python/unicode 'required': [!!python/unicode 'version', !!python/unicode 'git_url',
+                !!python/unicode 'tools']
+              !!python/unicode 'type': !!python/unicode 'object'
+      tags: &id005 [!!python/unicode 'Layout analysis']
     post:
-      description: Segment page into regions with tesseract
-      operationId: start-processor
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              description: Object holding all parameters needed by most processors.
+      !!python/unicode 'description': !!python/unicode 'Segment page into regions
+        with tesseract'
+      !!python/unicode 'operationId': !!python/unicode 'start-processor'
+      !!python/unicode 'requestBody':
+        !!python/unicode 'content':
+          !!python/unicode 'multipart/form-data':
+            !!python/unicode 'schema':
+              !!python/unicode 'description': !!python/unicode 'Object holding all
+                parameters needed by most processors.'
               parameters:
                 properties: {}
                 type: object
-              properties:
-                group-id:
-                  description: All IDs of the image files which should be characterized.
-                  items: {type: string}
-                  type: array
-                input-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as input.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                log-level: {$ref: '#/components/schemas/log-level'}
-                mets: {$ref: '#/components/schemas/mets-file'}
-                output-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as output.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                parameter:
-                  description: Parameter file in JSON format.
-                  items: {type: string}
-                  type: array
-              required: [mets, input-file-grp, output-file-grp]
-              type: object
-      responses:
-        '201':
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/job-id'}
-          description: Successful Operation. The created file(s) has/have to be referenced
-            inside the given fileGrp sections.
-          headers:
-            Location:
-              description: URL of the generated job.
-              schema: {format: url, type: string}
-          links:
-            GetFilesByJobId:
-              description: 'The `jobId` value returned in the response can be used
-                as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.
+              !!python/unicode 'properties':
+                !!python/unicode 'group-id':
+                  !!python/unicode 'description': !!python/unicode 'All IDs of the
+                    image files which should be characterized.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'input-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as input. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'log-level': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/log-level'}
+                !!python/unicode 'mets': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+                !!python/unicode 'output-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as output. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'parameter':
+                  !!python/unicode 'description': !!python/unicode 'Parameter file
+                    in JSON format.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+              !!python/unicode 'required': [!!python/unicode 'mets', !!python/unicode 'input-file-grp',
+                !!python/unicode 'output-file-grp']
+              !!python/unicode 'type': !!python/unicode 'object'
+      !!python/unicode 'responses':
+        !!python/unicode '201':
+          !!python/unicode 'content':
+            !!python/unicode 'application/json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-id'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            The created file(s) has/have to be referenced inside the given fileGrp
+            sections.'
+          !!python/unicode 'headers':
+            !!python/unicode 'Location':
+              !!python/unicode 'description': !!python/unicode 'URL of the generated
+                job.'
+              !!python/unicode 'schema': {!!python/unicode 'format': !!python/unicode 'url',
+                !!python/unicode 'type': !!python/unicode 'string'}
+          !!python/unicode 'links':
+            !!python/unicode 'GetFilesByJobId':
+              !!python/unicode 'description': !!python/unicode 'The `jobId` value
+                returned in the response can be used as the `jobID` parameter in `GET
+                /ocrd/processor/jobid/{jobID}`.
 
                 '
-              operationId: get-created-files-of-processor
-              parameters: {jobID: $response.body#/jobID}
-        '400': {description: Invalid input}
-        '500': {description: Internal error}
-      summary: Segment page into regions with tesseract
-      tags: *id005
-  /tesserocr-segment-line/{_id}:
+              !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+              !!python/unicode 'parameters': {!!python/unicode 'jobID': !!python/unicode '$response.body#/jobID'}
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Invalid
+            input'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Segment page into regions with
+        tesseract'
+      !!python/unicode 'tags': *id005
+  !!python/unicode '/tesserocr-segment-line/{_id}':
     delete:
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '204':
-          content:
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-          description: Successful Operation. All linked resources are removed successfully.
-        '404': {description: Not found.}
-        '410': {description: Resource is not available anymore.}
-        '500': {description: Internal error}
-      summary: Delete all files created by job with ID 'jobID'.
-      tags: *id005
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '204':
+          !!python/unicode 'content':
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            All linked resources are removed successfully.'
+        !!python/unicode '404': {!!python/unicode 'description': !!python/unicode 'Not
+            found.'}
+        !!python/unicode '410': {!!python/unicode 'description': !!python/unicode 'Resource
+            is not available anymore.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Delete all files created by job
+        with ID ''jobID''.'
+      !!python/unicode 'tags': *id005
     get:
-      description: Fetch all file created by job with id 'jobID'. If more than one
-        file is created per mimetype use mimetype 'application/zip' as accept header
-        to fetch all files at once.
-      operationId: get-created-files-of-processor
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '200':
-          content:
-            application/mets+xml:
-              schema: {$ref: '#/components/schemas/mets-file'}
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-            application/vnd.ocrd.log+json:
-              schema: {$ref: '#/components/schemas/logging'}
-            application/vnd.ocrd.page+xml:
-              schema: {$ref: '#/components/schemas/page-file'}
-            application/vnd.ocrd.prov+json:
-              schema: {$ref: '#/components/schemas/provenance-file'}
-            application/zip:
-              schema: {$ref: '#/components/schemas/zip-file'}
-            image/*:
-              schema: {$ref: '#/components/schemas/image-file'}
-          description: Successful Operation.
-        '400': {description: Bad request. Maybe more than one file of at least one
-            mimetype was created. Please use mimetype 'application/zip' as accept
-            header to fetch all files at once.}
-        '500': {description: Internal error}
-      summary: Get created files.
-      tags: *id005
-  /tesserocr-segment-region:
+      !!python/unicode 'description': !!python/unicode 'Fetch all file created by
+        job with id ''jobID''. If more than one file is created per mimetype use mimetype
+        ''application/zip'' as accept header to fetch all files at once.'
+      !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'content':
+            !!python/unicode 'application/mets+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+            !!python/unicode 'application/vnd.ocrd.log+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/logging'}
+            !!python/unicode 'application/vnd.ocrd.page+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/page-file'}
+            !!python/unicode 'application/vnd.ocrd.prov+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/provenance-file'}
+            !!python/unicode 'application/zip':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/zip-file'}
+            !!python/unicode 'image/*':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/image-file'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.'
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Bad
+            request. Maybe more than one file of at least one mimetype was created.
+            Please use mimetype ''application/zip'' as accept header to fetch all
+            files at once.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Get created files.'
+      !!python/unicode 'tags': *id005
+  !!python/unicode '/tesserocr-segment-region':
     get:
-      description: Get ocrd-tool.json
-      produces: []
-      responses:
-        '200':
-          application/json:
-            description: Got ocrd-tool.json
-            schema:
-              additionalProperties: false
-              description: Schema for tools by OCR-D MP
-              properties:
-                dockerhub: {description: DockerHub image, type: string}
-                git_url: {description: Github/Gitlab URL, format: url, type: string}
-                tools:
-                  additionalProperties: false
-                  patternProperties:
-                    ocrd-.*:
-                      additionalProperties: false
-                      properties:
-                        categories:
-                          description: Tools belong to this categories, representing
-                            modules within the OCR-D project structure
-                          items:
-                            enum: [Image preprocessing, Layout analysis, Text recognition
-                                and optimization, Model training, Long-term preservation,
-                              Quality assurance]
-                            type: string
-                          type: array
-                        description: {description: Concise description what the tool
-                            does}
-                        executable: {description: The name of the CLI executable in
-                            $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
-                        steps:
-                          description: This tool can be used at these steps in the
-                            OCR-D functional model
-                          items:
-                            enum: [preprocessing/characterization, preprocessing/optimization,
-                              preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
-                              preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
-                              preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
-                              recognition/text-recognition, recognition/font-identification,
-                              layout/segmentation, layout/segmentation/region, layout/segmentation/line,
-                              layout/segmentation/word, layout/segmentation/classification,
-                              layout/analysis]
-                            type: string
-                          type: array
-                      required: [description, steps, executable, categories]
-                      type: object
-                  type: object
-                version: v2.2.1
-                  pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
-              required: [version, git_url, tools]
-              type: object
-      tags: &id006 [Layout analysis]
+      !!python/unicode 'description': !!python/unicode 'Get ocrd-tool.json'
+      !!python/unicode 'produces': []
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'application/json':
+            !!python/unicode 'description': !!python/unicode 'Got ocrd-tool.json'
+            !!python/unicode 'schema':
+              !!python/unicode 'additionalProperties': false
+              !!python/unicode 'description': !!python/unicode 'Schema for tools by
+                OCR-D MP'
+              !!python/unicode 'properties':
+                !!python/unicode 'dockerhub': {!!python/unicode 'description': !!python/unicode 'DockerHub
+                    image', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'git_url': {!!python/unicode 'description': !!python/unicode 'Github/Gitlab
+                    URL', !!python/unicode 'format': !!python/unicode 'url', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'tools':
+                  !!python/unicode 'additionalProperties': false
+                  !!python/unicode 'patternProperties':
+                    !!python/unicode 'ocrd-.*':
+                      !!python/unicode 'additionalProperties': false
+                      !!python/unicode 'properties':
+                        !!python/unicode 'categories':
+                          !!python/unicode 'description': !!python/unicode 'Tools
+                            belong to this categories, representing modules within
+                            the OCR-D project structure'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'Image preprocessing',
+                              !!python/unicode 'Layout analysis', !!python/unicode 'Text
+                                recognition and optimization', !!python/unicode 'Model
+                                training', !!python/unicode 'Long-term preservation',
+                              !!python/unicode 'Quality assurance']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                        !!python/unicode 'description': {!!python/unicode 'description': !!python/unicode 'Concise
+                            description what the tool does'}
+                        !!python/unicode 'executable': {!!python/unicode 'description': !!python/unicode 'The
+                            name of the CLI executable in $PATH', !!python/unicode 'type': !!python/unicode 'string'}
+                        !!python/unicode 'parameters':
+                          !!python/unicode 'description': !!python/unicode 'Object
+                            describing the parameters of a tool. Keys are parameter
+                            names, values sub-schemas.'
+                          !!python/unicode 'patternProperties':
+                            !!python/unicode '.*':
+                              !!python/unicode 'additionalProperties': false
+                              !!python/unicode 'properties':
+                                !!python/unicode 'default': {!!python/unicode 'description': !!python/unicode 'Default
+                                    value when not provided by the user'}
+                                !!python/unicode 'enum': {!!python/unicode 'description': !!python/unicode 'List
+                                    the allowed values if a fixed list.', !!python/unicode 'type': !!python/unicode 'array'}
+                                !!python/unicode 'format': {!!python/unicode 'description': !!python/unicode 'Subtype,
+                                    such as `float` for type `number` or `uri` for
+                                    type `string`.'}
+                                !!python/unicode 'required': {!!python/unicode 'description': !!python/unicode 'Whether
+                                    this parameter is required', !!python/unicode 'type': !!python/unicode 'boolean'}
+                                !!python/unicode 'type':
+                                  !!python/unicode 'description': !!python/unicode 'Data
+                                    type of this parameter'
+                                  !!python/unicode 'enum': [!!python/unicode 'string',
+                                    !!python/unicode 'number', !!python/unicode 'boolean']
+                                  !!python/unicode 'type': !!python/unicode 'string'
+                              !!python/unicode 'required': [!!python/unicode 'type']
+                              !!python/unicode 'type': !!python/unicode 'object'
+                          !!python/unicode 'type': !!python/unicode 'object'
+                        !!python/unicode 'steps':
+                          !!python/unicode 'description': !!python/unicode 'This tool
+                            can be used at these steps in the OCR-D functional model'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'preprocessing/characterization',
+                              !!python/unicode 'preprocessing/optimization', !!python/unicode 'preprocessing/optimization/cropping',
+                              !!python/unicode 'preprocessing/optimization/deskewing',
+                              !!python/unicode 'preprocessing/optimization/despeckling',
+                              !!python/unicode 'preprocessing/optimization/dewarping',
+                              !!python/unicode 'preprocessing/optimization/binarization',
+                              !!python/unicode 'preprocessing/optimization/grayscale_normalization',
+                              !!python/unicode 'recognition/text-recognition', !!python/unicode 'recognition/font-identification',
+                              !!python/unicode 'layout/segmentation', !!python/unicode 'layout/segmentation/region',
+                              !!python/unicode 'layout/segmentation/line', !!python/unicode 'layout/segmentation/word',
+                              !!python/unicode 'layout/segmentation/classification',
+                              !!python/unicode 'layout/analysis']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                      !!python/unicode 'required': [!!python/unicode 'description',
+                        !!python/unicode 'steps', !!python/unicode 'executable', !!python/unicode 'categories']
+                      !!python/unicode 'type': !!python/unicode 'object'
+                  !!python/unicode 'type': !!python/unicode 'object'
+                !!python/unicode 'version': {!!python/unicode 'description': !!python/unicode 'Version
+                    of the tool, expressed as MAJOR.MINOR.PATCH.', !!python/unicode 'pattern': !!python/unicode '^[0-9]+\.[0-9]+\.[0-9]+$',
+                  !!python/unicode 'type': !!python/unicode 'string'}
+              !!python/unicode 'required': [!!python/unicode 'version', !!python/unicode 'git_url',
+                !!python/unicode 'tools']
+              !!python/unicode 'type': !!python/unicode 'object'
+      tags: &id006 [!!python/unicode 'Layout analysis']
     post:
-      description: Segment regions into lines with tesseract
-      operationId: start-processor
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              description: Object holding all parameters needed by most processors.
+      !!python/unicode 'description': !!python/unicode 'Segment regions into lines
+        with tesseract'
+      !!python/unicode 'operationId': !!python/unicode 'start-processor'
+      !!python/unicode 'requestBody':
+        !!python/unicode 'content':
+          !!python/unicode 'multipart/form-data':
+            !!python/unicode 'schema':
+              !!python/unicode 'description': !!python/unicode 'Object holding all
+                parameters needed by most processors.'
               parameters:
                 properties: {}
                 type: object
-              properties:
-                group-id:
-                  description: All IDs of the image files which should be characterized.
-                  items: {type: string}
-                  type: array
-                input-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as input.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                log-level: {$ref: '#/components/schemas/log-level'}
-                mets: {$ref: '#/components/schemas/mets-file'}
-                output-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as output.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                parameter:
-                  description: Parameter file in JSON format.
-                  items: {type: string}
-                  type: array
-              required: [mets, input-file-grp, output-file-grp]
-              type: object
-      responses:
-        '201':
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/job-id'}
-          description: Successful Operation. The created file(s) has/have to be referenced
-            inside the given fileGrp sections.
-          headers:
-            Location:
-              description: URL of the generated job.
-              schema: {format: url, type: string}
-          links:
-            GetFilesByJobId:
-              description: 'The `jobId` value returned in the response can be used
-                as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.
+              !!python/unicode 'properties':
+                !!python/unicode 'group-id':
+                  !!python/unicode 'description': !!python/unicode 'All IDs of the
+                    image files which should be characterized.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'input-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as input. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'log-level': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/log-level'}
+                !!python/unicode 'mets': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+                !!python/unicode 'output-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as output. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'parameter':
+                  !!python/unicode 'description': !!python/unicode 'Parameter file
+                    in JSON format.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+              !!python/unicode 'required': [!!python/unicode 'mets', !!python/unicode 'input-file-grp',
+                !!python/unicode 'output-file-grp']
+              !!python/unicode 'type': !!python/unicode 'object'
+      !!python/unicode 'responses':
+        !!python/unicode '201':
+          !!python/unicode 'content':
+            !!python/unicode 'application/json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-id'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            The created file(s) has/have to be referenced inside the given fileGrp
+            sections.'
+          !!python/unicode 'headers':
+            !!python/unicode 'Location':
+              !!python/unicode 'description': !!python/unicode 'URL of the generated
+                job.'
+              !!python/unicode 'schema': {!!python/unicode 'format': !!python/unicode 'url',
+                !!python/unicode 'type': !!python/unicode 'string'}
+          !!python/unicode 'links':
+            !!python/unicode 'GetFilesByJobId':
+              !!python/unicode 'description': !!python/unicode 'The `jobId` value
+                returned in the response can be used as the `jobID` parameter in `GET
+                /ocrd/processor/jobid/{jobID}`.
 
                 '
-              operationId: get-created-files-of-processor
-              parameters: {jobID: $response.body#/jobID}
-        '400': {description: Invalid input}
-        '500': {description: Internal error}
-      summary: Segment regions into lines with tesseract
-      tags: *id006
-  /tesserocr-segment-region/{_id}:
+              !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+              !!python/unicode 'parameters': {!!python/unicode 'jobID': !!python/unicode '$response.body#/jobID'}
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Invalid
+            input'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Segment regions into lines with
+        tesseract'
+      !!python/unicode 'tags': *id006
+  !!python/unicode '/tesserocr-segment-region/{_id}':
     delete:
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '204':
-          content:
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-          description: Successful Operation. All linked resources are removed successfully.
-        '404': {description: Not found.}
-        '410': {description: Resource is not available anymore.}
-        '500': {description: Internal error}
-      summary: Delete all files created by job with ID 'jobID'.
-      tags: *id006
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '204':
+          !!python/unicode 'content':
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            All linked resources are removed successfully.'
+        !!python/unicode '404': {!!python/unicode 'description': !!python/unicode 'Not
+            found.'}
+        !!python/unicode '410': {!!python/unicode 'description': !!python/unicode 'Resource
+            is not available anymore.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Delete all files created by job
+        with ID ''jobID''.'
+      !!python/unicode 'tags': *id006
     get:
-      description: Fetch all file created by job with id 'jobID'. If more than one
-        file is created per mimetype use mimetype 'application/zip' as accept header
-        to fetch all files at once.
-      operationId: get-created-files-of-processor
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '200':
-          content:
-            application/mets+xml:
-              schema: {$ref: '#/components/schemas/mets-file'}
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-            application/vnd.ocrd.log+json:
-              schema: {$ref: '#/components/schemas/logging'}
-            application/vnd.ocrd.page+xml:
-              schema: {$ref: '#/components/schemas/page-file'}
-            application/vnd.ocrd.prov+json:
-              schema: {$ref: '#/components/schemas/provenance-file'}
-            application/zip:
-              schema: {$ref: '#/components/schemas/zip-file'}
-            image/*:
-              schema: {$ref: '#/components/schemas/image-file'}
-          description: Successful Operation.
-        '400': {description: Bad request. Maybe more than one file of at least one
-            mimetype was created. Please use mimetype 'application/zip' as accept
-            header to fetch all files at once.}
-        '500': {description: Internal error}
-      summary: Get created files.
-      tags: *id006
-  /tesserocr-segment-word:
+      !!python/unicode 'description': !!python/unicode 'Fetch all file created by
+        job with id ''jobID''. If more than one file is created per mimetype use mimetype
+        ''application/zip'' as accept header to fetch all files at once.'
+      !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'content':
+            !!python/unicode 'application/mets+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+            !!python/unicode 'application/vnd.ocrd.log+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/logging'}
+            !!python/unicode 'application/vnd.ocrd.page+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/page-file'}
+            !!python/unicode 'application/vnd.ocrd.prov+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/provenance-file'}
+            !!python/unicode 'application/zip':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/zip-file'}
+            !!python/unicode 'image/*':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/image-file'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.'
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Bad
+            request. Maybe more than one file of at least one mimetype was created.
+            Please use mimetype ''application/zip'' as accept header to fetch all
+            files at once.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Get created files.'
+      !!python/unicode 'tags': *id006
+  !!python/unicode '/tesserocr-segment-word':
     get:
-      description: Get ocrd-tool.json
-      produces: []
-      responses:
-        '200':
-          application/json:
-            description: Got ocrd-tool.json
-            schema:
-              additionalProperties: false
-              description: Schema for tools by OCR-D MP
-              properties:
-                dockerhub: {description: DockerHub image, type: string}
-                git_url: {description: Github/Gitlab URL, format: url, type: string}
-                tools:
-                  additionalProperties: false
-                  patternProperties:
-                    ocrd-.*:
-                      additionalProperties: false
-                      properties:
-                        categories:
-                          description: Tools belong to this categories, representing
-                            modules within the OCR-D project structure
-                          items:
-                            enum: [Image preprocessing, Layout analysis, Text recognition
-                                and optimization, Model training, Long-term preservation,
-                              Quality assurance]
-                            type: string
-                          type: array
-                        description: {description: Concise description what the tool
-                            does}
-                        executable: {description: The name of the CLI executable in
-                            $PATH, type: string}
-                        parameters:
-                          description: Object describing the parameters of a tool.
-                            Keys are parameter names, values sub-schemas.
-                          patternProperties:
-                            .*:
-                              additionalProperties: false
-                              properties:
-                                default: {description: Default value when not provided
-                                    by the user}
-                                enum: {description: List the allowed values if a fixed
-                                    list., type: array}
-                                format: {description: 'Subtype, such as `float` for
-                                    type `number` or `uri` for type `string`.'}
-                                required: {description: Whether this parameter is
-                                    required, type: boolean}
-                                type:
-                                  description: Data type of this parameter
-                                  enum: [string, number, boolean]
-                                  type: string
-                              required: [type]
-                              type: object
-                          type: object
-                        steps:
-                          description: This tool can be used at these steps in the
-                            OCR-D functional model
-                          items:
-                            enum: [preprocessing/characterization, preprocessing/optimization,
-                              preprocessing/optimization/cropping, preprocessing/optimization/deskewing,
-                              preprocessing/optimization/despeckling, preprocessing/optimization/dewarping,
-                              preprocessing/optimization/binarization, preprocessing/optimization/grayscale_normalization,
-                              recognition/text-recognition, recognition/font-identification,
-                              layout/segmentation, layout/segmentation/region, layout/segmentation/line,
-                              layout/segmentation/word, layout/segmentation/classification,
-                              layout/analysis]
-                            type: string
-                          type: array
-                      required: [description, steps, executable, categories]
-                      type: object
-                  type: object
-                version: v2.2.1
-                  pattern: '^[0-9]+\.[0-9]+\.[0-9]+$', type: string}
-              required: [version, git_url, tools]
-              type: object
-      tags: &id007 [Layout analysis]
+      !!python/unicode 'description': !!python/unicode 'Get ocrd-tool.json'
+      !!python/unicode 'produces': []
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'application/json':
+            !!python/unicode 'description': !!python/unicode 'Got ocrd-tool.json'
+            !!python/unicode 'schema':
+              !!python/unicode 'additionalProperties': false
+              !!python/unicode 'description': !!python/unicode 'Schema for tools by
+                OCR-D MP'
+              !!python/unicode 'properties':
+                !!python/unicode 'dockerhub': {!!python/unicode 'description': !!python/unicode 'DockerHub
+                    image', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'git_url': {!!python/unicode 'description': !!python/unicode 'Github/Gitlab
+                    URL', !!python/unicode 'format': !!python/unicode 'url', !!python/unicode 'type': !!python/unicode 'string'}
+                !!python/unicode 'tools':
+                  !!python/unicode 'additionalProperties': false
+                  !!python/unicode 'patternProperties':
+                    !!python/unicode 'ocrd-.*':
+                      !!python/unicode 'additionalProperties': false
+                      !!python/unicode 'properties':
+                        !!python/unicode 'categories':
+                          !!python/unicode 'description': !!python/unicode 'Tools
+                            belong to this categories, representing modules within
+                            the OCR-D project structure'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'Image preprocessing',
+                              !!python/unicode 'Layout analysis', !!python/unicode 'Text
+                                recognition and optimization', !!python/unicode 'Model
+                                training', !!python/unicode 'Long-term preservation',
+                              !!python/unicode 'Quality assurance']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                        !!python/unicode 'description': {!!python/unicode 'description': !!python/unicode 'Concise
+                            description what the tool does'}
+                        !!python/unicode 'executable': {!!python/unicode 'description': !!python/unicode 'The
+                            name of the CLI executable in $PATH', !!python/unicode 'type': !!python/unicode 'string'}
+                        !!python/unicode 'parameters':
+                          !!python/unicode 'description': !!python/unicode 'Object
+                            describing the parameters of a tool. Keys are parameter
+                            names, values sub-schemas.'
+                          !!python/unicode 'patternProperties':
+                            !!python/unicode '.*':
+                              !!python/unicode 'additionalProperties': false
+                              !!python/unicode 'properties':
+                                !!python/unicode 'default': {!!python/unicode 'description': !!python/unicode 'Default
+                                    value when not provided by the user'}
+                                !!python/unicode 'enum': {!!python/unicode 'description': !!python/unicode 'List
+                                    the allowed values if a fixed list.', !!python/unicode 'type': !!python/unicode 'array'}
+                                !!python/unicode 'format': {!!python/unicode 'description': !!python/unicode 'Subtype,
+                                    such as `float` for type `number` or `uri` for
+                                    type `string`.'}
+                                !!python/unicode 'required': {!!python/unicode 'description': !!python/unicode 'Whether
+                                    this parameter is required', !!python/unicode 'type': !!python/unicode 'boolean'}
+                                !!python/unicode 'type':
+                                  !!python/unicode 'description': !!python/unicode 'Data
+                                    type of this parameter'
+                                  !!python/unicode 'enum': [!!python/unicode 'string',
+                                    !!python/unicode 'number', !!python/unicode 'boolean']
+                                  !!python/unicode 'type': !!python/unicode 'string'
+                              !!python/unicode 'required': [!!python/unicode 'type']
+                              !!python/unicode 'type': !!python/unicode 'object'
+                          !!python/unicode 'type': !!python/unicode 'object'
+                        !!python/unicode 'steps':
+                          !!python/unicode 'description': !!python/unicode 'This tool
+                            can be used at these steps in the OCR-D functional model'
+                          !!python/unicode 'items':
+                            !!python/unicode 'enum': [!!python/unicode 'preprocessing/characterization',
+                              !!python/unicode 'preprocessing/optimization', !!python/unicode 'preprocessing/optimization/cropping',
+                              !!python/unicode 'preprocessing/optimization/deskewing',
+                              !!python/unicode 'preprocessing/optimization/despeckling',
+                              !!python/unicode 'preprocessing/optimization/dewarping',
+                              !!python/unicode 'preprocessing/optimization/binarization',
+                              !!python/unicode 'preprocessing/optimization/grayscale_normalization',
+                              !!python/unicode 'recognition/text-recognition', !!python/unicode 'recognition/font-identification',
+                              !!python/unicode 'layout/segmentation', !!python/unicode 'layout/segmentation/region',
+                              !!python/unicode 'layout/segmentation/line', !!python/unicode 'layout/segmentation/word',
+                              !!python/unicode 'layout/segmentation/classification',
+                              !!python/unicode 'layout/analysis']
+                            !!python/unicode 'type': !!python/unicode 'string'
+                          !!python/unicode 'type': !!python/unicode 'array'
+                      !!python/unicode 'required': [!!python/unicode 'description',
+                        !!python/unicode 'steps', !!python/unicode 'executable', !!python/unicode 'categories']
+                      !!python/unicode 'type': !!python/unicode 'object'
+                  !!python/unicode 'type': !!python/unicode 'object'
+                !!python/unicode 'version': {!!python/unicode 'description': !!python/unicode 'Version
+                    of the tool, expressed as MAJOR.MINOR.PATCH.', !!python/unicode 'pattern': !!python/unicode '^[0-9]+\.[0-9]+\.[0-9]+$',
+                  !!python/unicode 'type': !!python/unicode 'string'}
+              !!python/unicode 'required': [!!python/unicode 'version', !!python/unicode 'git_url',
+                !!python/unicode 'tools']
+              !!python/unicode 'type': !!python/unicode 'object'
+      tags: &id007 [!!python/unicode 'Layout analysis']
     post:
-      description: Segment lines into words with tesseract
-      operationId: start-processor
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              description: Object holding all parameters needed by most processors.
+      !!python/unicode 'description': !!python/unicode 'Segment lines into words with
+        tesseract'
+      !!python/unicode 'operationId': !!python/unicode 'start-processor'
+      !!python/unicode 'requestBody':
+        !!python/unicode 'content':
+          !!python/unicode 'multipart/form-data':
+            !!python/unicode 'schema':
+              !!python/unicode 'description': !!python/unicode 'Object holding all
+                parameters needed by most processors.'
               parameters:
                 properties: {}
                 type: object
-              properties:
-                group-id:
-                  description: All IDs of the image files which should be characterized.
-                  items: {type: string}
-                  type: array
-                input-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as input.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                log-level: {$ref: '#/components/schemas/log-level'}
-                mets: {$ref: '#/components/schemas/mets-file'}
-                output-file-grp:
-                  description: ID(s) of the fileGrps which have to be used as output.
-                    (fileGrp@USE).
-                  items: {type: string}
-                  type: array
-                parameter:
-                  description: Parameter file in JSON format.
-                  items: {type: string}
-                  type: array
-              required: [mets, input-file-grp, output-file-grp]
-              type: object
-      responses:
-        '201':
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/job-id'}
-          description: Successful Operation. The created file(s) has/have to be referenced
-            inside the given fileGrp sections.
-          headers:
-            Location:
-              description: URL of the generated job.
-              schema: {format: url, type: string}
-          links:
-            GetFilesByJobId:
-              description: 'The `jobId` value returned in the response can be used
-                as the `jobID` parameter in `GET /ocrd/processor/jobid/{jobID}`.
+              !!python/unicode 'properties':
+                !!python/unicode 'group-id':
+                  !!python/unicode 'description': !!python/unicode 'All IDs of the
+                    image files which should be characterized.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'input-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as input. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'log-level': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/log-level'}
+                !!python/unicode 'mets': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+                !!python/unicode 'output-file-grp':
+                  !!python/unicode 'description': !!python/unicode 'ID(s) of the fileGrps
+                    which have to be used as output. (fileGrp@USE).'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+                !!python/unicode 'parameter':
+                  !!python/unicode 'description': !!python/unicode 'Parameter file
+                    in JSON format.'
+                  !!python/unicode 'items': {!!python/unicode 'type': !!python/unicode 'string'}
+                  !!python/unicode 'type': !!python/unicode 'array'
+              !!python/unicode 'required': [!!python/unicode 'mets', !!python/unicode 'input-file-grp',
+                !!python/unicode 'output-file-grp']
+              !!python/unicode 'type': !!python/unicode 'object'
+      !!python/unicode 'responses':
+        !!python/unicode '201':
+          !!python/unicode 'content':
+            !!python/unicode 'application/json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-id'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            The created file(s) has/have to be referenced inside the given fileGrp
+            sections.'
+          !!python/unicode 'headers':
+            !!python/unicode 'Location':
+              !!python/unicode 'description': !!python/unicode 'URL of the generated
+                job.'
+              !!python/unicode 'schema': {!!python/unicode 'format': !!python/unicode 'url',
+                !!python/unicode 'type': !!python/unicode 'string'}
+          !!python/unicode 'links':
+            !!python/unicode 'GetFilesByJobId':
+              !!python/unicode 'description': !!python/unicode 'The `jobId` value
+                returned in the response can be used as the `jobID` parameter in `GET
+                /ocrd/processor/jobid/{jobID}`.
 
                 '
-              operationId: get-created-files-of-processor
-              parameters: {jobID: $response.body#/jobID}
-        '400': {description: Invalid input}
-        '500': {description: Internal error}
-      summary: Segment lines into words with tesseract
-      tags: *id007
-  /tesserocr-segment-word/{_id}:
+              !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+              !!python/unicode 'parameters': {!!python/unicode 'jobID': !!python/unicode '$response.body#/jobID'}
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Invalid
+            input'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Segment lines into words with
+        tesseract'
+      !!python/unicode 'tags': *id007
+  !!python/unicode '/tesserocr-segment-word/{_id}':
     delete:
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '204':
-          content:
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-          description: Successful Operation. All linked resources are removed successfully.
-        '404': {description: Not found.}
-        '410': {description: Resource is not available anymore.}
-        '500': {description: Internal error}
-      summary: Delete all files created by job with ID 'jobID'.
-      tags: *id007
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '204':
+          !!python/unicode 'content':
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.
+            All linked resources are removed successfully.'
+        !!python/unicode '404': {!!python/unicode 'description': !!python/unicode 'Not
+            found.'}
+        !!python/unicode '410': {!!python/unicode 'description': !!python/unicode 'Resource
+            is not available anymore.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Delete all files created by job
+        with ID ''jobID''.'
+      !!python/unicode 'tags': *id007
     get:
-      description: Fetch all file created by job with id 'jobID'. If more than one
-        file is created per mimetype use mimetype 'application/zip' as accept header
-        to fetch all files at once.
-      operationId: get-created-files-of-processor
-      parameters:
-      - description: job ID of the started process.
-        in: path
-        name: jobID
-        required: true
-        schema: {type: string}
-      responses:
-        '200':
-          content:
-            application/mets+xml:
-              schema: {$ref: '#/components/schemas/mets-file'}
-            application/vnd.ocrd+job-status:
-              schema: {$ref: '#/components/schemas/job-status'}
-            application/vnd.ocrd.log+json:
-              schema: {$ref: '#/components/schemas/logging'}
-            application/vnd.ocrd.page+xml:
-              schema: {$ref: '#/components/schemas/page-file'}
-            application/vnd.ocrd.prov+json:
-              schema: {$ref: '#/components/schemas/provenance-file'}
-            application/zip:
-              schema: {$ref: '#/components/schemas/zip-file'}
-            image/*:
-              schema: {$ref: '#/components/schemas/image-file'}
-          description: Successful Operation.
-        '400': {description: Bad request. Maybe more than one file of at least one
-            mimetype was created. Please use mimetype 'application/zip' as accept
-            header to fetch all files at once.}
-        '500': {description: Internal error}
-      summary: Get created files.
-      tags: *id007
-servers:
-- {url: 'http://test.ocr-d.de/v1'}
-tags:
-- {description: Methods that characterize and optimize the digital representations
-    for layout and text recognition., name: Image preprocessing}
-- {description: 'Registration of the correct text flow, that means the reproduction
-    of the logical-structural text flow and high text accuracy.', name: Layout analysis}
-- {description: Combination of several OCR engines with subsequent corrections to
-    improve text results., name: Text recognition and optimization}
-- {description: Training and provision of models., name: Model training}
-- {description: Ensuring the long-term availability and referenceability of the texts
-    obtained., name: Long-term preservation}
-- {description: Determination/estimation of the potential of each component., name: Quality
-    assurance}
+      !!python/unicode 'description': !!python/unicode 'Fetch all file created by
+        job with id ''jobID''. If more than one file is created per mimetype use mimetype
+        ''application/zip'' as accept header to fetch all files at once.'
+      !!python/unicode 'operationId': !!python/unicode 'get-created-files-of-processor'
+      !!python/unicode 'parameters':
+      - !!python/unicode 'description': !!python/unicode 'job ID of the started process.'
+        !!python/unicode 'in': !!python/unicode 'path'
+        !!python/unicode 'name': !!python/unicode 'jobID'
+        !!python/unicode 'required': true
+        !!python/unicode 'schema': {!!python/unicode 'type': !!python/unicode 'string'}
+      !!python/unicode 'responses':
+        !!python/unicode '200':
+          !!python/unicode 'content':
+            !!python/unicode 'application/mets+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/mets-file'}
+            !!python/unicode 'application/vnd.ocrd+job-status':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/job-status'}
+            !!python/unicode 'application/vnd.ocrd.log+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/logging'}
+            !!python/unicode 'application/vnd.ocrd.page+xml':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/page-file'}
+            !!python/unicode 'application/vnd.ocrd.prov+json':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/provenance-file'}
+            !!python/unicode 'application/zip':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/zip-file'}
+            !!python/unicode 'image/*':
+              !!python/unicode 'schema': {!!python/unicode '$ref': !!python/unicode '#/components/schemas/image-file'}
+          !!python/unicode 'description': !!python/unicode 'Successful Operation.'
+        !!python/unicode '400': {!!python/unicode 'description': !!python/unicode 'Bad
+            request. Maybe more than one file of at least one mimetype was created.
+            Please use mimetype ''application/zip'' as accept header to fetch all
+            files at once.'}
+        !!python/unicode '500': {!!python/unicode 'description': !!python/unicode 'Internal
+            error'}
+      !!python/unicode 'summary': !!python/unicode 'Get created files.'
+      !!python/unicode 'tags': *id007
+!!python/unicode 'servers':
+- {!!python/unicode 'url': !!python/unicode 'http://test.ocr-d.de/v1'}
+!!python/unicode 'tags':
+- {!!python/unicode 'description': !!python/unicode 'Methods that characterize and
+    optimize the digital representations for layout and text recognition.', !!python/unicode 'name': !!python/unicode 'Image
+    preprocessing'}
+- {!!python/unicode 'description': !!python/unicode 'Registration of the correct text
+    flow, that means the reproduction of the logical-structural text flow and high
+    text accuracy.', !!python/unicode 'name': !!python/unicode 'Layout analysis'}
+- {!!python/unicode 'description': !!python/unicode 'Combination of several OCR engines
+    with subsequent corrections to improve text results.', !!python/unicode 'name': !!python/unicode 'Text
+    recognition and optimization'}
+- {!!python/unicode 'description': !!python/unicode 'Training and provision of models.',
+  !!python/unicode 'name': !!python/unicode 'Model training'}
+- {!!python/unicode 'description': !!python/unicode 'Ensuring the long-term availability
+    and referenceability of the texts obtained.', !!python/unicode 'name': !!python/unicode 'Long-term
+    preservation'}
+- {!!python/unicode 'description': !!python/unicode 'Determination/estimation of the
+    potential of each component.', !!python/unicode 'name': !!python/unicode 'Quality
+    assurance'}
 

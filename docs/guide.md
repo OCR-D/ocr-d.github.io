@@ -64,9 +64,7 @@ sudo apt install \
   git \
   build-essential \
   python python-pip \
-  python3 python3-pip \
-  libimage-exiftool-perl \
-  libxml2-utils
+  python3 python3-pip
 ```
 
   * `git`: Version control, [OCR-D uses git extensively](https://github.com/OCR-D)
