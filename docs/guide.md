@@ -648,3 +648,52 @@ params["val1"]="42"
 params["val2"]="true"
 params["val-with-default"]="23"
 ```
+
+## Wrapping a CLI using `bash`
+
+This section describes how you can make an existing tool [OCR-D
+compliant](/cli), that is provide a CLI that implements all the specs and calls
+out to another exceutable.
+
+For this purpose, the `ocrd` offers a `bash` library that handles:
+
+  * command line option parsing
+  * on-line help
+  * parsing and providing defaults for parameters
+
+The shell library is bundled with the `ocrd` command line tool and can be accessed with the
+`ocrd bashlib` command.
+
+### `ocrd bashlib`
+
+To get the filename of the shell lib, use `ocrd bashlib filename`, which you
+can use to source the shell code in a wrapper script. After sourcing this script
+you will have access to a number of shell functions that begin with `ocrd__`.
+
+The only function you definitely need is `ocrd__wrap` which parses an
+`ocrd-tool.json` and scaffolds a spec-compliant CLI, parses command line
+arguments and parameters and lets the developer then react to the inputs.
+
+In combination with the [`ocrd workspace`](#ocrd-workspace) command this allows
+you to write CLI applications without touching any METS or PAGE/XML files by hand.
+
+### `ocrd__wrap`
+
+`ocrd__wrap` has this signature:
+
+```
+ocrd__wrap OCRD_TOOL_JSON EXECUTABLE_NAME ...ARGS
+```
+
+where
+
+  * `OCRD_TOOL_JSON` is the path to the `ocrd-tool.json`
+  * `EXECUTABLE_NAME` is the name of an executable within `OCRD_TOOL_JSON`
+  * `...ARGS` are 0..n command line arguments passed on from the user
+
+Example:
+
+```sh
+   ocrd__wrap /usr/share/ocrd-wip/ocrd-tool.json ocrd-wip-xyzzy "$@"
+```
+
