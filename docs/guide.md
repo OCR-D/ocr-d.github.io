@@ -309,21 +309,24 @@ All MP should provide a [Makefile](https://en.wikipedia.org/wiki/Makefile) with 
 
 `make test` should start the unit/regression test suite if provided.
 
-#### `Makefile` for python MP
+#### `Makefile` for Python MP
 
-:fire: TODO :fire:
+`make deps` should install dependencies with `pip`.
+
+`make install` should call `python setup.py install`.
+
+See the [makefile of the `ocrd_kraken` project](https://github.com/OCR-D/ocrd_kraken/blob/master/Makefile) for an example.
 
 #### `Makefile` for generic MP
 
-:fire: TODO :fire:
+`make deps` should install dependencies either by compiling from source or using `apt-get`.
 
-### `ocrd-tool` -- Working with ocrd-tool.json
+`make install` should
 
-:fire: TODO :fire:
+  * Copy the executables to `$(PREFIX)/bin`, creating `$(PREFIX)/bin` if necessary.
+  * Copy any required files to `$(PREFIX)/share/<name-of-the-package>`, creating the latter if necessary
 
-#### `ocrd-tool validate`
-
-:fire: TODO :fire:
+See the [makefile of the `ocrd_olena` project](https://github.com/OCR-D/ocrd_olena/blob/master/Makefile) for an example.
 
 ## `ocrd workspace` - Working with METS
 
@@ -333,7 +336,7 @@ digitzation workflows in cultural heritage institutions.
 A METS file references files in file groups and can contain a variety of
 metadata, the details can [be found in the specs](https://ocr-d.github.io).
 
-### Workspace
+### From METS to Workspace
 
 Within the OCR-D toolkit, we use the term "workspace", a folder containing a
 file `mets.xml` and any number of the files referenced by the METS.
@@ -529,4 +532,119 @@ $ ocrd workspace -d $WORKSPACE_DIR add -G OCR-D-IMG-BIN -i PAGE-0013-BIN -m imag
 # Validate again
 <report valid="true">
 </report>
+```
+
+## `ocrd-tool` -- Working with ocrd-tool.json
+
+This command helps you explore and validate the information in any [ocrd-tool.json](#ocrd-tool-json).
+
+The syntax is `ocrd ocrd-tool /path/to/ocrd-tool.json SUBCOMMAND`
+
+### `ocrd-tool validate`
+
+Validate that an `ocrd-tool.json` is syntactically valid and adheres to the [schema](/ocrd_tool).
+
+Useful while developing to make sure there are no typos and all required properties are set.
+
+```sh
+$ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json validate
+<report valid="false">
+  <error>[tools.ocrd-wip-xyzzy] 'steps' is a required property</error>
+  <error>[tools.ocrd-wip-xyzzy] 'categories' is a required property</error>
+  <error>[] 'version' is a required property</error>
+</report>
+```
+
+This shows that the `ocrd-wip-xyzzy` executable is missing the required `steps` and
+`categories` properties and the root level object is missing the `version`
+property.
+
+Adding them should result in
+
+```sh
+$ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json validate
+<report valid="true">
+</report>
+```
+
+### Introspect an `ocrd-tool.json`
+
+These commands are used for enumerating the executables contained in an
+`ocrd-tool.json` and get root level metadata, such as the version.
+
+```sh
+$ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json version
+0.0.1
+
+# Lists all the tools (executables) one per-line
+$ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json list-tools
+ocrd-wip-xyzzy
+ocrd-wip-frobozz
+```
+
+### Introspect individual tools
+
+This set of commands allows introspection of the metadata about individual
+tools within an `ocrd-tool.json`.
+
+The syntax is `ocrd ocrd-tool /path/to/ocrd-tool.json tool EXECUTABLE SUBCOMMAND`
+
+```sh
+$ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json tool ocrd-wip-xyzzy --help
+
+  categories    Categories of tool
+  description   Describe tool
+  dump          Dump JSON of tool
+  steps         Steps of tool
+
+$ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json tool ocrd-wip-xyzzy dump
+{
+  "description": "Nothing happens",
+  "categories": ["Text recognition and optimization", "Arcane Magic"],
+  "steps": ["recognition/text-recognition"],
+  "exceutable": "ocrd-wip-xyzzy"
+}
+
+# Description
+$ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json tool ocrd-wip-xyzzy description
+Nothing happens
+
+# List categories one per line
+$ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json tool ocrd-wip-xyzzy categories
+Text recognition and optimization
+Arcane Magic
+
+# List steps one per line
+$ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json tool ocrd-wip-xyzzy steps
+recognition/text-recognition
+```
+
+### Parse parameters
+
+The details of how a tool is configured at run-time are determined by
+parameters. When a parameter file is passed to a
+tool, it should:
+
+  * ensure it is valid JSON
+  * valid according to the [parameter schema](#metadata-about-parameters)
+  * add default values when no explicit values were provided
+
+The `ocrd ocrd-tool tool parse-params` command does just that and can output
+the resulting default-enriched parameter as either JSON or as shell script
+assignments to evaluate:
+
+```sh
+# Get JSON
+$ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json tool ocrd-wip-xyzzy parse-params --json -p <(echo '{"val1": 42, "val2": false}')
+{
+  "val1": 42,
+  "val2": false,
+  "val-with-default": 23
+}
+
+# Get back shell assignments to an associative array "params"
+$ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json tool ocrd-wip-xyzzy parse-params -p <(echo '{"val1": 42, "val2": false}')
+params["val1"]="42"
+params["val2"]="true"
+params["val-with-default"]="23"
 ```
