@@ -590,6 +590,13 @@ tools within an `ocrd-tool.json`.
 The syntax is `ocrd ocrd-tool /path/to/ocrd-tool.json tool EXECUTABLE SUBCOMMAND`
 
 ```sh
+$ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json tool ocrd-wip-xyzzy --help
+
+  categories    Categories of tool
+  description   Describe tool
+  dump          Dump JSON of tool
+  steps         Steps of tool
+
 $ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json tool ocrd-wip-xyzzy dump
 {
   "description": "Nothing happens",

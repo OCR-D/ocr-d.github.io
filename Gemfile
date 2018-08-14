@@ -19,7 +19,7 @@ gem "github-pages", group: :jekyll_plugins
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
-  gem "jemoji", "~> 0.10.0"
+  gem "jemoji", "~> 0.9.0"
   gem "jekyll-feed", "~> 0.6"
   gem "jekyll-seo-tag", "~> 2.1"
 end

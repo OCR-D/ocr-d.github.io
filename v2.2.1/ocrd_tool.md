@@ -58,7 +58,6 @@ properties:
                 type: object
                 additionalProperties: false
                 required:
-                  - description
                   - type
                   # also either 'default' or 'required'
                 properties:
@@ -71,8 +70,6 @@ properties:
                       - boolean
                   format:
                     description: Subtype, such as `float` for type `number` or `uri` for type `string`.
-                  description:
-                    description: Concise description of syntax and semantics of this parameter
                   required:
                     type: boolean
                     description: Whether this parameter is required
