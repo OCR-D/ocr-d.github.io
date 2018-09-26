@@ -44,7 +44,8 @@ URL of parameter file in JSON format.
 
 ### `-l, --log-level LOGLEVEL`
 
-Set the global minimum Log level. (One of `OFF`, `ERROR`, `WARN`, `INFO` (default), `DEBUG`, `TRACE`).
+Set the global maximum verbosity level. More verbose log entries will be
+ignored. (One of `OFF`, `ERROR`, `WARN`, `INFO` (default), `DEBUG`, `TRACE`).
 
 **NOTE:** Setting the log level via `--log-level` parameter should override any
 other implementation-specific means of logging configuration. For example, with
@@ -67,6 +68,14 @@ Data printed to `STDERR` and `STDOUT` is captured linewise and stored as log dat
 Processors must adjust logging verbosity according to the [`--log-level` parameter](#-l---log-level-loglevel).
 
 Errors, especially those leading to exceptions, must be printed to `STDERR`.
+
+The log messages must have the format `TIME LEVEL LOGGERNAME - MESSAGE\n`, where
+
+* `TIME` is the current time in the format `HH:MM:ss.mmm`, e.g. `07:05:31.007`
+* `LEVEL` is the log level of the message, in uppercase, e.g. `INFO`
+* `LOGGERNAME` is the name of the logging component, such as the class name. Segments of `LOGGERNAME` should be separated by dot `.`, e.g. `ocrd.fancy_tool.analyze`
+* `MESSAGE` is the message to log, should not contain new lines.
+* `\n` is ASCII char `0x0a` (newline)
 
 ## URL/file convention
 
