@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4">
+  <link rel="stylesheet" href="/assets/bulma.css">
+  <link rel="stylesheet" href="/assets/syntax-highlight.css">
+  <style>
+  #swagger-ui pre.version {
+    padding: 2px !important;
+    background: initial !important;
+  }
+  #swagger-ui .topbar {
+    display: none;
+  }
+  blockquote {
+    background: #f99;
+  }
+  aside.menu > ul { 
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+  }
+  body > #swagger-ui,
+  body > .columns {
+    margin-top: 55px;
+  }
+  h2 code, h3 code, h4 code {
+    color: black;
+  }
+
+  </style><link type="application/atom+xml" rel="alternate" href="https://ocr-d.github.io/feed.xml" title="OCR-D" /></head>
+<body><nav class="navbar is-transparent is-fixed-top">
+
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4" height="28"/>
+    </a>
+    <div class="navbar-burger burger" data-target="ocrd-navbar-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="ocrd-navbar-menu" class="navbar-menu">
+    <div class="navbar-start">
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Specs</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/cli">CLI</a>
+          <a class="navbar-item" href="/mets">METS</a>
+          <a class="navbar-item" href="/page">PAGE</a>
+          <a class="navbar-item" href="/ocrd_zip">OCRD-ZIP</a>
+          <a class="navbar-item" href="/ocrd_tool">ocrd-tool.json</a>
+          <a class="navbar-item" href="/docker">Dockerfile</a>
+        </div>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Docs</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/docs/guide">Guide</a>
+          <a class="navbar-item" href="/docs/cookbook">Cookbook</a>
+          <a class="navbar-item" href="/docs/faq">FAQ</a>
+          <a class="navbar-item" href="/docs/dita">Documenting with DITA</a>
+          <a class="navbar-item" href="/docs/vbox">Setting up VirtualBox</a>
+        </div>
+      </div>
+
+      <a class="navbar-item" href="/glossary">Glossary</a>
+
+    </div>
+
+    <div class="navbar-end">
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Older versions</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/v1.0.0">v1.0.0</a>
+          <a class="navbar-item" href="/v1.1.0">v1.1.0</a>
+          <a class="navbar-item" href="/v1.1.1">v1.1.1</a>
+          <a class="navbar-item" href="/v1.1.2">v1.1.2</a>
+          <a class="navbar-item" href="/v1.1.3">v1.1.3</a>
+          <a class="navbar-item" href="/v1.1.4">v1.1.4</a>
+          <a class="navbar-item" href="/v1.1.5">v1.1.5</a>
+          <a class="navbar-item" href="/v1.2.0">v1.2.0</a>
+          <a class="navbar-item" href="/v1.3.0">v1.3.0</a>
+          <a class="navbar-item" href="/v2.0.0">v2.0.0</a>
+          <a class="navbar-item" href="/v2.1.0">v2.1.0</a>
+          <a class="navbar-item" href="/v2.1.1">v2.1.1</a>
+          <a class="navbar-item" href="/v2.1.2">v2.1.1</a>
+          <a class="navbar-item" href="/v2.2.0">v2.2.0</a>
+          <a class="navbar-item" href="/v2.2.1">v2.2.1</a>
+          <a class="navbar-item" href="/v2.2.2">v2.2.2</a>
+          <a class="navbar-item" href="/">v2.3.0</a>
+        </div>
+      </div>
+
+      <span class="navbar-item">
+        <a href="https://github.com/OCR-D"><img src="https://www.vectorlogo.zone/logos/github/github-tile.svg"/></a>
+        &nbsp;
+        <a href="https://hub.docker.com/r/ocrd"><img src="https://www.vectorlogo.zone/logos/docker/docker-tile.svg"/></a>
+        &nbsp;
+        <a href="https://ocr-d.de"><img src="https://www.vectorlogo.zone/logos/fileformatinfo/fileformatinfo-tile.svg"/></a>
+      </span>
+
+    </div>
+  </div>
+</nav>
+<div class="columns">
+      <aside class="column is-one-third menu">
+        <ul class="menu-list column is-one-third">
+  <li><a href="#ocr-d-virtualbox">OCR-D Virtualbox</a>
+    <ul>
+      <li><a href="#deployment-infos">Deployment Infos</a>
+        <ul>
+          <li><a href="#base-system">Base System</a></li>
+          <li><a href="#terminal-setup">Terminal setup</a></li>
+          <li><a href="#tesseract">Tesseract</a></li>
+          <li><a href="#python">Python</a>
+            <ul>
+              <li><a href="#install-virtualenv">Install virtualenv</a></li>
+              <li><a href="#default-to-venv3">Default to venv3</a></li>
+            </ul>
+          </li>
+          <li><a href="#bootstrap-ocrd">Bootstrap ocrd</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+      </aside>
+
+      <main class="container content column is-two-thirds" aria-label="Content">
+        <h1 id="ocr-d-virtualbox">OCR-D Virtualbox</h1>
+
+<!-- BEGIN-MARKDOWN-TOC -->
+<ul>
+  <li><a href="#deployment-infos">Deployment Infos</a>
+    <ul>
+      <li><a href="#base-system">Base System</a></li>
+      <li><a href="#terminal-setup">Terminal setup</a></li>
+      <li><a href="#tesseract">Tesseract</a></li>
+      <li><a href="#python">Python</a>
+        <ul>
+          <li><a href="#install-virtualenv">Install virtualenv</a></li>
+          <li><a href="#default-to-venv3">Default to venv3</a></li>
+        </ul>
+      </li>
+      <li><a href="#bootstrap-ocrd">Bootstrap ocrd</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- END-MARKDOWN-TOC -->
+
+<h2 id="deployment-infos">Deployment Infos</h2>
+
+<ul>
+  <li>Based on Xubuntu 18.04</li>
+</ul>
+
+<p>Username: <strong><code class="highlighter-rouge">ocrd</code></strong>
+Password: <strong><code class="highlighter-rouge">ocrd</code></strong></p>
+
+<h3 id="base-system">Base System</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install packages</span>
+<span class="nb">sudo </span>apt install git curl vim-gtk3 make zsh htop xclip apt-file silversearcher-ag clipit terminator
+
+<span class="c"># Remove cruft</span>
+rm <span class="nt">-rf</span> <span class="nv">$HOME</span>/<span class="o">{</span>Music,Pictures,Public,Templates,Videos<span class="o">}</span>
+<span class="nb">sudo </span>apt remove libreoffice-<span class="o">{</span>core,writer,calc<span class="o">}</span> thunderbird pidgin-data libflite1
+
+<span class="c"># Upgrade</span>
+<span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt upgrade
+</code></pre></div></div>
+
+<h3 id="terminal-setup">Terminal setup</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install dotfiles</span>
+git clone https://github.com/kba/dotfiles
+<span class="nb">cd </span>dotfiles
+<span class="nb">echo</span> <span class="s2">""</span> <span class="o">&gt;</span> REPOLIST
+<span class="nb">echo </span>home-bin <span class="o">&gt;&gt;</span> REPOLIST
+<span class="nb">echo </span>shcolor <span class="o">&gt;&gt;</span> REPOLIST
+<span class="nb">echo </span>zsh-config <span class="o">&gt;&gt;</span> REPOLIST
+<span class="nb">echo </span>vim-config <span class="o">&gt;&gt;</span> REPOLIST
+<span class="nb">echo </span>git-config <span class="o">&gt;&gt;</span> REPOLIST
+./dotfiles.sh clone
+./dottfiles.sh init
+
+<span class="c"># Set zsh</span>
+chsh <span class="nt">-s</span> /bin/zsh
+
+<span class="c"># Download a nice font from http://nerdfonts.com and set up in terminal emulator</span>
+
+<span class="c"># --&gt; Reboot</span>
+</code></pre></div></div>
+
+<h3 id="tesseract">Tesseract</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt install libtesseract<span class="o">{</span>4,-dev<span class="o">}</span> tesseract-ocr<span class="o">{</span>,-eng,-deu<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Einige Tools benötigen aber für die nahe Zukunft noch Versionen der alten
+<code class="highlighter-rouge">3.0x</code>-Versionsreihe ohne neuronale Netze und Trainingstools.</p>
+
+<p>Es sind sowohl die Version <code class="highlighter-rouge">3.05.00</code> (in <code class="highlighter-rouge">$HOME/.local</code>) als auch <code class="highlighter-rouge">4.0.0-beta1</code>
+(systemweit) installiert.</p>
+
+<p>Um zwischen den beiden Versionen zu wechseln:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">source</span> /home/ocrd/tess4/bin/activate 
+Switched from <span class="s1">'tesseract 4.0.0-beta.1'</span> to <span class="s1">'tesseract 4.0.0-beta.1. TESSDATA_PREFIX=/usr/share/tesseract-ocr/4.00
+
+$ source /home/ocrd/tess3/bin/activate
+Switched from '</span>tesseract 4.0.0-beta.1<span class="s1">' to '</span>tesseract 3.05.02. <span class="nv">TESSDATA_PREFIX</span><span class="o">=</span>/home/ocrd/tess3
+</code></pre></div></div>
+
+<h3 id="python">Python</h3>
+
+<h4 id="install-virtualenv">Install virtualenv</h4>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt install python3-virtualenv python-virtualenv
+<span class="nb">cd</span> <span class="nv">$HOME</span>
+virtualenv <span class="nt">-p</span> python3.6 venv3
+virtualenv <span class="nt">-p</span> python2.7 venv2
+</code></pre></div></div>
+
+<h4 id="default-to-venv3">Default to venv3</h4>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"source </span><span class="nv">$HOME</span><span class="s2">/venv3/bin/activate"</span> <span class="o">&gt;</span> ~/.zshrc.local
+</code></pre></div></div>
+
+<p><strong>NOTE</strong> Use <code class="highlighter-rouge">source $HOME/venv2/bin/activate</code> to use Python2. Only for ocrd_ocropy.</p>
+
+<h3 id="bootstrap-ocrd">Bootstrap ocrd</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Clone the repo</span>
+git clone https://github.com/kba/ocrd-docs build/docs
+
+<span class="c"># Setup makefile</span>
+ln <span class="nt">-sr</span> build/docs/vbox/Makefile
+
+<span class="c"># Clone repos</span>
+make clone
+
+<span class="c"># Install 'em</span>
+make install
+</code></pre></div></div>
+
+      </main>
+    </div><footer class="level">
+
+  <div class="level-item">
+    <p>
+<!-- BEGIN-EVAL echo "Based on <a href="https://github.com/OCR-D/spec/releases/tag/${SPEC_VERSION:-dev}">OCR-D/spec ${SPEC_VERSION:-dev}</a>." -->
+Based on <a href=https://github.com/OCR-D/spec/releases/tag/v2.3.1>OCR-D/spec v2.3.1</a>.
+
+<!-- END-EVAL -->
+    </p>
+    &nbsp;
+
+
+<!-- BEGIN-EVAL echo "<p>Generated on <code>$(date)</code></p>" -->
+<p>Generated on <code>Wed Oct 10 17:52:28 CEST 2018</code></p>
+
+<!-- END-EVAL -->
+  </div>
+
+</footer>
+<script src="/assets/script.js"></script>
+</body>
+
+</html>
