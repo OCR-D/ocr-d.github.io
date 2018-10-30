@@ -34,12 +34,9 @@ File group(s) used as output.
 
 ## Optional parameters
 
-### `-g, --group-id ID`
+### `-g, --group-id GROUPID`
 
-The `mets:div[@TYPE='page']/@ID` that contains the pointers to files
-representing a page. Effectively, only those files in the [input file
-group](#-i---input-file-grp-grp) that are referenced in these
-`mets:div[@TYPE="page"]` will be processed.
+The `mets:file@GROUPID` to process. If no groupID is defined all files within the `inputGrp` will be processed. Repeatable and multiple IDs can be provided separated by comma.
 
 ### `-p, --parameter PARAM_JSON`
 
@@ -122,6 +119,10 @@ $> ocrd process \
     
     preprocessing/binarization/kraken-binarize
 ```
+
+### Description
+
+Binarize images from METS file with GROUPIDs id0001, id0002 and id0003.
 
 ### METS input
 
