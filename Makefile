@@ -26,3 +26,9 @@ serve:
 # Build the site in a _site directory
 build:
 	bundle exec jekyll build
+
+# Move _site to the right version
+archive: build
+	old_version=`grep 'SPEC_VERSION :=' ../Makefile |grep -o 'v.*$$'` ;\
+		rm -rf _site/v* ;\
+		mv _site $$old_version
