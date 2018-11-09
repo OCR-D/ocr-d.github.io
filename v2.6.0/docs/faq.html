@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&amp;v=4">
+  <link rel="stylesheet" href="/assets/bulma.css">
+  <link rel="stylesheet" href="/assets/syntax-highlight.css">
+  <style>
+  #swagger-ui pre.version {
+    padding: 2px !important;
+    background: initial !important;
+  }
+  #swagger-ui .topbar {
+    display: none;
+  }
+  blockquote {
+    background: #f99;
+  }
+  aside.menu > ul { 
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+  }
+  body > #swagger-ui,
+  body > .columns {
+    margin-top: 55px;
+  }
+  h2 code, h3 code, h4 code {
+    color: black;
+  }
+
+  </style>
+<link type="application/atom+xml" rel="alternate" href="https://ocr-d.github.io/feed.xml" title="OCR-D">
+</head>
+<body>
+<nav class="navbar is-transparent is-fixed-top">
+
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="https://avatars0.githubusercontent.com/u/26362587?s=200&amp;v=4" height="28">
+    </a>
+    <div class="navbar-burger burger" data-target="ocrd-navbar-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="ocrd-navbar-menu" class="navbar-menu">
+    <div class="navbar-start">
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Specs</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/cli">CLI</a>
+          <a class="navbar-item" href="/mets">METS</a>
+          <a class="navbar-item" href="/page">PAGE</a>
+          <a class="navbar-item" href="/ocrd_zip">OCRD-ZIP</a>
+          <a class="navbar-item" href="/ocrd_tool">ocrd-tool.json</a>
+          <a class="navbar-item" href="/docker">Dockerfile</a>
+        </div>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Docs</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/docs/guide">Guide</a>
+          <a class="navbar-item" href="/docs/cookbook">Cookbook</a>
+          <a class="navbar-item" href="/docs/faq">FAQ</a>
+          <a class="navbar-item" href="/docs/dita">Documenting with DITA</a>
+          <a class="navbar-item" href="/docs/vbox">Setting up VirtualBox</a>
+        </div>
+      </div>
+
+      <a class="navbar-item" href="/glossary">Glossary</a>
+
+    </div>
+
+    <div class="navbar-end">
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Older versions</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/v1.0.0">v1.0.0</a>
+          <a class="navbar-item" href="/v1.1.0">v1.1.0</a>
+          <a class="navbar-item" href="/v1.1.1">v1.1.1</a>
+          <a class="navbar-item" href="/v1.1.2">v1.1.2</a>
+          <a class="navbar-item" href="/v1.1.3">v1.1.3</a>
+          <a class="navbar-item" href="/v1.1.4">v1.1.4</a>
+          <a class="navbar-item" href="/v1.1.5">v1.1.5</a>
+          <a class="navbar-item" href="/v1.2.0">v1.2.0</a>
+          <a class="navbar-item" href="/v1.3.0">v1.3.0</a>
+          <a class="navbar-item" href="/v2.0.0">v2.0.0</a>
+          <a class="navbar-item" href="/v2.1.0">v2.1.0</a>
+          <a class="navbar-item" href="/v2.1.1">v2.1.1</a>
+          <a class="navbar-item" href="/v2.1.2">v2.1.1</a>
+          <a class="navbar-item" href="/v2.2.0">v2.2.0</a>
+          <a class="navbar-item" href="/v2.2.1">v2.2.1</a>
+          <a class="navbar-item" href="/v2.2.2">v2.2.2</a>
+          <a class="navbar-item" href="/v2.3.0">v2.3.0</a>
+          <a class="navbar-item" href="/v2.3.1">v2.3.1</a>
+          <a class="navbar-item" href="/v2.4.0">v2.4.0</a>
+          <a class="navbar-item" href="/v2.5.0">v2.5.0</a>
+          <a class="navbar-item" href="/">v2.6.0</a>
+        </div>
+      </div>
+
+      <span class="navbar-item">
+        <a href="https://github.com/OCR-D"><img src="https://www.vectorlogo.zone/logos/github/github-tile.svg"></a>
+         
+        <a href="https://hub.docker.com/r/ocrd"><img src="https://www.vectorlogo.zone/logos/docker/docker-tile.svg"></a>
+         
+        <a href="https://ocr-d.de"><img src="https://www.vectorlogo.zone/logos/fileformatinfo/fileformatinfo-tile.svg"></a>
+      </span>
+
+    </div>
+  </div>
+</nav>
+<div class="columns">
+      <aside class="column is-one-third menu">
+        <ul class="menu-list column is-one-third">
+  <li>
+<a href="#faq">FAQ</a>
+    <ul>
+      <li><a href="#how-do-i-get-help-on-specific-cli-commands">How do I get help on specific CLI commands?</a></li>
+      <li><a href="#how-do-i-turn-off-logging">How do I turn off logging</a></li>
+    </ul>
+  </li>
+</ul>
+
+      </aside>
+
+      <main class="container content column is-two-thirds" aria-label="Content">
+        <h1 id="faq">FAQ</h1>
+
+<h2 id="how-do-i-get-help-on-specific-cli-commands">How do I get help on specific CLI commands?</h2>
+
+<p>Every command and subcommand supports the <code class="highlighter-rouge">--help</code> option to print a description, arguments and options:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ocrd <span class="nt">--help</span>
+ocrd workspace <span class="nt">--help</span>
+ocrd workspace add <span class="nt">--help</span>
+</code></pre></div></div>
+
+<h2 id="how-do-i-turn-off-logging">How do I turn off logging</h2>
+
+<p><img class="emoji" title=":rotating_light:" alt=":rotating_light:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f6a8.png" height="20" width="20"> TODO</p>
+
+      </main>
+    </div>
+<footer class="level">
+
+  <div class="level-item">
+    <p>
+<!-- BEGIN-EVAL echo "Based on <a href="https://github.com/OCR-D/spec/releases/tag/${SPEC_VERSION:-dev}">OCR-D/spec ${SPEC_VERSION:-dev}</a>." -->
+Based on <a href="https://github.com/OCR-D/spec/releases/tag/v2.6.0">OCR-D/spec v2.6.0</a>.
+
+<!-- END-EVAL -->
+    </p>
+     
+
+
+<!-- BEGIN-EVAL echo "<p>Generated on <code>$(date)</code></p>" -->
+<p>Generated on <code>Tue Nov  6 12:23:02 CET 2018</code></p>
+
+<!-- END-EVAL -->
+  </div>
+
+</footer>
+<script src="/assets/script.js"></script>
+</body>
+
+</html>
