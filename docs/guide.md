@@ -534,7 +534,7 @@ $ ocrd workspace -d $WORKSPACE_DIR add -G OCR-D-IMG-BIN -i PAGE-0013-BIN -m imag
 </report>
 ```
 
-## `ocrd-tool` -- Working with ocrd-tool.json
+## `ocrd tool` -- Working with ocrd-tool.json
 
 This command helps you explore and validate the information in any [ocrd-tool.json](#ocrd-tool-json).
 
@@ -640,6 +640,36 @@ $ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json tool ocrd-wip-xyzzy parse-para
 params["val1"]="42"
 params["val2"]="true"
 params["val-with-default"]="23"
+```
+
+## `ocrd process` - Run a multi-step workflow
+
+OCR requires multiple steps, such as binarization, layout recognition, text
+recognition etc. These steps are implemented with command line tools that
+adhere [to the same command line interface](https://ocr-d.github.io/cli) which
+makes it straightforward to chain these calls.
+
+For example, to run kraken binarization and tesseract block segmentation, one could execute:
+
+```sh
+ocrd-kraken-binarize -l DEBUG -I OCR-D-IMG -O OCR-D-IMG-BIN
+ocrd-tesserocrd-segment-block -l DEBUG -I OCR-D-IMG-BIN -O OCR-D-SEG-BLOCK -p tesseract-params.json
+```
+
+The disadvantage of individual calls is that it requires the user to check whether runs were
+actually successful. To remedy this, users can use the `ocrd process` CLI which
+
+* simplifies the CLI syntax for multiple calls
+* checks for required and expected-to-be-produced file groups
+* checks for return value
+* sets logging levels uniformly across tools.
+
+The same calls mentioned before can be passed to `ocrd process` like so:
+
+```sh
+ocrd process -l DEBUG \
+  "kraken-binarize -l DEBUG -I OCR-D-IMG -O OCR-D-IMG-BIN" \
+  "tesserocrd-segment-block -l DEBUG -I OCR-D-IMG-BIN -O OCR-D-SEG-BLOCK -p tesseract-params.json"
 ```
 
 ## Wrapping a CLI using `bash`
