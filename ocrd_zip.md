@@ -49,7 +49,7 @@ the full definition](#appendix-a)):
   * [`Ocrd-Identifier`](#ocrd-identifier): A globally unique identifier for this bag
   * [`Ocrd-Base-Version-Checksum`](#ocrd-base-version-checksum): Checksum of the version this bag is based on
 * `bag-info.txt` MAY additionally contain these tags:
-  * [`Ocrd-Mets`](#ocrd-mets): Alternative path to the mets.xml file, relative to `/data`, if its path IS NOT `mets.xml`
+  * [`Ocrd-Mets`](#ocrd-mets): Alternative path to the mets.xml file if its path IS NOT `/data/mets.xml`
   * [`Ocrd-Manifestation-Depth`](#ocrd-manifestation-depth): Whether all URL are dereferenced as files or only some
 
 ### `BagIt-Profile-Identifier`
@@ -58,12 +58,9 @@ The `BagIt-Profile-Identifier` must be the string `https://ocr-d.github.io/bagit
 
 ### `Ocrd-Mets`
 
-`Ocrd-Mets` can be provided to declare that the METS file will not be the
-standard `mets.xml` but another path relative to `/data/`.
-
-Implementations MUST check for the `Ocrd-Mets` tag: If it has a value, look for the
-METS file at that location, relative to `/data`. Otherwise, assume the default
-`mets.xml`.
+By default, the METS file should be at `data/mets.xml`. If this file has
+another name, it must be listed here and implementations MUST check for
+`Ocrd-Mets` before assuming `data/mets.xml`.
 
 ### `Ocrd-Manifestation-Depth`
 
@@ -102,31 +99,21 @@ of the BagIt spec, the entries MUST be sorted.
 
 **NOTE:** These checksums can be generated with `find data -type f | sort -sf |xargs sha512sum > manifest-sha512.txt`.
 
-### File names must be relative to METS
+### `file://`-URLs must be relative
 
-Within an OCRD-ZIP, all local file resources referenced in the METS (and
-consequently all those referenced in other files within the workspace -- see
-rule ["If in PAGE then in METS"](mets#if-in-page-then-in-mets) must be
-relative to the [location of the METS file](#ocrd-mets).
+All resources referenced in the METS with a `file://`-URL (and consequently all
+those referenced in other files within the workspace -- see rule "When in PAGE
+then in METS") must be referenced by `file://`-URL that is absolute with root
+being the root location of the workspace, i.e. they MUST begin with
+`file:///data`
 
-#### Example
+Right:
+* `file:///data/foo.xml`
+* `file:///data/foo.tif`
+* `http:///data/server/foo.tif`
 
-```sh
-/tmp/foo/ws1/data
-├── mets.xml
-├── foo.tif
-└── foo.xml
-```
-
-Valid `mets:FLocat/@xlink:href` in `/tmp/foo/ws1/data/mets.xml`:
-* `foo.xml`
-* `foo.tif`
-* `file://foo.tif`
-
-Invalid `mets:FLocat/@xlink:href` in `/tmp/foo/ws1/data/mets.xml`:
-* `/tmp/foo/ws1/data/foo.xml` (absolute path)
-* `file:///tmp/foo/ws1/data/foo.tif` (file URL scheme with absolute path)
-* `file:///foo.tif` (relative path written as absolute path)
+Wrong:
+* `file:///absolute/path/somewhere/foo.tif`
 
 ### When in data then in METS
 
@@ -140,28 +127,27 @@ be referenced in a `mets:file/mets:Flocat` in the `mets.xml`.
 To pack a workspace to OCRD-ZIP:
 
 * Create a temporary folder `TMP`
-* Foreach `mets:file` `f` in the source METS:
-  * Strip `file://` from the beginning of the `xlink:href` of `f`
-  * If it is not a file path (begins with `http://` or `https://`):
-    * If `Ocrd-Manifestation-Depth` is `partial`,
+* Copy mets.xml to `TMP/data/mets.xml`
+* Foreach `mets:file` `f` in `TMP/data/mets.xml`:
+  * If it is not a `file://`-URL
+    * If `Ocrd-Manifestation-Depth` is `partial`
       continue
   * Download/Copy the file to a location within `TMP/data`. The structure SHOULD be `<USE>/<ID>` where
     * `<USE>` is the `USE` attribute of the parent `mets:fileGrp`
     * `<ID>` is the `ID` attribute of the `mets:file`
-  * Replace the URL of `f` with the path relative to `/data` (SHOULD be `<USE>/<ID>`) in
-    * all `mets:FLocat` of the METS
+  * Replace the URL of `f` with `file:///data/<USE>/<ID>` in
+    * all `mets:FLocat` of `TMP/data/mets.xml`
     * all other files in the workspace, esp. PAGE-XML
-* Write out the changed METS to `TMP/data/mets.xml` (or another location in `TMP/data/`, specified by [`Ocrd-Mets`](#ocrd-mets))
 * Package `TMP` as a BagIt bag
 
 ### Unpacking OCRD-ZIP to a workspace
 
 * Unzip OCRD-ZIP `z` to a folder `TMP`
-* Let `M` be `TMP/data/mets.xml` (or another location in `TMP/data/`, specified by [`Ocrd-Mets`](#ocrd-mets))
-* Foreach file `f` in `M`:
-  * Strip `file://` from the beginning of the `xlink:href` of `f`
-  * If it is not a file path (begins with `http://` or `https://`):
-    continue
+* Foreach file `f` in `TMP/data/mets.xml`:
+  * If it is not a `file://`-URL, continue
+  * Replace the URL of `f` with `file://<ABSPATH>`, where `<ABSPATH>` is the absolute path to `f`, in
+    * `TMP/data/mets.xml`
+    * all files within `TMP`, esp. PAGE-XML
 
 ## Appendix A - BagIt profile definition
 
@@ -195,7 +181,7 @@ Bag-Info:
 Manifests-Required: ['sha512']
 Tag-Manifests-Required: []
 Tag-Files-Required: []
-Allow-Fetch.txt: false
+Allow-Fetch.txt: true
 Serialization: required
 Accept-Serialization: application/zip
 Accept-BagIt-Version:
