@@ -4,7 +4,9 @@ OCR-D has decided to base its data exchange format on top of [METS](http://www.l
 
 For layout and text recognition results, the primary exchange format is [PAGE](https://github.com/OCR-D/PAGE-XML)
 
-This document defines a set of conventions and mechanism for using these formats.
+This document defines a set of conventions and mechanism for using METS.
+
+Conventions for PAGE are outlined in [a separate document](page)
 
 ## Pixel density of images must be explicit and high enough
 
@@ -150,31 +152,34 @@ When a processor wants to access the image of a layout element like a TextRegion
 - If the element in question has an attribute `imageFilename`, resolve this value
 - If the element has a `<pc:Coords>` subelement, resolve by passing the attribute `imageFilename` of the nearest `<pc:Page>` and the `points` attribute of the `<pc:Coords>` element
 
-## One page in one PAGE
 
-A single PAGE XML file represents one page in the original document.
-
-Every `<pc:Page>` element MUST have an attribute `image` which MUST always be the source image.
-
-The PAGE XML root element `<pc:PcGts>` MUST have exactly one `<pc:Page>`.
 
 ## Media Type for PAGE XML
 
 Every `<mets:file>` representing a PAGE document MUST have its `MIMETYPE` attribute set to `application/vnd.prima.page+xml`.
 
-## Always use URL everywhere
+## Always use URL or relative filenames
 
-Always use URL. If it's a local file, prefix absolute path with `file://`.
+Always use URL, except for files located in the directory or any subdirectories of the METS file.
 
 ### Example
 
-```xml
-<mets:fileGrp USE="OCR-D-SEG-BLOCK">
-    <mets:file ID="OCR-D-SEG-BLOCK_0001" MIMETYPE="application/vnd.prima.page+xml">
-        <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:///path/to/workingDir/segmentation/block/page_0001.xml" />
-    </mets:file>
-</mets:fileGrp>
+```sh
+/tmp/foo/ws1
+├── mets.xml
+├── foo.tif
+└── foo.xml
 ```
+
+Valid `mets:FLocat/@xlink:href` in `/tmp/foo/ws1/mets.xml`:
+* `foo.xml`
+* `foo.tif`
+* `file://foo.tif`
+
+Invalid `mets:FLocat/@xlink:href` in `/tmp/foo/ws1/mets.xml`:
+* `/tmp/foo/ws1/foo.xml` (absolute path)
+* `file:///tmp/foo/ws1/foo.tif` (file URL scheme with absolute path)
+* `file:///foo.tif` (relative path written as absolute path)
 
 ## If in PAGE then in METS
 
