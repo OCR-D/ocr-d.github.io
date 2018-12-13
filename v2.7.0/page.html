@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4">
+  <link rel="stylesheet" href="/assets/bulma.css">
+  <link rel="stylesheet" href="/assets/syntax-highlight.css">
+  <style>
+  #swagger-ui pre.version {
+    padding: 2px !important;
+    background: initial !important;
+  }
+  #swagger-ui .topbar {
+    display: none;
+  }
+  blockquote {
+    background: #f99;
+  }
+  aside.menu > ul { 
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+  }
+  body > #swagger-ui,
+  body > .columns {
+    margin-top: 55px;
+  }
+  h2 code, h3 code, h4 code {
+    color: black;
+  }
+
+  </style><link type="application/atom+xml" rel="alternate" href="https://ocr-d.github.io/feed.xml" title="OCR-D" /></head>
+<body><nav class="navbar is-transparent is-fixed-top">
+
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4" height="28"/>
+    </a>
+    <div class="navbar-burger burger" data-target="ocrd-navbar-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="ocrd-navbar-menu" class="navbar-menu">
+    <div class="navbar-start">
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Specs</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/cli">CLI</a>
+          <a class="navbar-item" href="/mets">METS</a>
+          <a class="navbar-item" href="/page">PAGE</a>
+          <a class="navbar-item" href="/ocrd_zip">OCRD-ZIP</a>
+          <a class="navbar-item" href="/ocrd_tool">ocrd-tool.json</a>
+          <a class="navbar-item" href="/docker">Dockerfile</a>
+        </div>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Docs</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/docs/guide">Guide</a>
+          <a class="navbar-item" href="/docs/cookbook">Cookbook</a>
+          <a class="navbar-item" href="/docs/faq">FAQ</a>
+          <a class="navbar-item" href="/docs/dita">Documenting with DITA</a>
+          <a class="navbar-item" href="/docs/vbox">Setting up VirtualBox</a>
+        </div>
+      </div>
+
+      <a class="navbar-item" href="/glossary">Glossary</a>
+
+    </div>
+
+    <div class="navbar-end">
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Older versions</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/v1.0.0">v1.0.0</a>
+          <a class="navbar-item" href="/v1.1.0">v1.1.0</a>
+          <a class="navbar-item" href="/v1.1.1">v1.1.1</a>
+          <a class="navbar-item" href="/v1.1.2">v1.1.2</a>
+          <a class="navbar-item" href="/v1.1.3">v1.1.3</a>
+          <a class="navbar-item" href="/v1.1.4">v1.1.4</a>
+          <a class="navbar-item" href="/v1.1.5">v1.1.5</a>
+          <a class="navbar-item" href="/v1.2.0">v1.2.0</a>
+          <a class="navbar-item" href="/v1.3.0">v1.3.0</a>
+          <a class="navbar-item" href="/v2.0.0">v2.0.0</a>
+          <a class="navbar-item" href="/v2.1.0">v2.1.0</a>
+          <a class="navbar-item" href="/v2.1.1">v2.1.1</a>
+          <a class="navbar-item" href="/v2.1.2">v2.1.1</a>
+          <a class="navbar-item" href="/v2.2.0">v2.2.0</a>
+          <a class="navbar-item" href="/v2.2.1">v2.2.1</a>
+          <a class="navbar-item" href="/v2.2.2">v2.2.2</a>
+          <a class="navbar-item" href="/v2.3.0">v2.3.0</a>
+          <a class="navbar-item" href="/v2.3.1">v2.3.1</a>
+          <a class="navbar-item" href="/v2.4.0">v2.4.0</a>
+          <a class="navbar-item" href="/v2.5.0">v2.5.0</a>
+          <a class="navbar-item" href="/v2.6.0">v2.6.0</a>
+          <a class="navbar-item" href="/v2.6.1">v2.6.1</a>
+          <a class="navbar-item" href="/v2.6.2">v2.6.2</a>
+          <a class="navbar-item" href="/">v2.7.0</a>
+        </div>
+      </div>
+
+      <span class="navbar-item">
+        <a href="https://github.com/OCR-D"><img src="https://www.vectorlogo.zone/logos/github/github-tile.svg"/></a>
+        &nbsp;
+        <a href="https://hub.docker.com/r/ocrd"><img src="https://www.vectorlogo.zone/logos/docker/docker-tile.svg"/></a>
+        &nbsp;
+        <a href="https://ocr-d.de"><img src="https://www.vectorlogo.zone/logos/fileformatinfo/fileformatinfo-tile.svg"/></a>
+      </span>
+
+    </div>
+  </div>
+</nav>
+<div class="columns">
+      <aside class="column is-one-third menu">
+        <ul class="menu-list column is-one-third">
+  <li><a href="#conventions-for-page">Conventions for PAGE</a>
+    <ul>
+      <li><a href="#media-type">Media Type</a></li>
+      <li><a href="#one-page-in-one-page">One page in one PAGE</a></li>
+      <li><a href="#images">Images</a>
+        <ul>
+          <li><a href="#url-for-imagefilename--filename">URL for imageFilename / filename</a></li>
+          <li><a href="#original-image-as-imagefilename">Original image as imageFilename</a></li>
+          <li><a href="#alternativeimage-for-derived-images">AlternativeImage for derived images</a></li>
+          <li><a href="#alternativeimage-classification">AlternativeImage: classification</a></li>
+          <li><a href="#alternativeimage-on-sub-page-level-elements">AlternativeImage on sub-page level elements</a></li>
+        </ul>
+      </li>
+      <li><a href="#textstyle"><code class="highlighter-rouge">TextStyle</code></a>
+        <ul>
+          <li><a href="#font-families">Font families</a></li>
+          <li><a href="#clusters-of-typesets">Clusters of typesets</a></li>
+          <li><a href="#font-families-and-confidence">Font families and confidence</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+      </aside>
+
+      <main class="container content column is-two-thirds" aria-label="Content">
+        <h1 id="conventions-for-page">Conventions for PAGE</h1>
+
+<h2 id="media-type">Media Type</h2>
+
+<p>The <a href="https://github.com/OCR-D/spec/issues/33">preliminary media type</a> of a PAGE
+document is <code class="highlighter-rouge">application/vnd.prima.page+xml</code>, which MUST be used <a href="https://ocr-d.github.io/mets#media-type-for-page-xml">as the <code class="highlighter-rouge">MIMETYPE</code> of a <code class="highlighter-rouge">&lt;mets:file&gt;</code>
+representing a PAGE document</a>.</p>
+
+<h2 id="one-page-in-one-page">One page in one PAGE</h2>
+
+<p>A single PAGE XML file represents one page in the original document.
+Every <code class="highlighter-rouge">&lt;pc:Page&gt;</code> element MUST have an attribute <code class="highlighter-rouge">image</code> which MUST always be the source image.
+The PAGE XML root element <code class="highlighter-rouge">&lt;pc:PcGts&gt;</code> MUST have exactly one <code class="highlighter-rouge">&lt;pc:Page&gt;</code>.</p>
+
+<h2 id="images">Images</h2>
+
+<h3 id="url-for-imagefilename--filename">URL for imageFilename / filename</h3>
+
+<p>The <code class="highlighter-rouge">imageFilename</code> of the <code class="highlighter-rouge">&lt;pg:Page&gt;</code> and <code class="highlighter-rouge">filename</code> of the <code class="highlighter-rouge">&lt;pg:AlternativeImage&gt;</code> element MUST be a URL. A local filename should be a <code class="highlighter-rouge">file://</code> URL.</p>
+
+<p>All URL used in <code class="highlighter-rouge">imageFilename</code> and <code class="highlighter-rouge">filename</code> <a href="https://ocr-d.github.io/mets#if-in-page-then-in-mets">MUST be referenced in a fileGrp in METS</a>.</p>
+
+<h3 id="original-image-as-imagefilename">Original image as imageFilename</h3>
+
+<p>The <code class="highlighter-rouge">imageFilename</code> attribute of the <code class="highlighter-rouge">&lt;pg:Page&gt;</code> MUST reference the original image and MUST NOT change between processing steps.</p>
+
+<h3 id="alternativeimage-for-derived-images">AlternativeImage for derived images</h3>
+
+<p>To encode images derived from the original image, the <code class="highlighter-rouge">&lt;pc:AlternativeImage&gt;</code> should be used. Its <code class="highlighter-rouge">filename</code> attribute should reference the URL of the derived image.</p>
+
+<p>The <code class="highlighter-rouge">comments</code> attribute should be one or more (separated by comma) terms of the following list:</p>
+
+<h3 id="alternativeimage-classification">AlternativeImage: classification</h3>
+
+<p>The <code class="highlighter-rouge">comments</code> attribute of the <code class="highlighter-rouge">&lt;pg:AlternativeImage&gt;</code> attribute should be used</p>
+
+<ul>
+  <li><code class="highlighter-rouge">binarized</code></li>
+  <li><code class="highlighter-rouge">grayscale_normalized</code></li>
+  <li><code class="highlighter-rouge">deskewed</code></li>
+  <li><code class="highlighter-rouge">despeckled</code></li>
+  <li><code class="highlighter-rouge">cropped</code></li>
+  <li><code class="highlighter-rouge">rotated-90</code> / <code class="highlighter-rouge">rotated-180</code> / <code class="highlighter-rouge">rotated-270</code></li>
+  <li><code class="highlighter-rouge">dewarped</code></li>
+</ul>
+
+<h3 id="alternativeimage-on-sub-page-level-elements">AlternativeImage on sub-page level elements</h3>
+
+<p>For the results of image processing that changes the positions of pixels (e.g. cropping, rotation, dewarping), <code class="highlighter-rouge">AlternativeImage</code> on page level and polygon of recognized zones is not enough to access the image section a region is based on since coordinates are always relative to the original image.</p>
+
+<p>For such use cases, <code class="highlighter-rouge">&lt;pg:AlternativeImage&gt;</code> may be used as a child of <code class="highlighter-rouge">&lt;pg:TextRegion&gt;</code>, <code class="highlighter-rouge">&lt;pg:TextLine&gt;</code>, <code class="highlighter-rouge">&lt;pg:Word&gt;</code> or <code class="highlighter-rouge">&lt;pg:Glyph&gt;</code>.</p>
+
+<h2 id="textstyle"><code class="highlighter-rouge">TextStyle</code></h2>
+
+<p>Typographical information (type, cut etc.) must be documented in PAGE XML using the
+<code class="highlighter-rouge">&lt;TextStyle&gt;</code> element.</p>
+
+<p>See <a href="http://www.ocr-d.de/sites/all/gt_guidelines/pagecontent_xsd_Complex_Type_pc_TextStyleType.html?hl=textstyle">the PAGE documentation on TextStyle</a> for all possible values.</p>
+
+<p>The <code class="highlighter-rouge">&lt;TextStyle&gt;</code> element can be used in all relevant elements:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">&lt;TextRegion&gt;</code></li>
+  <li><code class="highlighter-rouge">&lt;TextLine&gt;</code></li>
+  <li><code class="highlighter-rouge">&lt;Word&gt;</code></li>
+  <li><code class="highlighter-rouge">&lt;Glyph&gt;</code></li>
+</ul>
+
+<p>Example:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;Word&gt;</span>
+  <span class="nt">&lt;TextStyle</span> <span class="na">fontFamily=</span><span class="s">"Arial"</span> <span class="na">fontSize=</span><span class="s">"17.0"</span> <span class="na">bold=</span><span class="s">"true"</span><span class="nt">/&gt;</span>
+  <span class="c">&lt;!-- [...] --&gt;</span>
+<span class="nt">&lt;/Word&gt;</span>
+</code></pre></div></div>
+
+<h3 id="font-families">Font families</h3>
+
+<p>The <code class="highlighter-rouge">pg:TextStyle/@fontFamily</code> attribute can list one or more font
+families, separated by comma (<code class="highlighter-rouge">,</code>).</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>font-families    := font-family ("," font-family)*
+font-family      := font-family-name (":" confidence)?
+font-family-name := ["A" - "Z" | "a" - "z" | "0" - "9"]+ | '"' ["A" - "Z" | "a" - "z" | "0" - "9" | " "]+ '"'
+confidence       := ("0" | "1")? "." ["0" - "9"]+
+</code></pre></div></div>
+
+<p>Font family names that contain a space must be quoted with double quotes (<code class="highlighter-rouge">"</code>).</p>
+
+<h3 id="clusters-of-typesets">Clusters of typesets</h3>
+
+<p>Sometimes it is necessary to not express that an element is typeset in a
+specific <strong>font family</strong> but in font family from <strong>a cluster of related font groups</strong>.</p>
+
+<p>For such typeset clusters, the <code class="highlighter-rouge">pg:TextStyle/@fontFamily</code> attribute should be re-used.</p>
+
+<p>This specification doesn’t restrict the naming of font families.
+However, we recommend to choose one of the following list of type groups names if
+applicable:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">textura</code></li>
+  <li><code class="highlighter-rouge">rotura</code></li>
+  <li><code class="highlighter-rouge">bastarda</code></li>
+  <li><code class="highlighter-rouge">antiqua</code></li>
+  <li><code class="highlighter-rouge">greek</code></li>
+  <li><code class="highlighter-rouge">hebrew</code></li>
+  <li><code class="highlighter-rouge">italic</code></li>
+  <li><code class="highlighter-rouge">fraktur</code></li>
+</ul>
+
+<h3 id="font-families-and-confidence">Font families and confidence</h3>
+
+<p>Providing multiple font families means that the element in
+question is set in <strong>one of the font families listed</strong>.</p>
+
+<p>It is not possible to declare that <strong>multiple font families are used in an
+element</strong>. Instead, data producers are advised to increase output granularity
+until every element is set in a single font family.</p>
+
+<p>The degree of confidence in the font family can be expressed by concatenating
+font family names with colon (<code class="highlighter-rouge">:</code>) followed by a float between <code class="highlighter-rouge">0</code> (information
+is certainly wrong) and <code class="highlighter-rouge">1</code> (information is certainly correct).</p>
+
+<p>If a font family is not suffixed with a confidence value, the confidence is
+considered to be <code class="highlighter-rouge">1</code>.</p>
+
+<p>Examples</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;TextStyle</span> <span class="na">fontFamily=</span><span class="s">"Arial:0.8, Times:0.7, Courier:0.4"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;TextStyle</span> <span class="na">fontFamily=</span><span class="s">"Arial:.8, Times:0.5"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;TextStyle</span> <span class="na">fontFamily=</span><span class="s">"Arial:1"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;TextStyle</span> <span class="na">fontFamily=</span><span class="s">"Arial"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+      </main>
+    </div><footer class="level">
+
+  <div class="level-item">
+    <p>
+<!-- BEGIN-EVAL echo "Based on <a href="https://github.com/OCR-D/spec/releases/tag/${SPEC_VERSION:-dev}">OCR-D/spec ${SPEC_VERSION:-dev}</a>." -->
+Based on <a href=https://github.com/OCR-D/spec/releases/tag/v2.7.0>OCR-D/spec v2.7.0</a>.
+
+<!-- END-EVAL -->
+    </p>
+    &nbsp;
+
+
+<!-- BEGIN-EVAL echo "<p>Generated on <code>$(date)</code></p>" -->
+<p>Generated on <code>Tue Dec  4 17:07:16 CET 2018</code></p>
+
+<!-- END-EVAL -->
+  </div>
+
+</footer>
+<script src="/assets/script.js"></script>
+</body>
+
+</html>
