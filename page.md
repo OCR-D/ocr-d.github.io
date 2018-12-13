@@ -16,19 +16,26 @@ The PAGE XML root element `<pc:PcGts>` MUST have exactly one `<pc:Page>`.
 
 ### URL for imageFilename / filename
 
-The `imageFilename` of the `<pg:Page>` and `filename` of the `<pg:AlternativeImage>` element MUST be a URL. A local filename should be a `file://` URL.
+The `imageFilename` of the `<pg:Page>` and `filename` of the
+`<pg:AlternativeImage>` element MUST be a URL. A local filename should be a
+`file://` URL.
 
-All URL used in `imageFilename` and `filename` [MUST be referenced in a fileGrp in METS](https://ocr-d.github.io/mets#if-in-page-then-in-mets).
+All URL used in `imageFilename` and `filename` [MUST be referenced in a fileGrp
+in METS](https://ocr-d.github.io/mets#if-in-page-then-in-mets).
 
 ### Original image as imageFilename
 
-The `imageFilename` attribute of the `<pg:Page>` MUST reference the original image and MUST NOT change between processing steps.
+The `imageFilename` attribute of the `<pg:Page>` MUST reference the original
+image and MUST NOT change between processing steps.
 
 ### AlternativeImage for derived images
 
-To encode images derived from the original image, the `<pc:AlternativeImage>` should be used. Its `filename` attribute should reference the URL of the derived image.
+To encode images derived from the original image, the `<pc:AlternativeImage>`
+should be used. Its `filename` attribute should reference the URL of the
+derived image.
 
-The `comments` attribute should be one or more (separated by comma) terms of the following list:
+The `comments` attribute should be one or more (separated by comma) terms of
+the following list:
 
 ### AlternativeImage: classification
 
@@ -44,9 +51,124 @@ The `comments` attribute of the `<pg:AlternativeImage>` attribute should be used
 
 ### AlternativeImage on sub-page level elements
 
-For the results of image processing that changes the positions of pixels (e.g. cropping, rotation, dewarping), `AlternativeImage` on page level and polygon of recognized zones is not enough to access the image section a region is based on since coordinates are always relative to the original image.
+For the results of image processing that changes the positions of pixels (e.g.
+cropping, rotation, dewarping), `AlternativeImage` on page level and polygon of
+recognized zones is not sufficient for accessing the section of the image that a region is based on
+since coordinates are always relative to the original image.
 
-For such use cases, `<pg:AlternativeImage>` may be used as a child of `<pg:TextRegion>`, `<pg:TextLine>`, `<pg:Word>` or `<pg:Glyph>`.
+For such use cases, `<pg:AlternativeImage>` may be used as a child of
+`<pg:TextRegion>`, `<pg:TextLine>`, `<pg:Word>` or `<pg:Glyph>`.
+
+## Attaching text recognition results to elements
+
+A PAGE document can attach recognized text to typographical units of
+a page at different levels, such as block (`<pg:TextRegion>`), line
+(`<pg:TextLine>`), word (`<pg:Word>`) or glyph (`<pg:Glyph>`).
+
+To attach recognized text to an element `E`, it must be encoded as
+`UTF-8` in a single `<pg:Unicode>` element `U` within a `<pg:TextEquiv>`
+element `T` of `E`.
+
+`T` must be the last element of `E`.
+
+Leading and trailing whitespace (`U+0020`, `U+000A`) in the content of a
+`<pg:Unicode>` is not significant and must be removed from the string by
+processors.
+
+To encode an actual space character at the start or end of the content
+`<pg:Unicode>`, use a non-breaking space `U+00A0`.
+
+## Text recognition confidence
+
+The confidence score describing the assumed correctness of the text recognition results in a
+`<pg:TextEquiv>` can be expressed in an attribute `@conf` as a float value
+between `0` and `1`, where `0` means "certainly wrong" and `1` means "certainly
+correct".
+
+<a name="multiple-textequivs"/>
+## Attaching multiple text recognition results to elements
+
+Alternative text recognition results can be expressed by using multiple
+`<pg:TextEquiv>` wherever a single `<pg:TextEquiv>` would be allowed. When
+using multiple `<pg:TextEquiv>`, they each must have an attribute `@index` with
+an integer number unique per set of `<pg:TextEquiv>` that allows ranking them
+in order of preference. `@index` of the first (preferred) `<pg:TextEquiv>` must be
+the value `1`.
+
+## Consistency of text results on different levels
+
+Since text results can be defined on different levels and those levels can be
+nested, text results information can be redundant. To avoid inconsistencies,
+the following assertions must be true:
+
+  1. text of `<pg:Word>` must be equal to the text of all `<pg:Glyph>`
+    contained within, concatenated with empty string
+  2. text of `<pg:TextLine>` must be equal to the text of all
+    `<pg:Word>` contained  within, concatenated with a single space (`U+0020`).
+  3. text of `<pg:TextRegion>` must be equal to the text of all
+    `<pg:TextLine>` contained within, concatenated with a newline (`U+000A`).
+
+**NOTE:** "Concatenation" means joining a list of strings with a separator, no
+separator is added to the start or end of the resulting string.
+
+These assertions are only to be enforced for the first `<pg:TextEquiv>` of both
+containing and contained elements, i.e. the only `<pg:TextEquiv>` of an element
+or the `<pg:TextEquiv>` with `@index = 1` if [multiple text
+results](#multiple-textequivs) are attached.
+
+### Consistency strictness
+
+A consistency checker must support three levels of strictness:
+
+#### `strict`
+If any of the assertions fail for a PAGE document, an exception
+should be raised and the document no further processed
+
+#### `fix`
+
+If any of the assertions fail for a specific element in PAGE document, the text
+results of this element must be recreated, by concatenating the text results of
+its children elements. This algorithm needs to be recursive, i.e. if any of the
+children elements is itself inconsistent, its text results must be recreated in
+the same way before concatenation.
+
+#### `off`
+
+These consistency checks are so restrictive to spot data that cannot be
+unambigiously processed. However, there are valid use cases where the
+"index-1-consistency" is too narrow, esp. in post-correction with language
+models. For such use cases, it must be possible to disable the consistency
+validation altogether in the workflow.
+
+### Example
+
+<a name="inconsistency-example"/>
+```xml
+<Word>
+  <Glyph>
+    <TextEquiv index="1"><Unicode>f</Unicode></TextEquiv>
+    <TextEquiv index="2"><Unicode>t</Unicode></TextEquiv>
+  </Glyph>
+  <Glyph>
+    <TextEquiv index="1"><Unicode>o</Unicode></TextEquiv>
+  </Glyph>
+  <Glyph>
+    <TextEquiv><Unicode>o</Unicode></TextEquiv>
+  </Glyph>
+  <Glyph>
+    <TextEquiv><Unicode>t</Unicode></TextEquiv>
+  </Glyph>
+  <TextEquiv index="1"><Unicode>foof</Unicode></TextEquiv>
+  <TextEquiv index="2"><Unicode>toot</Unicode></TextEquiv>
+</Word>
+```
+
+In this [example](#inconsistency-example), the `<pg:Word>` has text `foof` but
+the concatenation of the first text results of the contained `<pg:Glyphs>`
+spells `foot`. As a result:
+
+  * Validation should raise an exception for inconsistency.
+  * Data consumers should assume the text result to be `foot`.
 
 ## `TextStyle`
 
