@@ -310,6 +310,34 @@ nav[role=toc] > ul > li ul {
 }
 
 /****************************************
+Index Tiles
+****************************************/
+div.linklist_index > strong {
+  padding-bottom: 2em;
+}
+
+
+div.linklist_index > ul.linklist {
+  display: grid;
+  grid-template-columns: 250px 250px 250px;
+  grid-gap: 20px;
+  background-color: #fff;
+  color: rgb(249, 245, 235);
+  margin-top: 2em;
+}
+
+div.linklist_index > ul.linklist > li.linklist {
+  background-color: rgb(249, 245, 235);
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 150%;
+}
+
+div.linklist_index > ul.linklist > li.linklist > a {color: rgb(130, 123, 102);}
+
+
+/****************************************
 Header
 ****************************************/
 
@@ -339,4 +367,4 @@ footer {
   }
   
 
-}
+
