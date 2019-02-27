@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4">
+  <link rel="stylesheet" href="/assets/bulma.css">
+  <link rel="stylesheet" href="/assets/syntax-highlight.css">
+  <style>
+  #swagger-ui pre.version {
+    padding: 2px !important;
+    background: initial !important;
+  }
+  #swagger-ui .topbar {
+    display: none;
+  }
+  blockquote {
+    background: #f99;
+  }
+  aside.menu > ul { 
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+  }
+  body > #swagger-ui,
+  body > .columns {
+    margin-top: 55px;
+  }
+  h2 code, h3 code, h4 code {
+    color: black;
+  }
+
+  </style><link type="application/atom+xml" rel="alternate" href="https://ocr-d.github.io/feed.xml" title="OCR-D" /></head>
+<body><nav class="navbar is-transparent is-fixed-top">
+
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4" height="28"/>
+    </a>
+    <div class="navbar-burger burger" data-target="ocrd-navbar-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="ocrd-navbar-menu" class="navbar-menu">
+    <div class="navbar-start">
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Specs</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/cli">CLI</a>
+          <a class="navbar-item" href="/mets">METS</a>
+          <a class="navbar-item" href="/page">PAGE</a>
+          <a class="navbar-item" href="/ocrd_zip">OCRD-ZIP</a>
+          <a class="navbar-item" href="/ocrd_tool">ocrd-tool.json</a>
+          <a class="navbar-item" href="/docker">Dockerfile</a>
+          <a class="navbar-item" href="/gt">Ground Truth Guidelines</a>
+        </div>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Docs</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/core">OCR-D/core API</a>
+          <a class="navbar-item" href="/slides">Slides / Presentations</a>
+          <a class="navbar-item" href="/docs/guide">Guide</a>
+          <a class="navbar-item" href="/docs/cookbook">Cookbook</a>
+          <a class="navbar-item" href="/docs/faq">FAQ</a>
+          <a class="navbar-item" href="/docs/dita">Documenting with DITA</a>
+          <a class="navbar-item" href="/docs/vbox">Setting up VirtualBox</a>
+        </div>
+      </div>
+
+      <a class="navbar-item" href="/glossary">Glossary</a>
+
+    </div>
+
+    <div class="navbar-end">
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Older versions</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/v1.0.0">v1.0.0</a>
+          <a class="navbar-item" href="/v1.1.0">v1.1.0</a>
+          <a class="navbar-item" href="/v1.1.1">v1.1.1</a>
+          <a class="navbar-item" href="/v1.1.2">v1.1.2</a>
+          <a class="navbar-item" href="/v1.1.3">v1.1.3</a>
+          <a class="navbar-item" href="/v1.1.4">v1.1.4</a>
+          <a class="navbar-item" href="/v1.1.5">v1.1.5</a>
+          <a class="navbar-item" href="/v1.2.0">v1.2.0</a>
+          <a class="navbar-item" href="/v1.3.0">v1.3.0</a>
+          <a class="navbar-item" href="/v2.0.0">v2.0.0</a>
+          <a class="navbar-item" href="/v2.1.0">v2.1.0</a>
+          <a class="navbar-item" href="/v2.1.1">v2.1.1</a>
+          <a class="navbar-item" href="/v2.1.2">v2.1.1</a>
+          <a class="navbar-item" href="/v2.2.0">v2.2.0</a>
+          <a class="navbar-item" href="/v2.2.1">v2.2.1</a>
+          <a class="navbar-item" href="/v2.2.2">v2.2.2</a>
+          <a class="navbar-item" href="/v2.3.0">v2.3.0</a>
+          <a class="navbar-item" href="/v2.3.1">v2.3.1</a>
+          <a class="navbar-item" href="/v2.4.0">v2.4.0</a>
+          <a class="navbar-item" href="/v2.5.0">v2.5.0</a>
+          <a class="navbar-item" href="/v2.6.0">v2.6.0</a>
+          <a class="navbar-item" href="/v2.6.1">v2.6.1</a>
+          <a class="navbar-item" href="/v2.6.2">v2.6.2</a>
+          <a class="navbar-item" href="/v2.7.0">v2.7.0</a>
+          <a class="navbar-item" href="/v3.0.0">v3.0.0</a>
+          <a class="navbar-item" href="/v3.1.0">v3.1.0</a>
+          <a class="navbar-item" href="/">v3.2.0</a>
+        </div>
+      </div>
+
+      <span class="navbar-item">
+        <a href="https://github.com/OCR-D"><img src="https://www.vectorlogo.zone/logos/github/github-tile.svg"/></a>
+        &nbsp;
+        <a href="https://hub.docker.com/r/ocrd"><img src="https://www.vectorlogo.zone/logos/docker/docker-tile.svg"/></a>
+        &nbsp;
+        <a href="https://ocr-d.de"><img src="https://www.vectorlogo.zone/logos/fileformatinfo/fileformatinfo-tile.svg"/></a>
+      </span>
+
+    </div>
+  </div>
+</nav>
+<div class="columns">
+      <aside class="column is-one-third menu">
+        <ul class="menu-list column is-one-third">
+  <li><a href="#running-start-for-ocr-d-training-infrastructure">Running start for OCR-D Training infrastructure</a>
+    <ul>
+      <li><a href="#general-links">General links</a></li>
+      <li><a href="#ground-truth">Ground truth</a></li>
+      <li><a href="#ocr-engines">OCR engines</a></li>
+      <li><a href="#line-and-page-ground-truth">Line and page ground truth</a></li>
+      <li><a href="#exchange-format-for-ground-truth">Exchange format for ground truth</a></li>
+      <li><a href="#common-api-for-training-engines">Common API for training engines</a></li>
+      <li><a href="#additional-tools">Additional tools</a></li>
+    </ul>
+  </li>
+</ul>
+
+      </aside>
+
+      <main class="container content column is-two-thirds" aria-label="Content">
+        <h1 id="running-start-for-ocr-d-training-infrastructure">Running start for OCR-D Training infrastructure</h1>
+
+<h2 id="general-links">General links</h2>
+
+<ul>
+  <li>OCR-related: https://github.com/kba/awesome-ocr</li>
+  <li>OCR ground truth related: https://github.com/cneud/ocr-gt</li>
+</ul>
+
+<h2 id="ground-truth">Ground truth</h2>
+
+<ul>
+  <li>PAGE ground truth: http://www.ocr-d.de/daten</li>
+  <li>Test assets in real-life form (METS + BagIt): https://github.com/OCR-D/assets</li>
+</ul>
+
+<h2 id="ocr-engines">OCR engines</h2>
+
+<p>In order of preference</p>
+
+<ul>
+  <li>Tesseract 4
+    <ul>
+      <li>https://github.com/OCR-D/ocrd-train</li>
+    </ul>
+  </li>
+  <li>kraken / ketos
+    <ul>
+      <li>https://github.com/mittagessen/kraken</li>
+      <li>https://github.com/OCR-D/ocrd_kraken</li>
+    </ul>
+  </li>
+  <li>Ocropus
+    <ul>
+      <li>https://github.com/tmbdev/ocropy</li>
+      <li>https://github.com/OCR-D/ocrd_ocropy</li>
+    </ul>
+  </li>
+  <li>Calamari
+    <ul>
+      <li>https://github.com/Calamari-OCR/calamari</li>
+      <li>https://github.com/kba/ocrd_calamari</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="line-and-page-ground-truth">Line and page ground truth</h2>
+
+<ul>
+  <li>All engines can be trained by providing
+    <ul>
+      <li>line images</li>
+      <li>line transcription</li>
+      <li>configuration</li>
+    </ul>
+  </li>
+  <li>
+    <p>Different engines have different conventions (e.g. <code class="highlighter-rouge">foo.png &lt;-&gt; foo.txt</code> or <code class="highlighter-rouge">foo.gt.txt &lt;-&gt; foo.gt.png</code>)</p>
+  </li>
+  <li>Our ground truth is PAGE</li>
+</ul>
+
+<p>=&gt; Convert page data to line ground truth</p>
+
+<h2 id="exchange-format-for-ground-truth">Exchange format for ground truth</h2>
+
+<ul>
+  <li>
+    <p>Since all engine training is essentially similar (line GT), it would be very useful to have a common exchange format</p>
+  </li>
+  <li>
+    <p>Based on BagIt</p>
+  </li>
+  <li>
+    <p>Metadata</p>
+    <ul>
+      <li>provenance: generated from page GT, naming scheme</li>
+      <li>bibliographic: Work, author, year, language, rights</li>
+      <li>technical: image preprocessing, color depth</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="common-api-for-training-engines">Common API for training engines</h2>
+
+<ul>
+  <li>Input configuration file:
+    <ul>
+      <li>ZIP archive of BagIt of line ground truth</li>
+      <li>Output format</li>
+      <li>which engine + version to use</li>
+      <li>engine configuration</li>
+      <li>Deterministic dividing up training and evaluation data</li>
+    </ul>
+  </li>
+  <li>Process
+    <ul>
+      <li>Progress output with custom prefix and specified log format, e.g.
+        <ul>
+          <li>Character error rate</li>
+          <li>Epoch</li>
+          <li>…</li>
+          <li>time-stamped for graphing / analysis</li>
+        </ul>
+      </li>
+      <li>Potentially docker-ized</li>
+      <li>Uniform CLI</li>
+    </ul>
+  </li>
+  <li>Output ZIP archive containing
+    <ul>
+      <li>the trained model/snapshot in whatever configuration</li>
+      <li>log data</li>
+      <li>description of the final state of the training</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="additional-tools">Additional tools</h2>
+
+<ul>
+  <li>PAGE-to-LineGT (see above)</li>
+  <li>model-info (input: trained model, output: information about that model)</li>
+  <li>Docker wrapper around CLI to make engine training wrappers scalable</li>
+</ul>
+
+      </main>
+    </div><footer class="level">
+
+  <div class="level-item">
+    <p>
+<!-- BEGIN-EVAL echo "Based on <a href="https://github.com/OCR-D/spec/releases/tag/${SPEC_VERSION:-dev}">OCR-D/spec ${SPEC_VERSION:-dev}</a>." -->
+Based on <a href=https://github.com/OCR-D/spec/releases/tag/v3.2.0>OCR-D/spec v3.2.0</a>.
+
+<!-- END-EVAL -->
+    </p>
+    &nbsp;
+
+
+<!-- BEGIN-EVAL echo "<p>Generated on <code>$(date)</code></p>" -->
+<p>Generated on <code>Wed Feb 27 11:26:50 CET 2019</code></p>
+
+<!-- END-EVAL -->
+  </div>
+
+</footer>
+<script src="/assets/script.js"></script>
+</body>
+
+</html>

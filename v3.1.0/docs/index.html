@@ -1,4 +1,37 @@
-<nav class="navbar is-transparent is-fixed-top">
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4">
+  <link rel="stylesheet" href="/assets/bulma.css">
+  <link rel="stylesheet" href="/assets/syntax-highlight.css">
+  <style>
+  #swagger-ui pre.version {
+    padding: 2px !important;
+    background: initial !important;
+  }
+  #swagger-ui .topbar {
+    display: none;
+  }
+  blockquote {
+    background: #f99;
+  }
+  aside.menu > ul { 
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+  }
+  body > #swagger-ui,
+  body > .columns {
+    margin-top: 55px;
+  }
+  h2 code, h3 code, h4 code {
+    color: black;
+  }
+
+  </style><link type="application/atom+xml" rel="alternate" href="https://ocr-d.github.io/feed.xml" title="OCR-D" /></head>
+<body><nav class="navbar is-transparent is-fixed-top">
 
   <div class="navbar-brand">
     <a class="navbar-item" href="/">
@@ -90,3 +123,46 @@
     </div>
   </div>
 </nav>
+<div class="columns">
+      <aside class="column is-one-third menu">
+        <ul class="menu-list column is-one-third">
+  <li><a href="#ocr-d-developer-documentation">OCR-D developer documentation</a></li>
+</ul>
+
+      </aside>
+
+      <main class="container content column is-two-thirds" aria-label="Content">
+        <h1 id="ocr-d-developer-documentation">OCR-D developer documentation</h1>
+
+<ul>
+  <li><a href="guide">Guide to OCR-D via command line</a></li>
+  <li><a href="cookbook">Cookbook</a></li>
+  <li><a href="faq">Frequently Asked Questions</a></li>
+  <li><a href="dita">Meta-Documentation on using DITA</a></li>
+  <li><a href="vbox">Recipe for setting up the developer Virtualbox</a></li>
+</ul>
+
+      </main>
+    </div><footer class="level">
+
+  <div class="level-item">
+    <p>
+<!-- BEGIN-EVAL echo "Based on <a href="https://github.com/OCR-D/spec/releases/tag/${SPEC_VERSION:-dev}">OCR-D/spec ${SPEC_VERSION:-dev}</a>." -->
+Based on <a href=https://github.com/OCR-D/spec/releases/tag/v3.2.0>OCR-D/spec v3.2.0</a>.
+
+<!-- END-EVAL -->
+    </p>
+    &nbsp;
+
+
+<!-- BEGIN-EVAL echo "<p>Generated on <code>$(date)</code></p>" -->
+<p>Generated on <code>Wed Feb 27 11:26:50 CET 2019</code></p>
+
+<!-- END-EVAL -->
+  </div>
+
+</footer>
+<script src="/assets/script.js"></script>
+</body>
+
+</html>
