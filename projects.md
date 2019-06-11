@@ -24,11 +24,11 @@ specific challenges of this projects. On the basis of prior experience and
 work, the DFKI plans the identification, development and integration of
 suitable methods.
 
-* Partner(s): 
+* Partner(s):
   * Deutsches Forschungszentrum für Künstliche Intelligenz (DFKI)
 * URL:
   * GEPRIS: http://gepris.dfg.de/gepris/projekt/394343055?language=en
-* GitHub: 
+* GitHub:
   * https://github.com/syedsaqibbukhari/docanalysis
 
 ## [MP2] Scalable Methods of Text and Structure Recognition for the Full-Text Digitization of Historical Prints, Part 2: Layout Analysis
@@ -46,11 +46,11 @@ all of them are suitable to the specific challenges of this projects. On the
 basis of prior experience and work, the DFKI plans the identification,
 development and integration of suitable methods.
 
-* Partner(s): 
+* Partner(s):
   * Deutsches Forschungszentrum für Künstliche Intelligenz (DFKI)
 * URL:
   * GEPRIS: http://gepris.dfg.de/gepris/projekt/394346204?language=en
-* GitHub: 
+* GitHub:
   * https://github.com/mjenckel/LAYoutERkennung
 
 ## [MP3] Development of a semi-automatic open source tool for layout analysis and region extraction and region classificiation (LAREX) of early prints
@@ -77,11 +77,11 @@ evaluated with various cooperation partners, in particular in the context of
 the digitalization of early prints within the OCR-D function model including
 the subsequent OCR by the linkage of external tools.
 
-* Partner(s): 
+* Partner(s):
   * Julius-Maximilians-Universität Würzburg, Institut für Informatik: Lehrstuhl für Künstliche Intelligenz und angewandte Informatik
-* URL: 
+* URL:
   * GEPRIS: http://gepris.dfg.de/gepris/projekt/394329162?language=en
-* GitHub: 
+* GitHub:
   * https://github.com/ocr-d-modul-2-segmentierung/segmentation-runner
   * https://github.com/ocr-d-modul-2-segmentierung/page-segmentation
 
@@ -94,11 +94,11 @@ optimization) of the OCR-D architecture. The focus of development is in area
 combined with finite-state transducers (FST) to decode recognized lines of text
 within a noisy-channel model.
 
-* Partner(s): 
+* Partner(s):
   * Universität Leipzig, Institut für Informatik: Abteilung Automatische Sprachverarbeitung
-* URL: 
+* URL:
   * GEPRIS: http://gepris.dfg.de/gepris/projekt/394341797?language=en
-* GitHub: 
+* GitHub:
   * https://github.com/ocr-d-modul-2-segmentierung/segmentation-runner
 
 ## [MP5] Optimized use of OCR methods – Tesseract as a component of the OCR-D workflow
@@ -114,11 +114,11 @@ such interfaces. It will implement them for Tesseract to allow inclusion of
 Tesseract in an OCR workflow. We also strive to improve the stability,
 performance and practical usability of Tesseract.
 
-* Partner(s): 
+* Partner(s):
   * Universität Mannheim, Universitätsbibliothek Mannheim
-* URL: 
+* URL:
   * GEPRIS: http://gepris.dfg.de/gepris/projekt/394264782?language=en
-* GitHub: 
+* GitHub:
   * https://github.com/OCR-D/ocrd_tesserocr
 
 ## [MP6] Automated postcorrection of OCRed historical printings with integrated optional interactive postcorrection
@@ -143,11 +143,11 @@ interactive postcorrection. Methods for semi-automated or interactive
 postcorrection that take advantage of all data and insights from the automated
 correction phase will be directly integrated as part of the system.
 
-* Partner(s): 
-  * Ludwig-Maximilians-Universität München, Centrum für Informations- und Sprachverarbeitung (CIS) 
-* URL: 
+* Partner(s):
+  * Ludwig-Maximilians-Universität München, Centrum für Informations- und Sprachverarbeitung (CIS)
+* URL:
   * GEPRIS: http://gepris.dfg.de/gepris/projekt/393215159?language=en
-* GitHub: 
+* GitHub:
   * https://github.com/cisocrgroup/ocrd-postcorrection
 
 ## [MP7] Development of a Repository for OCR Models and an Automatic Font Recognition tool in OCR-D
@@ -175,13 +175,13 @@ groups as possible while maintaining OCR accuracy. Provision of a model
 repository, in which developed font-specific OCR models are made available to
 the public.
 
-* Partner(s): 
+* Partner(s):
   * Universität Leipzig,   Institut für Informatik: Lehrstuhl für Digital Humanities
   * Friedrich-Alexander-Universität Erlangen-Nürnberg, Department Informatik: Lehrstuhl für Informatik 5: Mustererkennung
-  * Johannes Gutenberg-Universität Mainz, Gutenberg-Institut für Weltliteratur und schriftorientierte Medien: Abteilung Buchwissenschaft 
-* URL: 
+  * Johannes Gutenberg-Universität Mainz, Gutenberg-Institut für Weltliteratur und schriftorientierte Medien: Abteilung Buchwissenschaft
+* URL:
   * GEPRIS: http://gepris.dfg.de/gepris/projekt/394448308?language=en
-* GitHub: 
+* GitHub:
   * https://github.com/seuretm/ocrd_typegroups_classifier
   * https://github.com/Doreenruirui/okralact
 
@@ -222,10 +222,10 @@ requirements of the data holders as well as the users. Based on this initial
 situation, this project defines the necessary steps for the realization of a
 solution for long-term preservation and persistent identification of OCR texts.
 
-* Partner(s): 
+* Partner(s):
   * Georg-August-Universität Göttingen, Niedersächsische Staats- und Universitätsbibliothek
-  * Gesellschaft für Wissenschaftliche Datenverarbeitung mbH Göttingen 
-* URL: 
+  * Gesellschaft für Wissenschaftliche Datenverarbeitung mbH Göttingen
+* URL:
   * GEPRIS: http://gepris.dfg.de/gepris/projekt/394410994?language=en
-* GitHub: 
+* GitHub:
   * https://github.com/subugoe/OLA-HD-IMPL
