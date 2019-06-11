@@ -5,7 +5,11 @@ The coordination project [OCR-D](http://ocr-d.de/) is developing
 implementation](https://github.com/OCR-D/core) for the development of methods
 of Optical Character Recognition (OCR) for printed historical material.
 
-In addition, eight module projects develop prototype implementations for various workflow steps:
+In addition, eight module projects develop prototype implementations for
+various workflow steps.
+
+The module project descriptions are taken from the database entries in GEPRIS, the
+database of research funded by Deutsche Forschungsgemeinschaft (DFG).
 
 ## [MP1] Scalable Methods of Text and Structure Recognition for the Full-Text Digitization of Historical Prints, Part 1.B: Image Optimization
 
@@ -14,7 +18,7 @@ Volltextdigitalisierung historischer Drucke” has the goal of developing a
 complete OCR-Workflow for a high quality mass digitization of historical prints
 from the 17th-18th century. For each step in the workflow, innovative methods
 should be made available as tools. Module 1.B: Bildoptimierung is the basis on
-which high quality OCR provided. For each optimization step there are a wide
+which high quality OCR provided [sic]. For each optimization, step there are a wide
 variety of algorithms available, however not all of them are suitable to the
 specific challenges of this projects. On the basis of prior experience and
 work, the DFKI plans the identification, development and integration of
@@ -32,7 +36,7 @@ suitable methods.
 The project “Skalierbare Verfahren der Text- und Strukturerkennung für die
 Volltextdigitalisierung historischer Drucke” has the goal of developing a
 complete OCR-Workflow for a high quality mass digitization of historical prints
-from the 16th-18th century. For each step in the workflow innovative methods
+from the 16th-18th century. For each step in the workflow, innovative methods
 should be made available as tools. Module 2: Layouterkennung is next to OCR
 itself the most important step. It improves the OCR results directly, but also
 improves the general understanding of the digitized document by providing
@@ -103,8 +107,8 @@ Tesseract is a free software for text recognition (optical character
 recognition, OCR). This software has a history of more than 30 years of
 continuous development and improvements. In the small group of open source
 products for OCR Tesseract belongs to the programs with the best recognition
-rates.Since end of 2016 Tesseract supports state-of-the-art text recognition by
-neural networks (LSTM).The context of OCR-D requires well defined interfaces
+rates. Since end of 2016 Tesseract supports state-of-the-art text recognition by
+neural networks (LSTM). The context of OCR-D requires well defined interfaces
 for OCR software. The project will actively contribute to the definition of
 such interfaces. It will implement them for Tesseract to allow inclusion of
 Tesseract in an OCR workflow. We also strive to improve the stability,
@@ -151,10 +155,10 @@ correction phase will be directly integrated as part of the system.
 The project addresses the problem of strongly fluctuating recognition rates of
 OCR for 16th to 18th century historical prints, limiting the full-text
 digitization of material created by the VD16, VD17, and VD18
-programs.Recognition models trained on modern corpora lacking the specifics of
+programs. Recognition models trained on modern corpora lacking the specifics of
 historical prints or historic material without thorough bibliographic analysis,
 retard recognition rates in comparison to the accuracy now routinely achieved
-for scans of modern prints.The creation of font-specific corpora on the basis
+for scans of modern prints. The creation of font-specific corpora on the basis
 of manual tagging is unrealistic, since both non-trivial knowledge of printing
 history is necessary and the scalability of such an approach would be
 insufficient. Due to the repetitiveness of the task, such an approach is also
@@ -162,12 +166,12 @@ very error-prone. The project will enable the humanities to use OCR in a
 font-specific manner with limited effort. In order to achieve this the project
 has three main objectives:The development of an online training infrastructure
 that allows specific models to be trained for these font groups and at the same
-time for different OCR software.Development of a tool for the automatic
+time for different OCR software. Development of a tool for the automatic
 recognition of fonts in digitizations of historical prints. In this case, an
 algorithm for the recognition of fonts in incunabula is first trained using the
 ground truth found in the Typenrepertorium der Wiegendrucke. In a second step
 the fonts are grouped according to their similarity in order to get as few
-groups as possible while maintaining OCR accuracy.Provision of a model
+groups as possible while maintaining OCR accuracy. Provision of a model
 repository, in which developed font-specific OCR models are made available to
 the public.
 
@@ -200,7 +204,7 @@ methods used so far were not suitable, since the texts show too many
 orthographic differences. There has been intensive work on easily transferable
 applications that allow a high-quality mass-processing of all historical prints
 from the 16th to the 19th century. This will increase the number of OCR texts
-rapidly.For further usage, a sustainable preservation and identification of the
+rapidly. For further usage, a sustainable preservation and identification of the
 images, the bibliographic metadata as well as the encoded full texts and their
 versions is obligatory. A standardized concept must be created in order to
 ensure this purpose. In addition, the availability and citation of the OCR
@@ -212,7 +216,7 @@ especially in the OCR process or the usage of various OCR techniques, which
 bear a new challenge for persistent identification and long-term preservation.
 This problem contains aspects related to research data management and also
 requires the consideration of methods and strategies for dealing with research
-data.The above requirements must be conceptually prepared, integrated into an
+data. The above requirements must be conceptually prepared, integrated into an
 extended context, and implemented as a technical solution in order to meet the
 requirements of the data holders as well as the users. Based on this initial
 situation, this project defines the necessary steps for the realization of a
