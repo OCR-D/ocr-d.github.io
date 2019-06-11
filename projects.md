@@ -164,7 +164,7 @@ history is necessary and the scalability of such an approach would be
 insufficient. Due to the repetitiveness of the task, such an approach is also
 very error-prone. The project will enable the humanities to use OCR in a
 font-specific manner with limited effort. In order to achieve this the project
-has three main objectives:The development of an online training infrastructure
+has three main objectives: The development of an online training infrastructure
 that allows specific models to be trained for these font groups and at the same
 time for different OCR software. Development of a tool for the automatic
 recognition of fonts in digitizations of historical prints. In this case, an
