@@ -12,7 +12,7 @@ In addition, eight module projects develop prototype implementations for various
 The project “Skalierbare Verfahren der Text- und Strukturerkennung für die
 Volltextdigitalisierung historischer Drucke” has the goal of developing a
 complete OCR-Workflow for a high quality mass digitization of historical prints
-from the 17th-18th century. For each step in the workflow innovative methods
+from the 17th-18th century. For each step in the workflow, innovative methods
 should be made available as tools. Module 1.B: Bildoptimierung is the basis on
 which high quality OCR provided. For each optimization step there are a wide
 variety of algorithms available, however not all of them are suitable to the
@@ -33,11 +33,11 @@ The project “Skalierbare Verfahren der Text- und Strukturerkennung für die
 Volltextdigitalisierung historischer Drucke” has the goal of developing a
 complete OCR-Workflow for a high quality mass digitization of historical prints
 from the 16th-18th century. For each step in the workflow innovative methods
-should be made available as tools. Module 2: Layouterkennung ist next to OCR
+should be made available as tools. Module 2: Layouterkennung is next to OCR
 itself the most important step. It improves the OCR results directly, but also
 improves the general understanding of the digitized document by providing
 insights to the layout and relations between the document components. For each
-optimization step there are a wide variety of algorithms available, however not
+optimization step, there are a wide variety of algorithms available, however not
 all of them are suitable to the specific challenges of this projects. On the
 basis of prior experience and work, the DFKI plans the identification,
 development and integration of suitable methods.
