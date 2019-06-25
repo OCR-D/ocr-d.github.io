@@ -1,4 +1,37 @@
-<nav class="navbar is-transparent is-fixed-top">
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4">
+  <link rel="stylesheet" href="/assets/bulma.css">
+  <link rel="stylesheet" href="/assets/syntax-highlight.css">
+  <style>
+  #swagger-ui pre.version {
+    padding: 2px !important;
+    background: initial !important;
+  }
+  #swagger-ui .topbar {
+    display: none;
+  }
+  blockquote {
+    background: #f99;
+  }
+  aside.menu > ul { 
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+  }
+  body > #swagger-ui,
+  body > .columns {
+    margin-top: 55px;
+  }
+  h2 code, h3 code, h4 code {
+    color: black;
+  }
+
+  </style><link type="application/atom+xml" rel="alternate" href="https://ocr-d.github.io/feed.xml" title="OCR-D" /></head>
+<body><nav class="navbar is-transparent is-fixed-top">
 
   <div class="navbar-brand">
     <a class="navbar-item" href="/">
@@ -75,8 +108,7 @@
           <a class="navbar-item" href="/v2.7.0">v2.7.0</a>
           <a class="navbar-item" href="/v3.0.0">v3.0.0</a>
           <a class="navbar-item" href="/v3.1.0">v3.1.0</a>
-          <a class="navbar-item" href="/v3.2.0">v3.2.0</a>
-          <a class="navbar-item" href="/">v3.2.1</a>
+          <a class="navbar-item" href="/">v3.2.0</a>
         </div>
       </div>
 
@@ -91,3 +123,78 @@
     </div>
   </div>
 </nav>
+<div class="columns">
+      <aside class="column is-one-third menu">
+        <ul class="menu-list column is-one-third">
+  <li><a href="#dockerfile-provided-by-mp">Dockerfile provided by MP</a>
+    <ul>
+      <li><a href="#based-on-ocrdcore">Based on ocrd:core</a></li>
+      <li><a href="#shell-entrypoint">Shell entrypoint</a></li>
+      <li><a href="#data-as-volume"><code class="highlighter-rouge">/data</code> as volume</a></li>
+      <li><a href="#example">Example</a></li>
+    </ul>
+  </li>
+</ul>
+
+      </aside>
+
+      <main class="container content column is-two-thirds" aria-label="Content">
+        <h1 id="dockerfile-provided-by-mp">Dockerfile provided by MP</h1>
+
+<p>MP should provide a
+<a href="https://docs.docker.com/engine/reference/builder/">Dockerfile</a> that should
+result in a container which bundles the <a href="cli">tools developed by the MP</a> along
+with all requirements.</p>
+
+<h2 id="based-on-ocrdcore">Based on ocrd:core</h2>
+
+<p>Docker containers should be based on the <a href="https://hub.docker.com/r/ocrd/core/">ocrd base
+image</a> which itself is based on Ubuntu
+18.04. For one, this allows MP to use the <code class="highlighter-rouge">ocrd</code> tool to handle recurrent tasks
+in a spec-conformant way. Besides, it locally installed and containerized
+<a href="cli">CLI</a> interchangeable.</p>
+
+<h2 id="shell-entrypoint">Shell entrypoint</h2>
+
+<p>The <code class="highlighter-rouge">ENTRYPOINT</code> should a be a shell call not the tool provided. A non-shell
+entrypoint would restrict MP to just one tool.</p>
+
+<h2 id="data-as-volume"><code class="highlighter-rouge">/data</code> as volume</h2>
+
+<p>The directory <code class="highlighter-rouge">/data</code> in the the container should be marked as a volume to
+allow processing host data in the container in a uniform way.</p>
+
+<h2 id="example">Example</h2>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> ocrd:core</span>
+<span class="k">VOLUME</span><span class="s"> ["/data"]</span>
+
+<span class="c"># RUN-commands to install requirements, build and install</span>
+
+<span class="k">ENTRYPOINT</span><span class="s"> ["/bin/sh", "-c"]</span>
+</code></pre></div></div>
+
+      </main>
+    </div><footer class="level">
+
+  <div class="level-item">
+    <p>
+<!-- BEGIN-EVAL echo "Based on <a href="https://github.com/OCR-D/spec/releases/tag/${SPEC_VERSION:-dev}">OCR-D/spec ${SPEC_VERSION:-dev}</a>." -->
+Based on <a href=https://github.com/OCR-D/spec/releases/tag/v3.2.0>OCR-D/spec v3.2.0</a>.
+
+<!-- END-EVAL -->
+    </p>
+    &nbsp;
+
+
+<!-- BEGIN-EVAL echo "<p>Generated on <code>$(date)</code></p>" -->
+<p>Generated on <code>Wed Feb 27 15:53:08 CET 2019</code></p>
+
+<!-- END-EVAL -->
+  </div>
+
+</footer>
+<script src="/assets/script.js"></script>
+</body>
+
+</html>
