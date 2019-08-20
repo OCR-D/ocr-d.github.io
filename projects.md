@@ -99,7 +99,8 @@ within a noisy-channel model.
 * URL:
   * GEPRIS: http://gepris.dfg.de/gepris/projekt/394341797?language=en
 * GitHub:
-  * https://github.com/ocr-d-modul-2-segmentierung/segmentation-runner
+  * https://github.com/ASVLeipzig/cor-asv-fst
+  * https://github.com/ASVLeipzig/cor-asv-ann
 
 ## [MP5] Optimized use of OCR methods – Tesseract as a component of the OCR-D workflow
 
