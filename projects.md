@@ -27,9 +27,9 @@ suitable methods.
 * Partner(s):
   * Deutsches Forschungszentrum für Künstliche Intelligenz (DFKI)
 * URL:
-  * GEPRIS: http://gepris.dfg.de/gepris/projekt/394343055?language=en
+  * GEPRIS: [projekt/394343055](http://gepris.dfg.de/gepris/projekt/394343055?language=en)
 * GitHub:
-  * https://github.com/syedsaqibbukhari/docanalysis
+  * [https://github.com/syedsaqibbukhari/docanalysis](https://github.com/syedsaqibbukhari/docanalysis)
 
 ## [MP2] Scalable Methods of Text and Structure Recognition for the Full-Text Digitization of Historical Prints, Part 2: Layout Analysis
 
@@ -49,9 +49,9 @@ development and integration of suitable methods.
 * Partner(s):
   * Deutsches Forschungszentrum für Künstliche Intelligenz (DFKI)
 * URL:
-  * GEPRIS: http://gepris.dfg.de/gepris/projekt/394346204?language=en
+  * GEPRIS: [projekt/394346204](http://gepris.dfg.de/gepris/projekt/394346204?language=en)
 * GitHub:
-  * https://github.com/mjenckel/LAYoutERkennung
+  * [https://github.com/mjenckel/LAYoutERkennung](https://github.com/mjenckel/LAYoutERkennung)
 
 ## [MP3] Development of a semi-automatic open source tool for layout analysis and region extraction and region classificiation (LAREX) of early prints
 
@@ -80,10 +80,10 @@ the subsequent OCR by the linkage of external tools.
 * Partner(s):
   * Julius-Maximilians-Universität Würzburg, Institut für Informatik: Lehrstuhl für Künstliche Intelligenz und angewandte Informatik
 * URL:
-  * GEPRIS: http://gepris.dfg.de/gepris/projekt/394329162?language=en
+  * GEPRIS: [projekt/394329162](http://gepris.dfg.de/gepris/projekt/394329162?language=en)
 * GitHub:
-  * https://github.com/ocr-d-modul-2-segmentierung/segmentation-runner
-  * https://github.com/ocr-d-modul-2-segmentierung/page-segmentation
+  * [https://github.com/ocr-d-modul-2-segmentierung/segmentation-runner](https://github.com/ocr-d-modul-2-segmentierung/segmentation-runner)
+  * [https://github.com/ocr-d-modul-2-segmentierung/page-segmentation](https://github.com/ocr-d-modul-2-segmentierung/page-segmentation)
 
 ## [MP4] NN/FST - Unsupervised OCR-Postcorrection based on Neural Networks and Finite-state Transducers
 
@@ -97,10 +97,10 @@ within a noisy-channel model.
 * Partner(s):
   * Universität Leipzig, Institut für Informatik: Abteilung Automatische Sprachverarbeitung
 * URL:
-  * GEPRIS: http://gepris.dfg.de/gepris/projekt/394341797?language=en
+  * GEPRIS: [projekt/394341797](http://gepris.dfg.de/gepris/projekt/394341797?language=en)
 * GitHub:
-  * https://github.com/ASVLeipzig/cor-asv-fst
-  * https://github.com/ASVLeipzig/cor-asv-ann
+  * [https://github.com/ASVLeipzig/cor-asv-fst](https://github.com/ASVLeipzig/cor-asv-fst)
+  * [https://github.com/ASVLeipzig/cor-asv-ann](https://github.com/ASVLeipzig/cor-asv-ann)
 
 ## [MP5] Optimized use of OCR methods – Tesseract as a component of the OCR-D workflow
 
@@ -118,9 +118,9 @@ performance and practical usability of Tesseract.
 * Partner(s):
   * Universität Mannheim, Universitätsbibliothek Mannheim
 * URL:
-  * GEPRIS: http://gepris.dfg.de/gepris/projekt/394264782?language=en
+  * GEPRIS: [projekt/394264782](http://gepris.dfg.de/gepris/projekt/394264782?language=en)
 * GitHub:
-  * https://github.com/OCR-D/ocrd_tesserocr
+  * [https://github.com/OCR-D/ocrd_tesserocr](https://github.com/OCR-D/ocrd_tesserocr)
 
 ## [MP6] Automated postcorrection of OCRed historical printings with integrated optional interactive postcorrection
 
@@ -147,9 +147,9 @@ correction phase will be directly integrated as part of the system.
 * Partner(s):
   * Ludwig-Maximilians-Universität München, Centrum für Informations- und Sprachverarbeitung (CIS)
 * URL:
-  * GEPRIS: http://gepris.dfg.de/gepris/projekt/393215159?language=en
+  * GEPRIS: [projekt/393215159](http://gepris.dfg.de/gepris/projekt/393215159?language=en)
 * GitHub:
-  * https://github.com/cisocrgroup/ocrd-postcorrection
+  * [https://github.com/cisocrgroup/ocrd-postcorrection](https://github.com/cisocrgroup/ocrd-postcorrection)
 
 ## [MP7] Development of a Repository for OCR Models and an Automatic Font Recognition tool in OCR-D
 
@@ -181,10 +181,10 @@ the public.
   * Friedrich-Alexander-Universität Erlangen-Nürnberg, Department Informatik: Lehrstuhl für Informatik 5: Mustererkennung
   * Johannes Gutenberg-Universität Mainz, Gutenberg-Institut für Weltliteratur und schriftorientierte Medien: Abteilung Buchwissenschaft
 * URL:
-  * GEPRIS: http://gepris.dfg.de/gepris/projekt/394448308?language=en
+  * GEPRIS: [projekt/394448308](http://gepris.dfg.de/gepris/projekt/394448308?language=en)
 * GitHub:
-  * https://github.com/seuretm/ocrd_typegroups_classifier
-  * https://github.com/Doreenruirui/okralact
+  * [https://github.com/seuretm/ocrd_typegroups_classifier](https://github.com/seuretm/ocrd_typegroups_classifier)
+  * [https://github.com/Doreenruirui/okralact](https://github.com/Doreenruirui/okralact)
 
 ## [MP8] DPO-HP - Digital Preservation of OCR-D data for historical printings
 
@@ -227,6 +227,6 @@ solution for long-term preservation and persistent identification of OCR texts.
   * Georg-August-Universität Göttingen, Niedersächsische Staats- und Universitätsbibliothek
   * Gesellschaft für Wissenschaftliche Datenverarbeitung mbH Göttingen
 * URL:
-  * GEPRIS: http://gepris.dfg.de/gepris/projekt/394410994?language=en
+  * GEPRIS: [projekt/394410994](http://gepris.dfg.de/gepris/projekt/394410994?language=en)
 * GitHub:
-  * https://github.com/subugoe/OLA-HD-IMPL
+  * [https://github.com/subugoe/OLA-HD-IMPL](https://github.com/subugoe/OLA-HD-IMPL)
