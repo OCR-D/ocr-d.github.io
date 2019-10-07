@@ -29,7 +29,7 @@ suitable methods.
 * URL:
   * GEPRIS: [projekt/394343055](http://gepris.dfg.de/gepris/projekt/394343055?language=en)
 * GitHub:
-  * [https://github.com/syedsaqibbukhari/docanalysis](https://github.com/syedsaqibbukhari/docanalysis)
+  * [https://github.com/mjenckel/LAYoutERkennung](https://github.com/mjenckel/LAYoutERkennung)
 
 ## [MP2] Scalable Methods of Text and Structure Recognition for the Full-Text Digitization of Historical Prints, Part 2: Layout Analysis
 
