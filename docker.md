@@ -20,7 +20,7 @@ entrypoint would restrict MP to just one tool.
 
 ## `/data` as volume
 
-The directory `/data` in the the container should be marked as a volume to
+The directory `/data` in the container should be marked as a volume to
 allow processing host data in the container in a uniform way.
 
 ## Example
