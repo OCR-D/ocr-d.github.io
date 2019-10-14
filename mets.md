@@ -2,15 +2,15 @@
 
 OCR-D has decided to base its data exchange format on top of [METS](http://www.loc.gov/standards/mets/).
 
-For layout and text recognition results, the primary exchange format is [PAGE](https://github.com/OCR-D/PAGE-XML)
+For layout and text recognition results, the primary exchange format is [PAGE](https://github.com/OCR-D/PAGE-XML).
 
 This document defines a set of conventions and mechanism for using METS.
 
-Conventions for PAGE are outlined in [a separate document](page)
+Conventions for PAGE are outlined in [a separate document](page).
 
 ## Pixel density of images must be explicit and high enough
 
-The pixel density is the ratio of the number of pixels that represent a a unit of measure of the scanned object. It is typically measured in pixels per inch (PPI, a.k.a. DPI).
+The pixel density is the ratio of the number of pixels that represent a unit of measure of the scanned object. It is typically measured in pixels per inch (PPI, a.k.a. DPI).
 
 The original input images MUST have >= 150 ppi.
 
