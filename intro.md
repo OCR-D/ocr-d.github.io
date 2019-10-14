@@ -1,16 +1,16 @@
 # OCR-D Specs Overview
 
 Since OCR-D focuses on improving access to mass digitization for historical
-prints, it is important that tools are sufficiently uniform in their interfaces
-and data access pattterns to support the widest possible application within
+prints, it is important that its tools are sufficiently uniform in their interfaces
+and data access patterns to support the widest possible application within
 GLAM digitization workflows.
 
 This website lays out a set of conventions and interface definitions that must
-be implemented by MP to be usable within the OCR-D ecosphere.
+be implemented by the OCR-D module projects (MP) to be usable within the OCR-D ecosphere.
 
 ## CLI
 
-Software developed by OCR-D module projects (MP) must be executable with a
+Software developed by MP must be executable with a
 command line interface (CLI) on a Linux OS. CLI are straightforward to run and
 test and can be easily embedded in automated setups. The mechanics of OCR-D
 conformant CLI tools are laid out in the [CLI specs](cli).
@@ -30,7 +30,7 @@ about themselves and detailed information about the tools they develop.
 
 ## REST
 
-OCR-D will offer RESTful access to the MP CLI based on HTTP, described using
+OCR-D will offer RESTful access to the MP CLI based on HTTP, using
 the Open API / Swagger set of tools.
 
 ## Dockerfile

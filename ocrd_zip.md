@@ -106,7 +106,7 @@ of the BagIt spec, the entries MUST be sorted.
 
 Within an OCRD-ZIP, all local file resources referenced in the METS (and
 consequently all those referenced in other files within the workspace -- see
-rule ["If in PAGE then in METS"](mets#if-in-page-then-in-mets) must be
+rule ["If in PAGE then in METS"](mets#if-in-page-then-in-mets)) must be
 relative to the [location of the METS file](#ocrd-mets).
 
 #### Example
