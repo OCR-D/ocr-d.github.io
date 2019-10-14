@@ -157,7 +157,7 @@ Controlled term: `preprocessing/optimization/cropping`.
 Segmentation means detecting areas within an image.
 
 Specific segmentation algorithms are labelled by the semantics of the regions
-they detect, not the semantics of the input, i.e. an algorithm that detects
+they detect not the semantics of the input, i.e. an algorithm that detects
 blocks is called [block segmentation](#block-segmentation).
 
 ### Block segmentation

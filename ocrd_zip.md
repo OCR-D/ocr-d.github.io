@@ -106,7 +106,7 @@ of the BagIt spec, the entries MUST be sorted.
 
 Within an OCRD-ZIP, all local file resources referenced in the METS (and
 consequently all those referenced in other files within the workspace -- see
-rule ["If in PAGE then in METS"](mets#if-in-page-then-in-mets)) must be
+rule ["If in PAGE then in METS"](mets#if-in-page-then-in-mets) must be
 relative to the [location of the METS file](#ocrd-mets).
 
 #### Example
@@ -132,6 +132,11 @@ Invalid `mets:FLocat/@xlink:href` in `/tmp/foo/ws1/data/mets.xml`:
 
 All files except `mets.xml` itself that are contained in `data` directory must
 be referenced in a `mets:file/mets:Flocat` in the `mets.xml`.
+
+### When in METS and not in data
+
+Due to partial OCRD-ZIP not all files may be part of the payload. If so they have to be 
+mentioned in fetch.txt and in all payload manifest files. 
 
 ## Optional metadata about the payload
 

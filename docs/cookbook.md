@@ -55,7 +55,7 @@ See subsection [Bootstrapping](#bootstrapping)
 $ cd ~/projects/OCR-D
 $ git clone https://github.com/OCR-D/ocrd_kraken
 $ cd ocrd_kraken/
-$ make deps-pip
+$ make deps
 $ make install
 # Step 1b: Test installation
 $ ocrd-kraken-binarize --version

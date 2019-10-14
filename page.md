@@ -226,7 +226,7 @@ specific **font family** but in font family from **a cluster of related font gro
 For such typeset clusters, the `pg:TextStyle/@fontFamily` attribute should be re-used.
 
 This specification doesn't restrict the naming of font families.
-However, we recommend to choose one of the following list of type group names if
+However, we recommend to choose one of the following list of type groups names if
 applicable:
 
   * `textura`
