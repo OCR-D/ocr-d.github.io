@@ -32,3 +32,4 @@ kramdown:
   syntax_highlighter: rouge
 theme: minima
 plugins: []
+exclude: ['v*/**/dita.md']

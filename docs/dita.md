@@ -73,7 +73,7 @@ Anhand der Strukturvorgaben ist zu sehen, dass die Dokumentation nicht aus einer
 
 
 #### Topics
-Mit Hilfe von Topics werden in sich inhaltlich geschlossene spezifische Bestandteile der Dokumentation gegliedert und typisiert. Allgemein beinhaltet ein Topic immer die Angabe eines Titels (```<title>```), den sogenannten Textkörper (u. a. ```<body>```) sowie beispielsweise einzelne Absätze (```<p>```) oder Listen (```<ul>```,  ```<ol>```). Das Topic wird in der Regel in einer Datei gespeichert.
+Mit Hilfe von Topics werden in sich inhaltlich geschlossene spezifische Bestandteile der Dokumentation gegliedert und typisiert. Allgemein beinhaltet ein Topic immer die Angabe eines Titels (`<title>`), den sogenannten Textkörper (u. a. `<body>`) sowie beispielsweise einzelne Absätze (`<p>`) oder Listen (`<ul>`,  `<ol>`). Das Topic wird in der Regel in einer Datei gespeichert.
 
 
 Folgende Topic-Typen stehen für die OCR-D Dokumentation zur Verfügung. Die einzelnen Topic-Typen basieren auf eigenen formalen Dokumentspezifikationen. Die kurzen Beschreibungen in der Tabelle basieren auf der DITA-Spezifikation 1.3.[^3]
@@ -108,7 +108,7 @@ sind ausschließlich in DITA zu schreiben.
 
 ##### **Beispiel:** für ein Topic *concept* in *Markdown-DITA-Syntax*
 
-```
+```markdown
 # Simple tool description {#toolDescription .concept}
 
 "A command-line interface or command language
@@ -121,11 +121,11 @@ contributors. (2018, June 5). Command-line interface. In
 Wikipedia, The Free Encyclopedia. Retrieved 12:45, June 6,
 2018, from [Wikipeadia](https://en.wikipedia.org
 /w/index.php?title=Command-line_interface&oldid=844566807)
-
 ```
 
 ##### **Beispiel:** für ein Topic *task* in *Markdown-DITA-Syntax*
-```
+
+```markdown
 # Installation {#installation .task}
 
 1.    erster Schritt
@@ -135,7 +135,8 @@ Wikipedia, The Free Encyclopedia. Retrieved 12:45, June 6,
 
 
 ##### **Beispiel:** für ein Topic *reference* in *Markdown-DITA-Syntax*
-```
+
+```markdown
 # Release Note {#releaseNote .reference}
 
 The Command Line Interface (CLI) is a maintenance
@@ -146,7 +147,8 @@ The CL can be used with all operating systems.
 ```
 
 ##### **Beispiel:** für ein Topic *troubleshooting* in *DITA*
-```
+
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE troubleshooting 
 PUBLIC "-//OASIS//DTD DITA 1.3 Troubleshooting//EN" "troubleshooting.dtd">
@@ -179,7 +181,7 @@ PUBLIC "-//OASIS//DTD DITA 1.3 Troubleshooting//EN" "troubleshooting.dtd">
 
 ##### **Beispiel:** für ein Topic *glossary group* in *DITA*
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE glossgroup 
 PUBLIC "-//OASIS//DTD DITA Glossary Group//EN" "glossgroup.dtd">
@@ -199,12 +201,11 @@ PUBLIC "-//OASIS//DTD DITA Glossary Group//EN" "glossgroup.dtd">
         the GT were created manually.
         </glossdef>
 </glossgroup>
-
 ```
 
 ##### **Beispiel:** für ein Topic *glossary entry* in *DITA*
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE glossentry 
 PUBLIC "-//OASIS//DTD DITA Glossary//EN" "glossary.dtd">
@@ -226,7 +227,7 @@ Technisch organisiert und zusammengefasst wird die DITA-Dokumentation mit einer 
 #### Beispiel DITA-Map ocr-d.ditamap
 
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
 <map>
@@ -261,14 +262,15 @@ Aber auch zur Korrektur oder zur Vollständigkeitskontrolle ist eine Konvertieru
 * xhtml
 
 #### Beispiel Kommandoaufruf für DITA-OT
-1.  Für die Erstellung einer *DITA-Ausgabe* aus der ```ocr-d.ditamap``` Datei
- ```
+1.  Für die Erstellung einer *DITA-Ausgabe* aus der `ocr-d.ditamap` Datei
+
+```sh
 dita --input=ocr-d.ditamap --format=dita --output=output/dita     
 ```
 
-2.  Für die Erstellung einer *html5-Ausgabe* aus der ```ocr-d.ditamap``` Datei
+2.  Für die Erstellung einer *html5-Ausgabe* aus der `ocr-d.ditamap` Datei
 
-```
+```sh
 dita --input=ocr-d.ditamap --format=html5 --output=output/html5
 ```
 
