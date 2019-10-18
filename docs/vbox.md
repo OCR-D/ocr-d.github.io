@@ -63,13 +63,12 @@ chsh -s /bin/zsh
 sudo apt install libtesseract{4,-dev} tesseract-ocr{,-eng,-deu}
 ```
 
-Einige Tools benötigen aber für die nahe Zukunft noch Versionen der alten
-`3.0x`-Versionsreihe ohne neuronale Netze und Trainingstools.
+Some toole still require versions of the old `3.0x`-version without neural networks and training tools for the near future.
 
-Es sind sowohl die Version `3.05.00` (in `$HOME/.local`) als auch `4.0.0-beta1`
-(systemweit) installiert. 
+The version `3.05.00` (in `$HOME/.local`) as well as `4.0.0-beta1`
+(system wide) are installed. 
 
-Um zwischen den beiden Versionen zu wechseln:
+To change between the two versions:
 
 ```sh
 $ source /home/ocrd/tess4/bin/activate 
