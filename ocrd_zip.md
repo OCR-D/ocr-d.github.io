@@ -89,7 +89,7 @@ was based on, if any.
 
 ### ZIP
 
-An OCRD-ZIP MUST be a serialized as a ZIP file.
+An OCRD-ZIP MUST be serialized as a ZIP file.
 
 ### `manifest-sha512.txt`
 
