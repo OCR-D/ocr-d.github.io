@@ -4,16 +4,16 @@
 
 ## Introduction
 
-This document, the "OCR-D cookbook" helps developers writing software and using
-tools within the OCR-D ecosystem.
+The "OCR-D cookbook" helps developers writing software and using
+tools within the OCR-D ecosystem by listing practical examples in addition to the OCR-D guide.
 
 ## From image to transcription
 
 ### OCR-D workflow
 
-The workflow consists of several steps from the image with some additional
+The workflow consists of several steps, from the image with some additional
 metadata to the textual content of the image. The tools used to generate the
-text are divided in the following categories:
+text are divided into the following categories:
 
 - Image preprocessing
 - Layout analysis
@@ -296,26 +296,4 @@ $ ocrd workspace find --group-id  OCR-D-IMG_0001
 file:///home/ocrd/projects/OCR-D/workshop/2018_06_26/workspaces/binarizeAllImages/PPN767137728.00000005.tif
 file:///home/ocrd/projects/OCR-D/workshop/2018_06_26/workspaces/binarizeAllImages/OCR-D-IMG-KRAKEN-BIN/OCR-D-IMG-KRAKEN-BIN_0001.bin.png
 # See 'ocrd workspace find --help' for further information
-```
-
-#### Getting files referenced inside METS
-
-The command 'ocrd workspace find' supports several options.
-
-```sh
-$ cd ~/projects/OCR-D/workshop/2018_06_26/workspaces/binarizeAllImages
-# List all files.
-$ ocrd workspace find
-file:///home/ocrd/projects/OCR-D/workshop/2018_06_26/workspaces/binarizeAllImages/PPN767137728.00000005.tif
-file:///home/ocrd/projects/OCR-D/workshop/2018_06_26/workspaces/binarizeAllImages/PPN767137728.00000006.tif
-file:///home/ocrd/projects/OCR-D/workshop/2018_06_26/workspaces/binarizeAllImages/OCR-D-IMG-KRAKEN-BIN/OCR-D-IMG-KRAKEN-BIN_0001.bin.png
-file:///home/ocrd/projects/OCR-D/workshop/2018_06_26/workspaces/binarizeAllImages/OCR-D-IMG-KRAKEN-BIN/OCR-D-IMG-KRAKEN-BIN_0002.bin.png
-# List all files inside a fileGrp
-§ ocrd workspace find --file-grp OCR-D-IMG-KRAKEN-BIN
-file:///home/ocrd/projects/OCR-D/workshop/2018_06_26/workspaces/binarizeAllImages/OCR-D-IMG-KRAKEN-BIN/OCR-D-IMG-KRAKEN-BIN_0001.bin.png
-file:///home/ocrd/projects/OCR-D/workshop/2018_06_26/workspaces/binarizeAllImages/OCR-D-IMG-KRAKEN-BIN/OCR-D-IMG-KRAKEN-BIN_0002.bin.png
-# List all files of a GROUPID
-$ ocrd workspace find --group-id  OCR-D-IMG_0001
-file:///home/ocrd/projects/OCR-D/workshop/2018_06_26/workspaces/binarizeAllImages/PPN767137728.00000005.tif
-file:///home/ocrd/projects/OCR-D/workshop/2018_06_26/workspaces/binarizeAllImages/OCR-D-IMG-KRAKEN-BIN/OCR-D-IMG-KRAKEN-BIN_0001.bin.png
 ```
