@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4">
+  <link rel="stylesheet" href="/assets/bulma.css">
+  <link rel="stylesheet" href="/assets/syntax-highlight.css">
+  <style>
+  #swagger-ui pre.version {
+    padding: 2px !important;
+    background: initial !important;
+  }
+  #swagger-ui .topbar {
+    display: none;
+  }
+  blockquote {
+    background: #f99;
+  }
+  aside.menu > ul { 
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+  }
+  body > #swagger-ui,
+  body > .columns {
+    margin-top: 55px;
+  }
+  h2 code, h3 code, h4 code {
+    color: black;
+  }
+
+  </style><link type="application/atom+xml" rel="alternate" href="https://ocr-d.github.io/feed.xml" title="OCR-D" /></head>
+<body><nav class="navbar is-transparent is-fixed-top">
+
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="https://avatars0.githubusercontent.com/u/26362587?s=200&v=4" height="28"/>
+    </a>
+    <div class="navbar-burger burger" data-target="ocrd-navbar-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="ocrd-navbar-menu" class="navbar-menu">
+    <div class="navbar-start">
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Specs</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/cli">CLI</a>
+          <a class="navbar-item" href="/mets">METS</a>
+          <a class="navbar-item" href="/page">PAGE</a>
+          <a class="navbar-item" href="/ocrd_zip">OCRD-ZIP</a>
+          <a class="navbar-item" href="/ocrd_tool">ocrd-tool.json</a>
+          <a class="navbar-item" href="/docker">Dockerfile</a>
+          <a class="navbar-item" href="/gt">Ground Truth Guidelines</a>
+        </div>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Docs</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/core">OCR-D/core API</a>
+          <a class="navbar-item" href="/slides">Slides / Presentations</a>
+          <a class="navbar-item" href="/docs/guide">Guide</a>
+          <a class="navbar-item" href="/docs/cookbook">Cookbook</a>
+          <a class="navbar-item" href="/docs/faq">FAQ</a>
+          <a class="navbar-item" href="/docs/dita">Documenting with DITA</a>
+          <a class="navbar-item" href="/docs/vbox">Setting up VirtualBox</a>
+          <a class="navbar-item" href="https://ocr-d-repo.scc.kit.edu/api/v1/metastore/bagit">GT Repo</a>
+          <a class="navbar-item" href="/projects">OCR-D Module Projects</a>
+        </div>
+      </div>
+
+      <a class="navbar-item" href="/glossary">Glossary</a>
+
+    </div>
+
+    <div class="navbar-end">
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Older versions</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/v1.0.0">v1.0.0</a>
+          <a class="navbar-item" href="/v1.1.0">v1.1.0</a>
+          <a class="navbar-item" href="/v1.1.1">v1.1.1</a>
+          <a class="navbar-item" href="/v1.1.2">v1.1.2</a>
+          <a class="navbar-item" href="/v1.1.3">v1.1.3</a>
+          <a class="navbar-item" href="/v1.1.4">v1.1.4</a>
+          <a class="navbar-item" href="/v1.1.5">v1.1.5</a>
+          <a class="navbar-item" href="/v1.2.0">v1.2.0</a>
+          <a class="navbar-item" href="/v1.3.0">v1.3.0</a>
+          <a class="navbar-item" href="/v2.0.0">v2.0.0</a>
+          <a class="navbar-item" href="/v2.1.0">v2.1.0</a>
+          <a class="navbar-item" href="/v2.1.1">v2.1.1</a>
+          <a class="navbar-item" href="/v2.1.2">v2.1.1</a>
+          <a class="navbar-item" href="/v2.2.0">v2.2.0</a>
+          <a class="navbar-item" href="/v2.2.1">v2.2.1</a>
+          <a class="navbar-item" href="/v2.2.2">v2.2.2</a>
+          <a class="navbar-item" href="/v2.3.0">v2.3.0</a>
+          <a class="navbar-item" href="/v2.3.1">v2.3.1</a>
+          <a class="navbar-item" href="/v2.4.0">v2.4.0</a>
+          <a class="navbar-item" href="/v2.5.0">v2.5.0</a>
+          <a class="navbar-item" href="/v2.6.0">v2.6.0</a>
+          <a class="navbar-item" href="/v2.6.1">v2.6.1</a>
+          <a class="navbar-item" href="/v2.6.2">v2.6.2</a>
+          <a class="navbar-item" href="/v2.7.0">v2.7.0</a>
+          <a class="navbar-item" href="/v3.0.0">v3.0.0</a>
+          <a class="navbar-item" href="/v3.1.0">v3.1.0</a>
+          <a class="navbar-item" href="/v3.2.0">v3.2.0</a>
+          <a class="navbar-item" href="/">v3.2.1</a>
+        </div>
+      </div>
+
+      <span class="navbar-item">
+        <a href="https://github.com/OCR-D"><img src="https://www.vectorlogo.zone/logos/github/github-tile.svg"/></a>
+        &nbsp;
+        <a href="https://hub.docker.com/r/ocrd"><img src="https://www.vectorlogo.zone/logos/docker/docker-tile.svg"/></a>
+        &nbsp;
+        <a href="https://ocr-d.de"><img src="https://www.vectorlogo.zone/logos/fileformatinfo/fileformatinfo-tile.svg"/></a>
+      </span>
+
+    </div>
+  </div>
+</nav>
+<div class="columns">
+      <aside class="column is-one-third menu">
+        <ul class="menu-list column is-one-third">
+  <li><a href="#installation-ocr-d-stack">Installation OCR-D stack</a>
+    <ul>
+      <li><a href="#notation">Notation</a></li>
+      <li><a href="#basic-setup">Basic setup</a>
+        <ul>
+          <li><a href="#operating-system">Operating System</a></li>
+          <li><a href="#python">Python</a></li>
+          <li><a href="#setup-a-virtualenv">Setup a virtualenv</a></li>
+          <li><a href="#activate-virtualenv">Activate virtualenv</a></li>
+          <li><a href="#install-ocrd-core-software">Install ocrd core software</a></li>
+        </ul>
+      </li>
+      <li><a href="#ocr-d-modules">OCR-D Modules</a>
+        <ul>
+          <li><a href="#ocrd_ocropy">ocrd_ocropy</a></li>
+          <li><a href="#ocrd_kraken">ocrd_kraken</a></li>
+          <li><a href="#ocrd_tesserocr">ocrd_tesserocr</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+      </aside>
+
+      <main class="container content column is-two-thirds" aria-label="Content">
+        <h1 id="installation-ocr-d-stack">Installation OCR-D stack</h1>
+
+<h2 id="notation">Notation</h2>
+
+<p>Commands like this</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>python3
+</code></pre></div></div>
+
+<p>must be executed in a terminal.</p>
+
+<h2 id="basic-setup">Basic setup</h2>
+
+<h3 id="operating-system">Operating System</h3>
+
+<p>Currently we only support Ubuntu 18.04 and 18.10.</p>
+
+<h3 id="python">Python</h3>
+
+<p>You need to have Python 3.6 installed:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>python3 python3-virtualenv
+</code></pre></div></div>
+
+<h3 id="setup-a-virtualenv">Setup a virtualenv</h3>
+
+<p>We set up a dedicated environment to install Python packages to:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 <span class="nt">-m</span> virtualenv ~/env-ocrd
+</code></pre></div></div>
+
+<h3 id="activate-virtualenv">Activate virtualenv</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source</span> ~/env-ocrd/bin/activate
+</code></pre></div></div>
+
+<h3 id="install-ocrd-core-software">Install ocrd core software</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>ocrd
+</code></pre></div></div>
+
+<p>Verify it has been installed by calling the <code class="highlighter-rouge">ocrd</code> command line tool:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ocrd <span class="nt">--help</span>
+</code></pre></div></div>
+
+<p>Output should be similar to</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Usage: ocrd [OPTIONS] COMMAND [ARGS]...
+
+  CLI to OCR-D
+
+Options:
+  --version                       Show the version and exit.
+  -l, --log-level [OFF|ERROR|WARN|INFO|DEBUG|TRACE]
+                                  Log level
+  --help                          Show this message and exit.
+
+Commands:
+  bashlib    Work with bash library
+  ocrd-tool  Work with ocrd-tool.json JSON_FILE
+  process    Process a series of tasks
+  workspace  Working with workspace
+  zip        Bag/Spill/Validate OCRD-ZIP bags
+</code></pre></div></div>
+
+<h2 id="ocr-d-modules">OCR-D Modules</h2>
+
+<p>Functionality is encapsulated in module projects which can be individually installed and combined.</p>
+
+<p>We recommend the following projects to get started:</p>
+
+<ul>
+  <li>ocrd_ocropy</li>
+  <li>ocrd_kraken</li>
+  <li>ocrd_tesserocr</li>
+</ul>
+
+<h3 id="ocrd_ocropy">ocrd_ocropy</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>ocrd_ocropy
+</code></pre></div></div>
+
+<p>Verify:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ocrd-ocropy-segment <span class="nt">--help</span>
+</code></pre></div></div>
+
+<h3 id="ocrd_kraken">ocrd_kraken</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>ocrd_ocropy
+</code></pre></div></div>
+
+<p>Verify:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ocrd-kraken-binarize <span class="nt">--help</span>
+</code></pre></div></div>
+
+<h3 id="ocrd_tesserocr">ocrd_tesserocr</h3>
+
+<p>ocrd_tesserocr requires tesseract to be installed in addition to the module project:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>libtesseract-dev tesseract-ocr
+pip <span class="nb">install </span>ocrd_tesseroccr
+</code></pre></div></div>
+
+<p>Verify:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ocrd-tesserocr-recognize <span class="nt">--help</span>
+</code></pre></div></div>
+
+      </main>
+    </div><footer class="level">
+
+  <div class="level-item">
+    <p>
+<!-- BEGIN-EVAL echo "Based on <a href="https://github.com/OCR-D/spec/releases/tag/${SPEC_VERSION:-dev}">OCR-D/spec ${SPEC_VERSION:-dev}</a>." -->
+Based on <a href=https://github.com/OCR-D/spec/releases/tag/v3.2.1>OCR-D/spec v3.2.1</a>.
+
+<!-- END-EVAL -->
+    </p>
+    &nbsp;
+
+
+<!-- BEGIN-EVAL echo "<p>Generated on <code>$(date)</code></p>" -->
+<p>Generated on <code>Thu Oct 24 12:50:00 CEST 2019</code></p>
+
+<!-- END-EVAL -->
+  </div>
+
+</footer>
+<script src="/assets/script.js"></script>
+</body>
+
+</html>
