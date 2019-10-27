@@ -14,6 +14,11 @@ A block is a region described by a polygon inside a page.
 
 The semantics or function of a [block](#block) such as heading, page number, column, table...
 
+### Font family
+
+Within OCR-D, *font family* refers to grouping elements by font similarity. The
+semantics of a *font family* are up to the data producer.
+
 ### Glyph
 
 Within OCR-D, a glyph is the atomic unit within a [word](#word).
@@ -174,6 +179,12 @@ Segment text [blocks](#block) into [textlines](#textline).
 Controlled term:
 - `SEG-LINE` (`USE`)
 - `layout/segmentation/line` (step)
+
+### MP
+
+Module Project, a software project producing one or more tools to OCR-D. There
+are [currently eight MP](https://ocr-d.github.io/projects) active in the OCR-D
+community.
 
 ### OCR
 

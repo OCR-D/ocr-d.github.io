@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This document, the "OCR-D guide" helps developers writing software and using
+The "OCR-D guide" helps developers writing software and using
 tools within the OCR-D ecosystem.
 
 ### Scope and purpose of the OCR-D guide
@@ -131,7 +131,7 @@ $ pip install ocrd
 
 ### Generic setup
 
-In this variant, you still need to install the `ocrd` Python package but since
+In this variant, you still need to install the `ocrd` Python package. But since
 it's only used for its CLI (and as a depencency for Python-based OCR-D
 software), you can install it system-wide:
 
@@ -198,10 +198,10 @@ mainly three purposes:
   3. ensuring compatible definitions and interfaces, which is essential for
      sustainable, scalable workflows
 
-The main focus for the purpose of this document is the first point.
+This document is mainly focusing on the first point.
 
 The structure and syntax of the `ocrd-tool.json` is [defined by a JSON
-Schema](https://ocr-d.github.io/ocrd_tool#definition) and exepcts JSON Schema
+Schema](https://ocr-d.github.io/ocrd_tool#definition) and expects JSON Schema
 for the parameter definitions. In addition to the schema, the `ocrd` command
 line tool can help you [validate the ocrd-tool.json](#validating-ocr-d-tool-json)
 
@@ -281,21 +281,21 @@ Example:
 
 The `tools` section is an object with the key being the name of the executable described and the value being an object with the following properties (bold means required):
 
-  * **`executable`**: Name of the exceutable. Must match the key and start with `ocrd-`.
+  * **`executable`**: Name of the exceutable. Must match the key and start with `ocrd-`
   * `parameters`: Description of [the parameters this tool accepts](#metadata-about-parameters)
   * **`description`**: Concise description what the tool does
-  * **`categories`**: Tools belong to this categories, representing modules within the OCR-D project structure, [list is part of the specs](https://ocr-d.github.io/ocrd_tool).
-  * **`steps`**: This tool can be used at these steps in the OCR-D functional model, [list of values in the specs](https://ocr-d.github.io/ocrd_tool).
+  * **`categories`**: Tools belong to these categories, representing modules within the OCR-D project structure, [list is part of the specs](https://ocr-d.github.io/ocrd_tool)
+  * **`steps`**: This tool can be used at these steps in the OCR-D functional model, [list of values in the specs](https://ocr-d.github.io/ocrd_tool)
 
 #### Metadata about parameters
 
 Required properties are bold.
 
-  * **`type`**: What kind of parameter this is, either a `string`, a `number` or a `boolean`.
+  * **`type`**: What kind of parameter this is, either a `string`, a `number` or a `boolean`
   * `format`: Subtype defining the syntax of the value such as `float`/`integer` for numbers or `uri` for `string`
   * `required`: If true, this parameter must be provided by the user
   * `default`: Default value if not required
-  * `enum`: List of possible values if a fixed list.
+  * `enum`: List of possible values if a fixed list
 
 `required: true` and setting `default` are mutually exclusive.
 
@@ -395,7 +395,7 @@ $ ocrd workspace -d $WORKSPACE_DIR -M mets3000.xml find
 
 ### Creating an empty workspace
 
-To create an empty workspace for you to add files to, use the `workspace init` command
+To create an empty workspace to which you can add files, use the `workspace init` command
 
 ```sh
 $ ocrd workspace init ws1
@@ -536,7 +536,7 @@ $ ocrd workspace -d $WORKSPACE_DIR add -G OCR-D-IMG-BIN -i PAGE-0013-BIN -m imag
 
 ## `ocrd tool` -- Working with ocrd-tool.json
 
-This command helps you explore and validate the information in any [ocrd-tool.json](#ocrd-tool-json).
+This command helps you to explore and validate the information in any [ocrd-tool.json](#ocrd-tool-json).
 
 The syntax is `ocrd ocrd-tool /path/to/ocrd-tool.json SUBCOMMAND`
 
@@ -544,7 +544,8 @@ The syntax is `ocrd ocrd-tool /path/to/ocrd-tool.json SUBCOMMAND`
 
 Validate that an `ocrd-tool.json` is syntactically valid and adheres to the [schema](/ocrd_tool).
 
-Useful while developing to make sure there are no typos and all required properties are set.
+
+This is useful while developing to make sure there are no typos and all required properties are set.
 
 ```sh
 $ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json validate
@@ -555,7 +556,7 @@ $ ocrd ocrd-tool /path/to/ocrd_wip/ocrd-tool.json validate
 </report>
 ```
 
-This shows that the `ocrd-wip-xyzzy` executable is missing the required `steps` and
+This example shows that the `ocrd-wip-xyzzy` executable is missing the required `steps` and
 `categories` properties and the root level object is missing the `version`
 property.
 
@@ -584,7 +585,7 @@ ocrd-wip-frobozz
 
 ### Introspect individual tools
 
-This set of commands allows introspection of the metadata about individual
+This set of commands allows introspection of the metadata on individual
 tools within an `ocrd-tool.json`.
 
 The syntax is `ocrd ocrd-tool /path/to/ocrd-tool.json tool EXECUTABLE SUBCOMMAND`
@@ -619,7 +620,7 @@ parameters. When a parameter file is passed to a
 tool, it should:
 
   * ensure it is valid JSON
-  * valid according to the [parameter schema](#metadata-about-parameters)
+  * validate according to the [parameter schema](#metadata-about-parameters)
   * add default values when no explicit values were provided
 
 The `ocrd ocrd-tool tool parse-params` command does just that and can output
@@ -662,9 +663,9 @@ actually successful. To remedy this, users can use the `ocrd process` CLI which
 * simplifies the CLI syntax for multiple calls
 * checks for required and expected-to-be-produced file groups
 * checks for return value
-* sets logging levels uniformly across tools.
+* sets logging levels uniformly across tools
 
-The same calls mentioned before can be passed to `ocrd process` like so:
+The same calls mentioned before can be passed to `ocrd process` as follows:
 
 ```sh
 ocrd process -l DEBUG \
@@ -675,8 +676,8 @@ ocrd process -l DEBUG \
 ## Wrapping a CLI using `bash`
 
 This section describes how you can make an existing tool [OCR-D
-compliant](/cli), that is provide a CLI that implements all the specs and calls
-out to another exceutable.
+compliant](/cli), i.e. provide a CLI which implements all the specs and calls
+out to another executable.
 
 For this purpose, the `ocrd` offers a `bash` library that handles:
 
@@ -690,7 +691,7 @@ The shell library is bundled with the `ocrd` command line tool and can be access
 ### `ocrd bashlib`
 
 To get the filename of the shell lib, use `ocrd bashlib filename`, which you
-can use to source the shell code in a wrapper script. After sourcing this script
+can employ to source the shell code in a wrapper script. After sourcing this script
 you will have access to a number of shell functions that begin with `ocrd__`.
 
 The only function you definitely need is `ocrd__wrap` which parses an

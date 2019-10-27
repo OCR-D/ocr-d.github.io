@@ -17,19 +17,13 @@ Examples:
 
 ## Mandatory parameters
 
-### `-m, --mets METS_IN`
-
-Input METS URL
-
-### `-w, --working-dir DIR`
-
-Working Directory.
-
 ### `-I, --input-file-grp GRP`
 
 **MULTI-VALUE**
 
 File group(s) used as input.
+
+## Optional parameters
 
 ### `-O, --output-file-grp GRP`
 
@@ -37,7 +31,16 @@ File group(s) used as input.
 
 File group(s) used as output.
 
-## Optional parameters
+Omit to resort to default output file groups of the processor or for processors that do not produce output files.
+
+### `-m, --mets METS_IN`
+
+Input METS URL. Default: `mets.xml`
+
+### `-w, --working-dir DIR`
+
+Working Directory. Default: current working directory.
+
 
 ### `-g, --page-id ID`
 
@@ -50,7 +53,9 @@ group](#-i---input-file-grp-grp) that are referenced in these
 
 ### `-p, --parameter PARAM_JSON`
 
-URL of parameter file in JSON format.
+URL of parameter file in JSON format. If that file is not readable and
+`PARAM_JSON` begins with `{` (opening brace), try to parse `PARAM_JSON` as
+JSON. If that also fails, throw an exception.
 
 ### `-l, --log-level LOGLEVEL`
 

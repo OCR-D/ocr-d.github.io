@@ -133,6 +133,11 @@ Invalid `mets:FLocat/@xlink:href` in `/tmp/foo/ws1/data/mets.xml`:
 All files except `mets.xml` itself that are contained in `data` directory must
 be referenced in a `mets:file/mets:Flocat` in the `mets.xml`.
 
+### When in METS and not in data
+
+Due to partial OCRD-ZIP not all files may be part of the payload. If so they have to be 
+mentioned in fetch.txt and in all payload manifest files. 
+
 ## Optional metadata about the payload
 
 In addition to the actual data files in `/data`, the following metadata files
@@ -192,7 +197,7 @@ Bag-Info:
     required: false
   Ocrd-Mets:
     required: false
-    default: 'data/mets.xml'
+    default: 'mets.xml'
   Ocrd-Manifestation-Depth:
     required: false
     default: partial
