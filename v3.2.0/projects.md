@@ -87,7 +87,7 @@ the subsequent OCR by the linkage of external tools.
 
 ## [MP4] NN/FST - Unsupervised OCR-Postcorrection based on Neural Networks and Finite-state Transducers
 
-The project aims to develop a ready to use software für module 3 (text
+The project aims to develop a ready to use software for module 3 (text
 optimization) of the OCR-D architecture. The focus of development is in area
 3.B (postcorrection) where we plan to also evaluate some up-to-date OCR systems
 (area 3.A). The main technologies that we plan to use are neural nets (NN)
