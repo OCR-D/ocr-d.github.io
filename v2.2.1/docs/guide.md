@@ -40,7 +40,7 @@ the command line.
 
   * [Specification](https://ocr-d.github.io): Formal specifications
   * [Glossary](https://ocr-d.github.io/glossary): A glossary of terms in the OCR
-    domain as used throughout our documenation
+    domain as used throughout our documentation
 
 ## Bootstrapping
 

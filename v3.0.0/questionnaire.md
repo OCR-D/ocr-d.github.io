@@ -46,7 +46,7 @@ Does your tool require a database to be running? If so, which one and how is it 
 
 ### Interactivity
 
-The tools provided by MP should be exectuable in a mass digitization context. For the preparation/training/configuration, interactivity can be required. In what form does your software require user intervention:
+The tools provided by MP should be executable in a mass digitization context. For the preparation/training/configuration, interactivity can be required. In what form does your software require user intervention:
 
 - [ ] Web interface
 - [ ] Editing config files

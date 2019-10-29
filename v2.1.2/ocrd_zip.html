@@ -119,7 +119,7 @@ files. METS is a textual format, not suitable for embedding arbitrary,
 potentially binary, data. For various use cases (such as transfer via network,
 long-term preservation, reproducible tests etc.) it is desirable to have a
 self-contained representation of a workspace. With such a representation, data
-producers are not forced to provide dereferencable HTTP-URL for the files they
+producers are not forced to provide dereferenceable HTTP-URL for the files they
 produce and data consumers are not forced to dereference all HTTP-URL.</p>
 
 <p>While METS does have mechanisms for embedding XML data and even base64-encoded
@@ -127,7 +127,7 @@ binary data, the tradeoffs in file size, parsing speed and readability are too
 great to make this a viable solution for a mass digitization scenario.</p>
 
 <p>Instead, OCRD-ZIP is based on the widely used ZIP format which allows
-representing file hierarchies in a standardized, compressable archive format.
+representing file hierarchies in a standardized, compressible archive format.
 Many formats like JAR (used in software development) and BagIt (used in
 long-term preservation) use the same principles: A zip file containing a
 manifest of contained resources and the resources themselves. For OCRD-ZIP, the
