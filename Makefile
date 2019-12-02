@@ -1,15 +1,5 @@
 # BEGIN-EVAL makefile-parser --make-help Makefile
 
-help:
-	@echo ""
-	@echo "  Targets"
-	@echo ""
-	@echo "    deps   Install dependencies"
-	@echo "    serve  Start local server"
-	@echo "    build  Start local server"
-	@echo ""
-	@echo "  Variables"
-	@echo ""
 
 # END-EVAL
 
