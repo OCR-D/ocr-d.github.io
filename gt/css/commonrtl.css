@@ -12,6 +12,35 @@
  *
  * See the accompanying LICENSE file for applicable license.
  */
+.hazardstatement td,
+.hazardstatement th {
+  padding: 0.5rem;
+}
+
+.hazardstatement th {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.hazardstatement--caution {
+  background-color: #ffd100;
+}
+
+.hazardstatement--danger {
+  background-color: #c8102e;
+  color: #fff;
+}
+
+.hazardstatement--warning {
+  background-color: #ff8200;
+}
+
+.hazardstatement--attention, .hazardstatement--fastpath, .hazardstatement--important, .hazardstatement--note, .hazardstatement--notice, .hazardstatement--other, .hazardstatement--remember, .hazardstatement--restriction, .hazardstatement--tip {
+  background-color: #0072ce;
+  color: #fff;
+  font-style: italic;
+}
+
 .codeblock {
   font-family: monospace;
 }
@@ -36,25 +65,18 @@
   font-family: monospace;
 }
 
-div.tasklabel {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-h2.tasklabel,
-h3.tasklabel,
-h4.tasklabel,
-h5.tasklabel,
-h6.tasklabel {
+.tasklabel {
   font-size: 100%;
+  margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 .screen {
-  padding: 5px 5px 5px 5px;
+  background-color: #ccc;
   border: outset;
-  background-color: #CCCCCC;
-  margin-top: 2px;
   margin-bottom: 2px;
+  margin-top: 2px;
+  padding: 5px;
   white-space: pre;
 }
 
@@ -63,37 +85,37 @@ h6.tasklabel {
 }
 
 .numcharref {
-  color: #663399;
+  color: #639;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .parameterentity {
-  color: #663399;
+  color: #639;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .textentity {
-  color: #663399;
+  color: #639;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .xmlatt {
-  color: #663399;
+  color: #639;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .xmlelement {
-  color: #663399;
+  color: #639;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .xmlnsname {
-  color: #663399;
+  color: #639;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .xmlpi {
-  color: #663399;
+  color: #639;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
@@ -303,6 +325,12 @@ div.imagejustify {
 .example {
   margin-bottom: 1em;
   margin-top: 1em;
+}
+
+.indexterm {
+  background-color: #fdf;
+  border: 1pt #000 solid;
+  margin: 1pt;
 }
 
 /* Most link groups are created with <div>. Ensure they have space before and after. */
