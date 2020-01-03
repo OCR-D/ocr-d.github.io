@@ -1,6 +1,6 @@
 <!DOCTYPE html
   SYSTEM "about:legacy-compat">
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="copyright" content="(C) Copyright 2019"><meta name="DC.rights.owner" content="(C) Copyright 2019"><meta name="DC.type" content="topic"><meta name="description" content="METS maps the (logical) structure of a document. A logical structuring concerns individual chapters, paragraphs as well as special paragraphs (such as dedications, errata)."><meta name="DC.relation" scheme="URI" content="../trans_documentation/structur_gt.html"><meta name="DC.creator" content="Matthias Boenig OCR-D, Zentrum Sprache, Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)"><meta name="DC.date.created" content="March, 2017"><meta name="DC.format" content="HTML5"><meta name="DC.identifier" content="structurmets2page"><link rel="stylesheet" type="text/css" href="../css/commonltr.css"><link rel="stylesheet" type="text/css" href="../css/dita-ot-doc.css"><title>Structure concordance METS and PAGE</title></head><body id="structurmets2page"><header role="banner"><div class="header">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="copyright" content="(C) Copyright 2020"><meta name="DC.rights.owner" content="(C) Copyright 2020"><meta name="DC.type" content="topic"><meta name="description" content="METS maps the (logical) structure of a document. A logical structuring concerns individual chapters, paragraphs as well as special paragraphs (such as dedications, errata)."><meta name="DC.relation" scheme="URI" content="../trans_documentation/structur_gt.html"><meta name="DC.creator" content="Matthias Boenig OCR-D, Zentrum Sprache, Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)"><meta name="DC.date.created" content="March, 2017"><meta name="DC.format" content="HTML5"><meta name="DC.identifier" content="structurmets2page"><link rel="stylesheet" type="text/css" href="../css/commonltr.css"><link rel="stylesheet" type="text/css" href="../css/dita-ot-doc.css"><title>Structure concordance METS and PAGE</title></head><body id="structurmets2page"><header role="banner"><div class="header">
 <table style="border: 0px;  width: 100%;" class="header">
 <tr>
 <td class="td1"><img src="../resources/logo_beta.png" class="logo" alt="Richtlinien zur Transkription für Ground Truth "></td>
@@ -13,19 +13,14 @@
     
     <div class="body"><p class="shortdesc">METS maps the (logical) structure of a document. A logical structuring concerns
         individual chapters, paragraphs as well as special paragraphs (such as dedications, errata). </p>
-        <p class="p">Mit
-            METS werden vorallem (Logische)-Strukturen eines Dokumentes abgebildet. Bei einer
-            Logischen-Strukturierung werden die einzelnen Kapitel, Abschnitte sowie besondere
-            Abschnitte (wie Widmungen, Errata) in einer METS-Datei dokumentiert.
-            In the METS file in the <code class="ph codeph">&lt;mets:structMap TYPE="LOGICAL"&gt;</code> section, the
+        <p class="p">In the METS file in the <code class="ph codeph">&lt;mets:structMap TYPE="LOGICAL"&gt;</code> section, the
             chapters or paragraphs are listed starting with the headings of the chapters or
             paragraphs of a digitized document (<code class="ph codeph">&lt;mets:div TYPE="..." LABEL="[Text der
                 Überschrift]"/&gt;</code>). In the PAGE standard, only the element with the type
             attribute value <code class="ph codeph">heading</code>
             <code class="ph codeph">&lt;TextRegion type="heading"&gt;</code>is intended for the documentation of the
             logical structuring. Particular chapters can only be distinguished with the specific
-            value in the
-            custom-Attribut.</p>
+            value in the <code class="ph codeph">custom</code>-Attribut.</p>
         
 
         <div class="p">
@@ -37,13 +32,13 @@
     <tr class="row">
         <th class="entry" id="structurmets2page__table_w1d_ykm_3jb__entry__3">Description</th>
         <th class="entry" id="structurmets2page__table_w1d_ykm_3jb__entry__4">XML <code class="ph codeph">&lt;mets:div TYPE="..."/&gt;</code></th>
-                            <th class="entry" id="structurmets2page__table_w1d_ykm_3jb__entry__5"><code class="ph codeph">&lt;TextRegion type="heading"&gt;</code></th>
+                            <th class="entry" id="structurmets2page__table_w1d_ykm_3jb__entry__5"><code class="ph codeph">&lt;TextRegion type="..."&gt;</code></th>
     </tr>
 </thead><tbody class="tbody">
                         <tr class="row">
                             <td class="entry" headers="structurmets2page__table_w1d_ykm_3jb__entry__1 structurmets2page__table_w1d_ykm_3jb__entry__3">Preface</td>
                             <td class="entry" headers="structurmets2page__table_w1d_ykm_3jb__entry__1 structurmets2page__table_w1d_ykm_3jb__entry__4"><code class="ph codeph">preface</code></td>
-                            <td class="entry" headers="structurmets2page__table_w1d_ykm_3jb__entry__2 structurmets2page__table_w1d_ykm_3jb__entry__5" rowspan="12">heading</td>
+                            <td class="entry" headers="structurmets2page__table_w1d_ykm_3jb__entry__2 structurmets2page__table_w1d_ykm_3jb__entry__5" rowspan="12"><code class="ph codeph">heading</code></td>
                         </tr>
                         <tr class="row">
                             <td class="entry" headers="structurmets2page__table_w1d_ykm_3jb__entry__1 structurmets2page__table_w1d_ykm_3jb__entry__3">Dedication</td>
