@@ -1,4 +1,4 @@
-# OCR-D Developer Guide
+# OCR-D Guide
 
 > A practical guide to the [OCR-D framework](https://github.com/OCR-D/core)
 

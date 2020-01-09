@@ -81,3 +81,13 @@ ocrd workspace add --help
 ## Training
 
 ### I want to train a custom OCR model. Where do I start?
+
+## OCR-D-Ground Truth
+
+### Which of the three transcription levels specified in the [Transcription Guidelines] (https://ocr-d.github.io/gt//trans_documentation/transkription.html) was used for the GT of OCR-D?
+
+### Are the three transcription levels designed hierarchically? Meaning, does level 3 include level 2 and level 1?
+
+### I want to make some GT myself. Which level should I use? Can I mix levels?
+
+### I have some transcriptions of early modern books, but I didn't stick to the OCR-D GT guidelines. Would my transcriptions still be useful for OCR-D?
