@@ -20,6 +20,10 @@
 
 ### Which formats are supported by OCR-D?
 
+### Why does OCR-D need METS files? How can I process images without METS?
+
+<!-- @wrznr: Not possible, not desired. The METS file is actually not needed but rather provided by the framework. -->
+
 ### How much does it cost to deploy OCR-D?
 
 ### What are the system requirements for OCR-D-software?
