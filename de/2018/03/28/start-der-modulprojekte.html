@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&amp;v=4"></link>
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/bulma.css"></link>
+  <link rel="stylesheet" href="/assets/syntax-highlight.css"></link>
+  <style>
+  #swagger-ui pre.version {
+    padding: 2px !important;
+    background: initial !important;
+  }
+  #swagger-ui .topbar {
+    display: none;
+  }
+  blockquote {
+    background: #f99;
+  }
+  aside.menu > ul { 
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+  }
+  body > #swagger-ui,
+  body > .columns {
+    margin-top: 55px;
+  }
+  h2 code, h3 code, h4 code {
+    color: black;
+  }
+  .title-image  img {
+    max-height: 300px;
+  }
+
+  /* hide banner and navbar of gt guidelines / pagexml docs */
+  header[role="banner"] { display: none; }
+  nav[role="toc"] { display: none; }
+  footer[role="contentinfo"] { display: none; }
+
+  /* hide stuff from sphinx docs */
+  div.related[role="navigation"] { display: none; }
+  div.footer[role="contentinfo"] { display: none; }
+
+  </style>
+</head>
+<body><nav class="navbar is-transparent is-fixed-top">
+
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/assets/ocrd-logo-small.png" height="28"/>
+    </a>
+    <div class="navbar-burger burger" data-target="ocrd-navbar-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="ocrd-navbar-menu" class="navbar-menu">
+    <div class="navbar-start">
+      
+      
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/de/">Über</a>
+        <div class="navbar-dropdown">
+          
+          
+          <a class="navbar-item" href="/de/about">Das OCR-D-Projekt</a>
+          
+          
+          <a class="navbar-item" href="/de/contact">Kontaktieren Sie uns!</a>
+          
+          
+          <a class="navbar-item" href="/de/blog">Blog</a>
+          
+          
+          <a class="navbar-item" href="/de/publications">Publikationen</a>
+          
+          
+          <a class="navbar-item" href="/de/slides">Präsentationen und Vorträge</a>
+          
+          
+          <a class="navbar-item" href="/de/module-projects">Modulprojekte</a>
+          
+          
+          <a class="navbar-item" href="/de/data">Daten</a>
+          
+          
+          <a class="navbar-item" href="/de/user_survey">Nutzumfrage</a>
+          
+          
+          <a class="navbar-item" href="/de/imprint">Impressum</a>
+          
+        </div>
+      </div>
+      
+      
+      
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/de/dev">Entwickler*innen</a>
+        <div class="navbar-dropdown">
+          
+          
+          <a class="navbar-item" href="/de/gt-guidelines/trans">Ground Truth Richtlinien</a>
+          
+          
+          <a class="navbar-item" href="/de/gt-guidelines/trans/trPage">PAGE-XML Formatdokumentation</a>
+          
+          
+          <a class="navbar-item" href="/de/spec">Spezifikationen</a>
+          
+          
+          <a class="navbar-item" href="/core">OCR-D/core API Dokumentation</a>
+          
+        </div>
+      </div>
+      
+      
+      
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/de/use">Anwender*innen</a>
+        <div class="navbar-dropdown">
+          
+          
+          <a class="navbar-item" href="/en/setup">Setup Anleitung</a>
+          
+          
+          <a class="navbar-item" href="/en/user_guide">Nutzeranleitung</a>
+          
+          
+          <a class="navbar-item" href="/de/cookbook">Kochbuch</a>
+          
+          
+          <a class="navbar-item" href="/de/spec/glossary">Glossar</a>
+          
+        </div>
+      </div>
+      
+      
+      
+      <a class="navbar-item" href="/de/faq">FAQ</a>
+      
+      
+
+    </div>
+
+    <div class="navbar-end">
+
+      <span class="navbar-item">
+          
+      </span>
+
+    </div> </div> </nav>
+<div class="container columns">
+      <article class="column is-8 is-offset-2">
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content has-text-centered">
+                <p class="title article-title">Start der 8 Modulprojekte - OCR-D geht in die zweite Projektphase</p>
+                <div class="tags has-addons level-item">
+                  <span class="tag is-rounded is-info"></span>
+                  <span class="tag is-rounded">Mar 28, 2018</span>
+                  
+                  
+                  
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              <p>Vom 05.-06. März fand in der Herzog August Bibliothek in Wolfenbüttel das große Kick-Off-Treffen der Modulprojekte statt, welches offiziell die zweite Phase von OCR-D einläutet.</p>
+
+<p>Das Koordinierunsggremium von OCR-D traf sich zum ersten Mal mit den zehn Modulprojektnehmern zum gegenseitigen Kennenlernen und zum Vorstellen der geleisteten und geplanten Arbeiten auf beiden Seiten.
+In kurzen Präsentationen wurden die Projektantragsinhalte dargestellt und nach Anknüpfungspunkten zwischen den Modulprojekten sowie zum Koordinierungsgremium gesucht. Beim persönlichen Austausch im World Café sowie beim gemeinsamen Abendessen konnten zudem erste projektstrategische Diskussionen angestoßen werden, die uns in naher Zukunft noch begleiten werden.</p>
+
+<p>Von den über 20 eingegangenen Projektanträgen auf die DFG-Ausschreibung im März 2017 wurden Ende des Jahres acht Modulprojekte bewilligt:</p>
+
+<p>Skalierbare Verfahren der Text- und Strukturerkennung für die Volltextdigitalisierung historischer Drucke: Bildoptimierung
+Deutsches Forschungszentrum für Künstliche Intelligenz (DFKI)</p>
+
+<p>Skalierbare Verfahren der Text- und Strukturerkennung für die Volltextdigitalisierung historischer Drucke: Layouterkennung
+DFKI</p>
+
+<p>Weiterentwicklung eines semi-automatischen Open-Source-Tools zur Layout-Analyse und Regionen-Extraktion und -Klassifikation (LAREX) von frühen Buchdrucken,
+Universität Würzburg</p>
+
+<p>NN/FST – Unsupervised OCR-Postcorrection based on Neural Networks and Finite-state Transducers
+Universität Leipzig</p>
+
+<p>Optimierter Einsatz von OCR-Verfahren – Tesseract als Komponente im OCR-D-Workflow
+Universität Mannheim</p>
+
+<p>Automatische und semi-automatische Nachkorrektur OCR-erfasster historischer Drucke
+Universität München</p>
+
+<p>Entwicklung eines Modellrepositoriums und einer automatischen Schriftarterkennung für OCR-D
+Universität Leipzig, Universität Erlangen, Universität Mainz</p>
+
+<p>OLA-HD – Ein OCR-D-Langzeitarchiv für historische Drucke
+SUB Göttingen, GWDG Göttingen</p>
+
+<p>Die Modulprojekte haben in der Regel eine Laufzeit von 18 Monaten, ein öffentlicher Abschlussworkshop ist für Juni 2019 geplant. Bis dahin organisiert das Koordinierungsgremium zwei projektinterne Entwicklertreffen, auf denen die bisherigen Arbeitsversionen besprochen werden. Einen Einblick in die Entwicklung bietet auch die GitHub-Seite von OCR-D: https://github.com//ocr-d
+Zudem stehen das Koordinierungsgremium und die Modulprojekte in dieser intensiven Arbeitsphase per Videokonferenzen im regelmäßigen Austausch.</p>
+
+<p>Weitere Details zu den einzelnen Modulprojekten und später zu den Entwicklertreffen folgen auf der Seite von OCR-D.</p>
+
+<p>Wir freuen uns auf die gemeinsame Zusammenarbeit!</p>
+
+<p>Für Fragen und Anregungen: Kontakt</p>
+
+            </div>
+          </div>
+        </div>
+      </article>
+    </div><footer class="footer" style="padding: 1rem">
+    <div class="content has-text-centered">
+      <a href="https://github.com/OCR-D">GitHub</a>
+      |
+      <a href="https://gitter.im/OCR-D/Lobby">gitter</a>
+      |
+      <a href="https://github.com/OCR-D">Docker Hub</a>
+      |
+      <a href="/sitemap.xml">sitemap.xml</a>
+    </div>
+
+<script src="/assets/script.js"></script>
+</footer>
+</body>
+
+</html>

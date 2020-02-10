@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&amp;v=4"></link>
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/bulma.css"></link>
+  <link rel="stylesheet" href="/assets/syntax-highlight.css"></link>
+  <style>
+  #swagger-ui pre.version {
+    padding: 2px !important;
+    background: initial !important;
+  }
+  #swagger-ui .topbar {
+    display: none;
+  }
+  blockquote {
+    background: #f99;
+  }
+  aside.menu > ul { 
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+  }
+  body > #swagger-ui,
+  body > .columns {
+    margin-top: 55px;
+  }
+  h2 code, h3 code, h4 code {
+    color: black;
+  }
+  .title-image  img {
+    max-height: 300px;
+  }
+
+  /* hide banner and navbar of gt guidelines / pagexml docs */
+  header[role="banner"] { display: none; }
+  nav[role="toc"] { display: none; }
+  footer[role="contentinfo"] { display: none; }
+
+  /* hide stuff from sphinx docs */
+  div.related[role="navigation"] { display: none; }
+  div.footer[role="contentinfo"] { display: none; }
+
+  </style>
+</head>
+<body><nav class="navbar is-transparent is-fixed-top">
+
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/assets/ocrd-logo-small.png" height="28"/>
+    </a>
+    <div class="navbar-burger burger" data-target="ocrd-navbar-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="ocrd-navbar-menu" class="navbar-menu">
+    <div class="navbar-start">
+      
+      
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/en/">About</a>
+        <div class="navbar-dropdown">
+          
+          
+          <a class="navbar-item" href="/en/about">The OCR-D-project</a>
+          
+          
+          <a class="navbar-item" href="/en/contact">Get in touch!</a>
+          
+          
+          <a class="navbar-item" href="/en/blog">Blog</a>
+          
+          
+          <a class="navbar-item" href="/en/publications">Publications</a>
+          
+          
+          <a class="navbar-item" href="/en/slides">Slides and presentations</a>
+          
+          
+          <a class="navbar-item" href="/en/module-projects">Module Projects</a>
+          
+          
+          <a class="navbar-item" href="/en/data">Data</a>
+          
+          
+          <a class="navbar-item" href="/en/user_survey">User Survey</a>
+          
+          
+          <a class="navbar-item" href="/en/imprint">Imprint</a>
+          
+        </div>
+      </div>
+      
+      
+      
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/en/dev">Developers</a>
+        <div class="navbar-dropdown">
+          
+          
+          <a class="navbar-item" href="/en/gt-guidelines/trans">Ground Truth Guidelines</a>
+          
+          
+          <a class="navbar-item" href="/en/gt-guidelines/trans/trPage">PAGE-XML format documentation</a>
+          
+          
+          <a class="navbar-item" href="/en/spec">Specifications</a>
+          
+          
+          <a class="navbar-item" href="/core">OCR-D/core API Documentation</a>
+          
+        </div>
+      </div>
+      
+      
+      
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/en/use">Users</a>
+        <div class="navbar-dropdown">
+          
+          
+          <a class="navbar-item" href="/en/setup">Setup Guide</a>
+          
+          
+          <a class="navbar-item" href="/en/user_guide">User Guide</a>
+          
+          
+          <a class="navbar-item" href="/en/cookbook">Cookbook</a>
+          
+          
+          <a class="navbar-item" href="/en/spec/glossary">Glossary</a>
+          
+        </div>
+      </div>
+      
+      
+      
+      <a class="navbar-item" href="/en/faq">FAQ</a>
+      
+      
+
+    </div>
+
+    <div class="navbar-end">
+
+      <span class="navbar-item">
+         <a href="/de/contact.html" title="View in German">
+              de
+            </a> 
+      </span>
+
+    </div> </div> </nav>
+<div class="columns">
+      
+      <aside class="column is-one-third menu">
+        <ul class="menu-list column is-one-third">
+  <li><a href="#ocr-d-is-you-and-me">OCR-D is you and me</a>
+    <ul>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#managers">Managers</a></li>
+      <li><a href="#staff">Staff</a></li>
+      <li><a href="#former-managers">Former Managers</a></li>
+      <li><a href="#former-participants">Former participants</a></li>
+      <li><a href="#scientific-advisory-board">Scientific Advisory Board</a></li>
+    </ul>
+  </li>
+</ul>
+
+      </aside>
+      
+
+      <main class="container content column is-two-thirds" aria-label="Content">
+        <h1 id="ocr-d-is-you-and-me">OCR-D is you and me</h1>
+
+<h2 id="contact">Contact</h2>
+
+<p>Contact person:</p>
+
+<p><strong>Elisabeth Engl</strong>
+Project coordination OCR-D
+Duke August Library Wolfenbüttel
+<a href="mailto:engl@hab.de">engl[at]hab.de</a></p>
+
+<p>Substitution:</p>
+
+<p><strong>Andrea Opitz</strong>
+Deputy head of department
+New Media, Digital Library
+Duke August Library
+<a href="mailto:opitz@hab.de?subject=Anfrage%20via%20OCR-D.de">opitz[at]hab.de</a></p>
+
+<p><strong>Dr. Johannes Mangei</strong>
+Deputy Director of the Herzog August Library
+Head of Department New Media, Digital Library
+Duke August Library
+<a href="mailto:mangei@hab.de?subject=Anfrage%20via%20OCR-D.de">mangei[at]hab.de</a></p>
+
+<h2 id="managers">Managers</h2>
+
+<p><strong>Dr. Johannes Mangei</strong>
+Duke August Library Wolfenbüttel
+<a href="mailto:mangei@hab.de">mangei[at]hab.de</a></p>
+
+<p><strong>Dr. Alexander Geyken</strong>
+Berlin-Brandenburg Academy of Sciences and Humanities in Berlin
+<a href="mailto:geyken@bbaw.de">geyken[at]bbaw.de</a></p>
+
+<p><strong>Reinhard Altenhöner</strong>
+State Library of Berlin Prussian Cultural Heritage
+<a href="mailto:Reinhard.Altenhoener@sbb.spk-berlin.de">reinhard.altenhoener[at]sbb.spk-berlin.de</a></p>
+
+<p><strong>Dr. Rainer Stotzka</strong>
+Karlsruhe Institute of Technology
+<a href="mailto:rainer.stotzka@kit.edu">rainer.stotzka[at]kit.edu</a></p>
+
+<h2 id="staff">Staff</h2>
+
+<p><strong>Elisabeth Engl</strong>
+Project Coordinator
+Duke August Library Wolfenbüttel
+<a href="mailto:engl@hab.de?subject=Anfrage%20%C3%BCber%20OCR-D.de">engl[at]hab.de</a></p>
+
+<p><strong>Matthias Boenig</strong>
+Berlin-Brandenburg Academy of Sciences and Humanities in Berlin
+<a href="mailto:ocrd@bbaw.de">ocrd[at]bbaw.de</a></p>
+
+<p><strong>Konstantin Baierer</strong>
+Berlin State Library - Prussian Cultural Heritage
+<a href="mailto:Konstantin.Baierer@sbb.spk-berlin.de">konstantin.baierer[at]sbb.spk-berlin.de</a></p>
+
+<p><strong>Clemens Neudecker</strong>
+Berlin State Library - Prussian Cultural Heritage 
+<a href="mailto:clemens.neudecker@sbb.spk-berlin.de">clemens.neudecker[at]sbb.spk-berlin.de</a></p>
+
+<p><strong>Volker Hartmann</strong>
+Karlsruhe Institute of Technology /Steinbuch Centre for Computing
+<a href="mailto:volker.hartmann@kit.edu">volker.hartmann[at]kit.edu</a></p>
+
+<h2 id="former-managers">Former Managers</h2>
+
+<p><strong>Dr. Thomas Stäcker</strong>
+Duke August Library Wolfenbüttel
+<a href="mailto:staecker@hab.de">staecker[at]hab.de</a></p>
+
+<p><strong>Dr. Markus Brantl</strong>
+Bavarian State Library Munich
+<a href="mailto:markus.brantl@bsb-muenchen.de">markus.brantl[at]bsb-muenchen.de</a></p>
+
+<h2 id="former-participants">Former participants</h2>
+
+<p><strong>Elisa Herrmann</strong>
+Duke August Library Wolfenbüttel
+<a href="mailto:herrmann@hab.de">elisa.herrmann[at]hab.de</a></p>
+
+<p><strong>Kay-Michael Würzner</strong>
+Berlin-Brandenburg Academy of Sciences and Humanities in Berlin
+<a href="mailto:ocrd@bbaw.de">ocrd[at]bbaw.de</a></p>
+
+<p><strong>Ajinkya Prabhune</strong>
+Karlsruhe Institute of Technology
+<a href="mailto:ajinkya.prabhune@kit.edu">ajinkya.prabhune[at]kit.edu</a></p>
+
+<p><strong>Sebastian Mangold</strong>
+Bavarian State Library Munich
+<a href="mailto:sebastian.mangold@bsb-muenchen.de">sebastian.mangold[at]bsb-muenchen.de</a></p>
+
+<h2 id="scientific-advisory-board">Scientific Advisory Board</h2>
+
+<p>The project is counseled by a scientific advisory board, which is consituted by the following persons at the moment:</p>
+
+<p><strong>Crane, Gregory</strong> (Leipzig University)</p>
+
+<p><strong>Kaiser, Max</strong> (Austrian National Library)</p>
+
+<p><strong>Köhler, Joachim</strong> (Fraunhofer IAIS)</p>
+
+<p><strong>Meyer, Sebastian</strong> (SLUB Dresden)</p>
+
+<p><strong>Mühlberger, Günther</strong> (University of Innsbruck)</p>
+
+<p><strong>Schulz, Klaus</strong> (LMU Munich – CIS)</p>
+
+<p><strong>Strötgen, Robert</strong> (TU Braunschweig)</p>
+
+      </main>
+    </div><footer class="footer" style="padding: 1rem">
+    <div class="content has-text-centered">
+      <a href="https://github.com/OCR-D">GitHub</a>
+      |
+      <a href="https://gitter.im/OCR-D/Lobby">gitter</a>
+      |
+      <a href="https://github.com/OCR-D">Docker Hub</a>
+      |
+      <a href="/sitemap.xml">sitemap.xml</a>
+    </div>
+
+<script src="/assets/script.js"></script>
+</footer>
+</body>
+
+</html>
