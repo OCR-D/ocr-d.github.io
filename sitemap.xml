@@ -81,6 +81,14 @@
 <lastmod>2020-02-03T00:00:00+01:00</lastmod>
 </url>
 <url>
+<loc>http://ocr-d.github.io/de/2020/02/19/dhd.html</loc>
+<lastmod>2020-02-19T00:00:00+01:00</lastmod>
+</url>
+<url>
+<loc>http://ocr-d.github.io/en/2020/02/19/dhd.html</loc>
+<lastmod>2020-02-19T00:00:00+01:00</lastmod>
+</url>
+<url>
 <loc>http://ocr-d.github.io/en/spec/CHANGELOG.html</loc>
 </url>
 <url>
@@ -1534,6 +1542,9 @@
 </url>
 <url>
 <loc>http://ocr-d.github.io/de/user_survey.html</loc>
+</url>
+<url>
+<loc>http://ocr-d.github.io/en/workflow.html</loc>
 </url>
 <url>
 <loc>http://ocr-d.github.io/cli/</loc>
