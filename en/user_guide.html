@@ -161,9 +161,9 @@
       <main class="container content column is-two-thirds" aria-label="Content">
         <h1 id="user-guide-for-non-it-users">User Guide for Non-IT Users</h1>
 
-<p>The following guide provides a detailed description how to use the OCR-D-Software. There are two options on running the software. You can either use the <a href="https://ocr-d.github.io/en/setup#ocrd_all-via-docker">OCR-D-Docker-solution</a>, or you can <a href="https://ocr-d.github.io/en/setup#ocrd_all-natively">install the Software</a>. Note that the two options require different prerequisites as detailed in the very next two paragraphs. The <a href="### Preparing a workspace">third preparatory step</a> is obligatory for both Docker and Non-Docker users!</p>
+<p>The following guide provides a detailed description how to use the OCR-D-Software. There are two options on running the software. You can either use the <a href="https://ocr-d.github.io/en/setup#ocrd_all-via-docker">OCR-D-Docker-solution</a>, or you can <a href="https://ocr-d.github.io/en/setup#ocrd_all-natively">install the Software</a>. Note that the two options require different prerequisites as detailed in the very next two paragraphs. The <a href="#preparing-a-workspace">third preparatory step</a> is obligatory for both Docker and Non-Docker users!</p>
 
-<p>Furthermore, Docker commands have a <a href="#### Translating native commands to docker calls">different syntax than native calls</a>. This guide always states native calls first and then provides the respective command for Docker users.</p>
+<p>Furthermore, Docker commands have a <a href="#translating-native-commands-to-docker-calls">different syntax than native calls</a>. This guide always states native calls first and then provides the respective command for Docker users.</p>
 
 <h2 id="prerequisites-and-preparations">Prerequisites and Preparations</h2>
 
@@ -450,14 +450,11 @@ e.g.
 
 <p><strong>Note:</strong> Avoid white spaces and escape double quotes with backslash.</p>
 
-<p>For information on the available processors see <a href="#get_more_information_about_processors">section at the end</a>.</p>
-
-<p>👷</p>
+<p>For information on the available processors see <a href="#get-more-information-about-processors">section at the end</a>.</p>
 
 <h4 id="workflow-config">workflow-config</h4>
 
-<p>👷
-workflow-configuration is another tool for specifying OCR-D-workflows. It allows you to run workflows which are configured and controlled via GNU makefiles. In contrast to Taverna it is included in ocrd_all, therefore you most likely already installed it with the other OCR-D-processors.</p>
+<p>workflow-configuration is another tool for specifying OCR-D-workflows. It allows you to run workflows which are configured and controlled via GNU makefiles. In contrast to Taverna it is included in ocrd_all, therefore you most likely already installed it with the other OCR-D-processors.</p>
 
 <p>The <code class="highlighter-rouge">workflow-configuration</code> directory already contains several workflows, which were tested against the Ground Truth provided by OCR-D. For the CER of those workflows in our tests see <a href="https://github.com/bertsky/workflow-configuration#usage">the table on GitHub</a>.</p>
 
@@ -519,15 +516,11 @@ parameter.</p>
 
 <h3 id="specifying-new-ocr-d-workflows">Specifying New OCR-D-Workflows</h3>
 
-<p>👷</p>
-
 <p>When you want to specify a new workflow adapted to the features of particular
 images, we recommend using an exisiting workflow as specified in <code class="highlighter-rouge">Taverna</code> or
 <code class="highlighter-rouge">workflow-config</code> as starting point. You can adjust it to your needs by
 exchanging or adding the specified processors of parameters. For an overview on
-the existing processors, their tasks and features, see <a href="#get_more_information_about_processors">next section</a>.</p>
-
-<p>TODO: add link to description of processors</p>
+the existing processors, their tasks and features, see the <a href="#get-more-information-about-processors">next section</a> and our <a href="workflows.html">workflow guide</a>.</p>
 
 <h3 id="get-more-information-about-processors">Get more Information about Processors</h3>
 
