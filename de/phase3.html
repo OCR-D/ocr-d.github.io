@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&amp;v=4"></link>
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/bulma.css"></link>
+  <link rel="stylesheet" href="/assets/syntax-highlight.css"></link>
+  <link rel="stylesheet" href="/assets/ocrd.css"></link>
+</head>
+<body><nav class="navbar is-transparent is-fixed-top">
+
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/assets/ocrd-logo-small.png" height="28"/>
+    </a>
+    <div class="navbar-burger burger" data-target="ocrd-navbar-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="ocrd-navbar-menu" class="navbar-menu">
+    <div class="navbar-start">
+      
+      
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/de/">Über</a>
+        <div class="navbar-dropdown">
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/de/phase3">OCR-D Phase III</a>
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/de/about">Das OCR-D-Projekt</a>
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/de/contact">Kontaktieren Sie uns!</a>
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/de/blog">Blog</a>
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/de/publications">Publikationen und Vorträge</a>
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/de/module-projects">Modulprojekte</a>
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/de/data">Daten</a>
+
+          
+
+          
+
+          
+          
+            
+            
+              
+              <a class="navbar-item" href="/de/teststellung">Erste Teststellung</a>
+            
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/de/user_survey">Nutzer*innenumfrage</a>
+
+          
+
+          
+
+          
+          
+            
+            
+              
+              <a class="navbar-item" href="/de/impressum">Impressum</a>
+            
+
+          
+
+          
+        </div>
+      </div>
+      
+      
+      
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/de/dev">Entwickler*innen</a>
+        <div class="navbar-dropdown">
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/de/gt-guidelines/trans">Ground Truth Richtlinien</a>
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/de/gt-guidelines/trans/trPage">PAGE-XML Formatdokumentation</a>
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/en/dev-best-practice">Best Practices für Softwareentwicklung in OCR-D</a>
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/de/spec">Spezifikationen</a>
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/core">OCR-D/core API Dokumentation</a>
+
+          
+
+          
+        </div>
+      </div>
+      
+      
+      
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/de/use">Anwender*innen</a>
+        <div class="navbar-dropdown">
+          
+
+          
+          
+            
+            
+              <a class="navbar-item" href="https://translate.google.com/translate?hl=&sl=en&tl=de&u=https%3A%2F%2Focr-d.de%2Fen%2Fsetup">Setup Anleitung</a>
+            
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/en/user_guide">Nutzeranleitung</a>
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/en/workflows">Workflows</a>
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/en/models">Modelle</a>
+
+          
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/de/spec/glossary">Glossar</a>
+
+          
+
+          
+        </div>
+      </div>
+      
+      
+      
+        <a class="navbar-item" href="/de/faq">FAQ</a>
+      
+      
+
+    </div>
+
+    <div class="navbar-end">
+
+      <span class="navbar-item">
+         
+           
+      </span>
+
+    </div> </div> </nav>
+<div class="columns">
+      
+
+      <main class="container content column " aria-label="Content">
+        <h1 id="ocr-d---phase-iii">OCR-D - Phase III</h1>
+
+<p>Im Februar 2020 hat die DFG eine Ausschreibung zur Fortsetzung des OCR-D Projektes in <a href="https://ocr-d.de/de/2020/02/25/dfg-ausschreibung.html">einer dritten Projektphase veröffentlicht</a>. Ziel dieser Phase ist die Implementierung der OCR-D-Software in bestandshaltenden und -verarbeitenden Einrichtungen. Interessenten an der Ausschreibung wurden um die Einreichung von Absichtserklärungen gebeten, damit im Vorfeld der Antragstellung ein Austausch unter diesen stattfinden kann. Auf diesem Wege haben <a href="https://ocr-d.de/de/2020/06/04/pilotphase.html">14 Einrichtungen und Konsortien</a> ihr Interesse bekundet.</p>
+
+<p>Das Prozedere sieht vor, dass die Interessenten die OCR-D-Software im Zuge der Antragsentwicklung in Eigenleistung mit Blick auf ihr Implementierungsszenario evaluieren. (“Pilotierung”). Auf dieser Seite sollen der Pilotierungsprozess, die Testergebnisse und Informationen über die Phase 3 von OCR-D, die im Falle der Bewilligung der Anträge vsl. Anfang des Jahres 2021 anlaufen wird, dokumentiert werden.</p>
+
+<h2 id="absichtserklärungen">Absichtserklärungen</h2>
+
+<p>Bei der DFG sind fristgerecht 14 Absichtserklärungen eingegangen:</p>
+
+<ul>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/bremen_frankfurt_bonn.pdf">SUUB Bremen, Uni Frankfurt, ULB Bonn</a></li>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/darmstadt.pdf">ULB Darmstadt</a></li>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/dresden_mannheim_braunschweig.pdf">SLUB Dresden, UB Mannheim, UB Braunschweig</a></li>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/goettingen.pdf">SUB Göttingen, GWDG Göttingen</a></li>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/halle.pdf">ULB Halle</a></li>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/hamburg.pdf">Uni Hamburg</a></li>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/jena_goettingen.pdf">ThULB Jena, VZG Göttingen</a></li>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/leipzig_dresden.pdf">Uni Leipzig, SLUB Dresden</a></li>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/mannheim.pdf">Uni Mannheim</a></li>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/sanktaugustin.pdf">Fraunhofer IAIS Sankt Augustin</a></li>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/siegen.pdf">bitfarm GmbH Siegen, Uni Siegen</a></li>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/marbach_weimar_wolfenbuettel.pdf">HAB Wolfenbüttel, Klassikstiftung Weimar, Literaturarchiv Marbach</a></li>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/wuerzburg.pdf">Uni Würzburg</a></li>
+  <li><a href="https://www.dfg.de/download/pdf/foerderung/programme/lis/absichtserklaerungen_ocrd_2020/koordinierung_wolfenbuettel_berlin_goettingen.pdf">HAB Wolfenbüttel, BBAW Berlin, Staatsbibliothek zu Berlin, SUB Göttingen, GWDG Göttingen</a></li>
+</ul>
+
+      </main>
+    </div><footer class="footer" style="padding: 1rem">
+    <div class="content has-text-centered">
+      <img class="footer-logo" src="/assets/dfg_logo_ger.jpg" alt="DFG logo"/>
+    </div>
+    <!-- <div class="content has-text-centered"> -->
+    <!--   <img class="footer-logo" src="/assets/logo-bbaw.png" alt="BBAW logo"/> -->
+    <!--   <img class="footer-logo" src="/assets/logo-hab.gif" alt="HAB logo"/> -->
+    <!--   <img class="footer-logo" src="/assets/logo-kit.png" alt="KIT logo"/> -->
+    <!--   <img class="footer-logo" src="/assets/logo-sbb.png" alt="SBB logo"/> -->
+    <!-- </div> -->
+    <div class="content has-text-centered">
+      <a href="https://github.com/OCR-D">GitHub</a>
+      |
+      <a href="https://gitter.im/OCR-D/Lobby">gitter</a>
+      |
+      <a href="https://hub.docker.com/u/ocrd">Docker Hub</a>
+      |
+      <a href="https://www.zotero.org/groups/418719/ocr-d">Technology Watch</a>
+      |
+      <a href="/sitemap.xml">sitemap.xml</a>
+    </div>
+
+<script src="/assets/script.js"></script>
+</footer>
+</body>
+
+</html>

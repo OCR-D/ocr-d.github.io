@@ -30,57 +30,109 @@
         <a class="navbar-link" href="/en/">About</a>
         <div class="navbar-dropdown">
           
+
           
           
+
+            
+            <a class="navbar-item" href="/de/phase3">OCR-D Phase III</a>
+
           
-          <a class="navbar-item" href="/en/about">The OCR-D-project</a>
+
           
-          
-          
-          
-          
-          <a class="navbar-item" href="/en/contact">Get in touch!</a>
-          
-          
+
           
           
+
+            
+            <a class="navbar-item" href="/en/about">The OCR-D-project</a>
+
           
-          <a class="navbar-item" href="/en/blog">Blog</a>
+
           
-          
-          
-          
-          
-          <a class="navbar-item" href="/en/publications">Publications and Presentations</a>
-          
-          
+
           
           
+
+            
+            <a class="navbar-item" href="/en/contact">Get in touch!</a>
+
           
-          <a class="navbar-item" href="/en/module-projects">Module Projects</a>
+
           
-          
-          
-          
-          
-          <a class="navbar-item" href="/en/data">Data</a>
-          
-          
+
           
           
-          <a class="navbar-item" href="/en/initial-tests">Initial tests</a>
+
+            
+            <a class="navbar-item" href="/en/blog">Blog</a>
+
+          
+
+          
+
           
           
+
+            
+            <a class="navbar-item" href="/en/publications">Publications and Presentations</a>
+
+          
+
+          
+
           
           
+
+            
+            <a class="navbar-item" href="/en/module-projects">Module Projects</a>
+
           
-          <a class="navbar-item" href="/en/user_survey">User Survey</a>
+
+          
+
           
           
+
+            
+            <a class="navbar-item" href="/en/data">Data</a>
+
+          
+
+          
+
           
           
-          <a class="navbar-item" href="/en/imprint">Imprint</a>
+            
+            
+              
+              <a class="navbar-item" href="/en/initial-tests">Initial tests</a>
+            
+
           
+
+          
+
+          
+          
+
+            
+            <a class="navbar-item" href="/en/user_survey">User Survey</a>
+
+          
+
+          
+
+          
+          
+            
+            
+              
+              <a class="navbar-item" href="/en/imprint">Imprint</a>
+            
+
+          
+
           
         </div>
       </div>
@@ -91,29 +143,55 @@
         <a class="navbar-link" href="/en/dev">Developers</a>
         <div class="navbar-dropdown">
           
+
           
           
+
+            
+            <a class="navbar-item" href="/en/gt-guidelines/trans">Ground Truth Guidelines</a>
+
           
-          <a class="navbar-item" href="/en/gt-guidelines/trans">Ground Truth Guidelines</a>
+
           
-          
-          
-          
-          
-          <a class="navbar-item" href="/en/gt-guidelines/trans/trPage">PAGE-XML format documentation</a>
-          
-          
+
           
           
+
+            
+            <a class="navbar-item" href="/en/gt-guidelines/trans/trPage">PAGE-XML format documentation</a>
+
           
-          <a class="navbar-item" href="/en/spec">Specifications</a>
+
+          
+
           
           
+
+            
+            <a class="navbar-item" href="/en/dev-best-practice">OCR-D development best practices</a>
+
+          
+
+          
+
           
           
+
+            
+            <a class="navbar-item" href="/en/spec">Specifications</a>
+
           
-          <a class="navbar-item" href="/core">OCR-D/core API Documentation</a>
+
           
+
+          
+          
+
+            
+            <a class="navbar-item" href="/core">OCR-D/core API Documentation</a>
+
+          
+
           
         </div>
       </div>
@@ -124,41 +202,64 @@
         <a class="navbar-link" href="/en/use">Users</a>
         <div class="navbar-dropdown">
           
+
           
           
+            
+            
+              
+              <a class="navbar-item" href="/en/setup">Setup Guide</a>
+            
+
           
-          <a class="navbar-item" href="/en/setup">Setup Guide</a>
+
           
-          
-          
-          
-          
-          <a class="navbar-item" href="/en/user_guide">User Guide</a>
-          
-          
-          
-          
-          <a class="navbar-item" href="/en/models">OCR models</a>
+
           
           
+
+            
+            <a class="navbar-item" href="/en/user_guide">User Guide</a>
+
+          
+
+          
+
           
           
+
+            
+            <a class="navbar-item" href="/en/workflows">Workflows</a>
+
           
-          <a class="navbar-item" href="/en/workflows">Workflows</a>
+
+          
+
           
           
+
+            
+            <a class="navbar-item" href="/en/models">Models</a>
+
+          
+
+          
+
           
           
+
+            
+            <a class="navbar-item" href="/en/spec/glossary">Glossary</a>
+
           
-          <a class="navbar-item" href="/en/spec/glossary">Glossary</a>
-          
+
           
         </div>
       </div>
       
       
       
-      <a class="navbar-item" href="/en/faq">FAQ</a>
+        <a class="navbar-item" href="/en/faq">FAQ</a>
       
       
 
@@ -320,7 +421,7 @@ docker run <span class="nt">--rm</span> <span class="nt">-u</span> <span class="
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /path/to/your/workspace <span class="c"># if not already there</span>
 ocrd workspace set-id <span class="s1">'unique ID'</span>
 <span class="c">## alternatively using docker</span>
-docker run <span class="nt">--rm</span> <span class="nt">-u</span> <span class="si">$(</span><span class="nb">id</span> <span class="nt">-u</span><span class="si">)</span> <span class="nt">-v</span> <span class="o">[</span>/path/to/your/workspace]:/data <span class="nt">-w</span> /data <span class="nt">--</span> ocrd/all:maximum ocrd set-id <span class="s1">'unique ID'</span>
+docker run <span class="nt">--rm</span> <span class="nt">-u</span> <span class="si">$(</span><span class="nb">id</span> <span class="nt">-u</span><span class="si">)</span> <span class="nt">-v</span> <span class="o">[</span>/path/to/your/workspace]:/data <span class="nt">-w</span> /data <span class="nt">--</span> ocrd/all:maximum ocrd workspace set-id <span class="s1">'unique ID'</span>
 </code></pre></div></div>
 
 <p>and copy the folder containing your pictures to be processed into the workspace:</p>
@@ -334,9 +435,9 @@ METS file was created, too, to which you can add the pictures to be processed.</
 
 <p>You can do this manually with the following command:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ocrd workspace add <span class="nt">-g</span> <span class="o">[</span>ID of the physical page, has to start with a letter] <span class="nt">-G</span> <span class="o">[</span>name of picture folder <span class="k">in </span>your workspace] <span class="nt">-i</span> <span class="o">[</span>ID of the scanned page] <span class="nt">-m</span> image/[format of your picture] <span class="o">[</span>/path/to/your/picture/in/workspace]
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ocrd workspace add <span class="nt">-g</span> <span class="o">[</span>ID of the physical page, has to start with a letter] <span class="nt">-G</span> <span class="o">[</span>name of picture folder <span class="k">in </span>your workspace] <span class="nt">-i</span> <span class="o">[</span>ID of the scanned page, has to start with a letter] <span class="nt">-m</span> image/[format of your picture] <span class="o">[</span>/path/to/your/picture/in/workspace]
 <span class="c">## alternatively using docker</span>
-docker run <span class="nt">--rm</span> <span class="nt">-u</span> <span class="si">$(</span><span class="nb">id</span> <span class="nt">-u</span><span class="si">)</span> <span class="nt">-v</span> <span class="o">[</span>/path/to/workspace]:/data <span class="nt">-w</span> /data <span class="nt">--</span> ocrd/all:maximum ocrd workspace add <span class="nt">-g</span> <span class="o">[</span>ID of the physical page, has to start with a letter] <span class="nt">-G</span> <span class="o">[</span>name of picture folder <span class="k">in </span>your workspace] <span class="nt">-i</span> <span class="o">[</span>ID of the scanned page] <span class="nt">-m</span> image/[format of your picture] <span class="o">[</span>relative/path/to/your/picture/in/workspace]
+docker run <span class="nt">--rm</span> <span class="nt">-u</span> <span class="si">$(</span><span class="nb">id</span> <span class="nt">-u</span><span class="si">)</span> <span class="nt">-v</span> <span class="o">[</span>/path/to/workspace]:/data <span class="nt">-w</span> /data <span class="nt">--</span> ocrd/all:maximum ocrd workspace add <span class="nt">-g</span> <span class="o">[</span>ID of the physical page, has to start with a letter] <span class="nt">-G</span> <span class="o">[</span>name of picture folder <span class="k">in </span>your workspace] <span class="nt">-i</span> <span class="o">[</span>ID of the scanned page, has to start with a letter] <span class="nt">-m</span> image/[format of your picture] <span class="o">[</span>relative/path/to/your/picture/in/workspace]
 </code></pre></div></div>
 
 <p>Your command could e.g. look like this:</p>
@@ -392,10 +493,10 @@ ways make use of the following syntax:</p>
 
 <h3 id="calling-a-single-processor">Calling a single processor</h3>
 <p>If you just want to call a single processor, e.g. for testing purposes, you can go into your workspace and use the following command:</p>
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ocrd-[processor needed] <span class="nt">-I</span> <span class="o">[</span>Input-Group] <span class="nt">-O</span> <span class="o">[</span>Output-Group] <span class="nt">-p</span> <span class="o">[</span>path to parameter.json]<span class="s1">'
-## alternatively using docker
-docker run --rm -u $(id -u) -v $PWD:/data -w /data -- ocrd/all:maximum ocrd-[processor needed] -I [Input-Group] -O [Output-Group] -p [path to parameter.json]'</span>
-</code></pre></div></div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ocrd-[processor needed] <span class="nt">-I</span> <span class="o">[</span>Input-Group] <span class="nt">-O</span> <span class="o">[</span>Output-Group] <span class="nt">-p</span> <span class="o">[</span>path to parameter.json]
+<span class="c">## alternatively using docker</span>
+docker run <span class="nt">--rm</span> <span class="nt">-u</span> <span class="si">$(</span><span class="nb">id</span> <span class="nt">-u</span><span class="si">)</span> <span class="nt">-v</span> <span class="nv">$PWD</span>:/data <span class="nt">-w</span> /data <span class="nt">--</span> ocrd/all:maximum ocrd-[processor needed] <span class="nt">-I</span> <span class="o">[</span>Input-Group] <span class="nt">-O</span> <span class="o">[</span>Output-Group] <span class="nt">-p</span> <span class="o">[</span>path to parameter.json]<span class="s1">'
+</span></code></pre></div></div>
 <p>Your command could e.g. look like this:</p>
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ocrd-tesserocr-recognize <span class="nt">-I</span> OCR-D-SEG-LINE <span class="nt">-O</span> OCR-D-OCR-TESSEROCR <span class="nt">-p</span> param-tess-fraktur.json
 <span class="c">## alternatively using docker</span>
@@ -597,7 +698,7 @@ parameter.</p>
 <h3 id="specifying-new-ocr-d-workflows">Specifying New OCR-D-Workflows</h3>
 
 <p>When you want to specify a new workflow adapted to the features of particular
-images, we recommend using an exisiting workflow as specified in <code class="highlighter-rouge">Taverna</code> or
+images, we recommend using an existing workflow as specified in <code class="highlighter-rouge">Taverna</code> or
 <code class="highlighter-rouge">workflow-configuration</code> as starting point. You can adjust it to your needs by
 exchanging or adding the specified processors of parameters. For an overview on
 the existing processors, their tasks and features, see the <a href="#get-more-information-about-processors">next section</a> and our <a href="workflows.html">workflow guide</a>.</p>
