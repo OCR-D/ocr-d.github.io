@@ -714,6 +714,15 @@
 <loc>https://ocr-d.de/core/api/ocrd/ocrd.decorators.html</loc>
 </url>
 <url>
+<loc>https://ocr-d.de/core/api/ocrd/ocrd.decorators.loglevel_option.html</loc>
+</url>
+<url>
+<loc>https://ocr-d.de/core/api/ocrd/ocrd.decorators.ocrd_cli_options.html</loc>
+</url>
+<url>
+<loc>https://ocr-d.de/core/api/ocrd/ocrd.decorators.parameter_option.html</loc>
+</url>
+<url>
 <loc>https://ocr-d.de/core/api/ocrd/ocrd.html</loc>
 </url>
 <url>
@@ -724,6 +733,9 @@
 </url>
 <url>
 <loc>https://ocr-d.de/core/api/ocrd/ocrd.processor.builtin.html</loc>
+</url>
+<url>
+<loc>https://ocr-d.de/core/api/ocrd/ocrd.processor.helpers.html</loc>
 </url>
 <url>
 <loc>https://ocr-d.de/core/api/ocrd/ocrd.processor.html</loc>
@@ -769,6 +781,9 @@
 </url>
 <url>
 <loc>https://ocr-d.de/core/api/ocrd_models/ocrd_models.ocrd_xml_base.html</loc>
+</url>
+<url>
+<loc>https://ocr-d.de/core/api/ocrd_models/ocrd_models.report.html</loc>
 </url>
 <url>
 <loc>https://ocr-d.de/core/api/ocrd_models/ocrd_models.utils.html</loc>
