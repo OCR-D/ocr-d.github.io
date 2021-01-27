@@ -294,7 +294,6 @@
       <li><a href="#user-database">User database</a></li>
       <li><a href="#where-is-the-data">Where is the data</a></li>
       <li><a href="#changing-the-default-resource-directory">Changing the default resource directory</a></li>
-      <li><a href="#downloading-on-demand">Downloading on-demand</a></li>
       <li><a href="#notes-on-specific-processors">Notes on specific processors</a></li>
       <li><a href="#ocropy--ocrd_cis">Ocropy / ocrd_cis</a></li>
       <li><a href="#calamari--ocrd_calamari">Calamari / ocrd_calamari</a></li>
@@ -469,14 +468,6 @@ Moreover, that variable can easily be overridden during installation.</p>
 <p>However, there are use cases where <code class="highlighter-rouge">system</code> or even <code class="highlighter-rouge">cwd</code> should be
 used as location to store resources, hence the <code class="highlighter-rouge">--location</code> option.</p>
 
-<h2 id="downloading-on-demand">Downloading on-demand</h2>
-
-<p>When you provide a value to a file parameter, such as ocrd_calamari’s <code class="highlighter-rouge">checkpoint_dir</code>
-parameter, the value will be resolved by OCR-D/core. If the resource is not
-found in the filesystem, OCR-D/core will try to find a matching resource in
-its list of bundled resources. If the parameter value matches the <code class="highlighter-rouge">name</code> of one
-of those resources, it will be <strong>downloaded on-demand</strong>.</p>
-
 <h2 id="notes-on-specific-processors">Notes on specific processors</h2>
 
 <h2 id="ocropy--ocrd_cis">Ocropy / ocrd_cis</h2>
@@ -489,8 +480,12 @@ extension and can be used as such, no need to unarchive.</p>
 <a href="https://github.com/cisocrgroup/ocrd_cis">ocrd_cis</a> and more specifically, the
 <code class="highlighter-rouge">ocrd-cis-ocropy-recognize</code> processor, use the <code class="highlighter-rouge">model</code> parameter:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Model will be downloaded on-demand if it is not locally available yet</span>
-ocrd-cis-ocropy-recognize <span class="nt">-I</span> OCR-D-SEG-LINE <span class="nt">-O</span> OCR-D-OCR-OCRO <span class="nt">-P</span> model fraktur-jze.pyrnn.gz
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ocrd-cis-ocropy-recognize <span class="nt">-I</span> OCR-D-SEG-LINE <span class="nt">-O</span> OCR-D-OCR-OCRO <span class="nt">-P</span> model fraktur-jze.pyrnn.gz
+</code></pre></div></div>
+
+<p><strong>NOTE:</strong> Model must be downloade before with</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ocrd resmgr download ocrd-cis-ocropy-recognize fraktur-jze.pyrnn.gz
 </code></pre></div></div>
 
 <h2 id="calamari--ocrd_calamari">Calamari / ocrd_calamari</h2>
