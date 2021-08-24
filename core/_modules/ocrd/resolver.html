@@ -77,7 +77,7 @@
 <span class="sd">            subdir (string, None): Subdirectory to create within the directory. Think ``mets:fileGrp``.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            Local filename string, __relative__ to directory</span>
+<span class="sd">            Local filename string, *relative* to directory</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;ocrd.resolver.download_to_directory&#39;</span><span class="p">)</span> <span class="c1"># pylint: disable=redefined-outer-name</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;directory=|</span><span class="si">%s</span><span class="s2">| url=|</span><span class="si">%s</span><span class="s2">| basename=|</span><span class="si">%s</span><span class="s2">| if_exists=|</span><span class="si">%s</span><span class="s2">| subdir=|</span><span class="si">%s</span><span class="s2">|&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">basename</span><span class="p">,</span> <span class="n">if_exists</span><span class="p">,</span> <span class="n">subdir</span><span class="p">)</span>
@@ -144,17 +144,21 @@
 
 <div class="viewcode-block" id="Resolver.workspace_from_url"><a class="viewcode-back" href="../../api/ocrd/ocrd.resolver.html#ocrd.resolver.Resolver.workspace_from_url">[docs]</a>    <span class="k">def</span> <span class="nf">workspace_from_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mets_url</span><span class="p">,</span> <span class="n">dst_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clobber_mets</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mets_basename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">src_baseurl</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create a workspace from a METS by URL (i.e. clone it).</span>
-
-<span class="sd">        Sets the ``mets.xml`` file</span>
+<span class="sd">        Create a workspace from a METS by URL (i.e. clone if :py:attr:`mets_url` is remote or :py:attr:`dst_dir` is given).</span>
 
 <span class="sd">        Arguments:</span>
-<span class="sd">            mets_url (string): Source mets URL</span>
-<span class="sd">            dst_dir (string, None): Target directory for the workspace</span>
-<span class="sd">            clobber_mets (boolean, False): Whether to overwrite existing mets.xml. \</span>
-<span class="sd">                By default existing mets.xml will raise an exception.</span>
-<span class="sd">            download (boolean, False): Whether to download all the files</span>
+<span class="sd">            mets_url (string): Source METS URL or filesystem path</span>
+<span class="sd">        Keyword Arguments:</span>
+<span class="sd">            dst_dir (string, None): Target directory for the workspace. \</span>
+<span class="sd">                By default create a temporary directory under :py:data:`ocrd.constants.TMP_PREFIX`. \</span>
+<span class="sd">                (The resulting path can be retrieved via :py:attr:`ocrd.Workspace.directory`.)</span>
+<span class="sd">            clobber_mets (boolean, False): Whether to overwrite existing ``mets.xml``. \</span>
+<span class="sd">                By default existing ``mets.xml`` will raise an exception.</span>
+<span class="sd">            download (boolean, False): Whether to also download all the files referenced by the METS</span>
 <span class="sd">            src_baseurl (string, None): Base URL for resolving relative file locations</span>
+
+<span class="sd">        Download (clone) :py:attr:`mets_url` to ``mets.xml`` in :py:attr:`dst_dir`, unless </span>
+<span class="sd">        the former is already local and the latter is ``none`` or already identical to its directory name.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            a new :py:class:`~ocrd.workspace.Workspace`</span>
@@ -206,6 +210,17 @@
 <div class="viewcode-block" id="Resolver.workspace_from_nothing"><a class="viewcode-back" href="../../api/ocrd/ocrd.resolver.html#ocrd.resolver.Resolver.workspace_from_nothing">[docs]</a>    <span class="k">def</span> <span class="nf">workspace_from_nothing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">mets_basename</span><span class="o">=</span><span class="s1">&#39;mets.xml&#39;</span><span class="p">,</span> <span class="n">clobber_mets</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create an empty workspace.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            directory (string): Target directory for the workspace. \</span>
+<span class="sd">                If ``none``, create a temporary directory under :py:data:`ocrd.constants.TMP_PREFIX`. \</span>
+<span class="sd">                (The resulting path can be retrieved via :py:attr:`ocrd.Workspace.directory`.)</span>
+<span class="sd">        Keyword Arguments:</span>
+<span class="sd">            clobber_mets (boolean, False): Whether to overwrite existing ``mets.xml``. \</span>
+<span class="sd">                By default existing ``mets.xml`` will raise an exception.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            a new :py:class:`~ocrd.workspace.Workspace`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;ocrd.resolver.workspace_from_nothing&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

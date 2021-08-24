@@ -77,10 +77,26 @@
         <span class="n">working_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span> <span class="c1"># pylint: disable=too-many-locals</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create a workspace for mets_url and run processor through it</span>
+<span class="sd">    Instantiate a Pythonic processor, open a workspace, run the processor and save the workspace.</span>
+
+<span class="sd">    If :py:attr:`workspace` is not none, reuse that. Otherwise, instantiate an</span>
+<span class="sd">    :py:class:`~ocrd.Workspace` for :py:attr:`mets_url` (and :py:attr:`working_dir`)</span>
+<span class="sd">    by using :py:meth:`ocrd.Resolver.workspace_from_url` (i.e. open or clone local workspace).</span>
+
+<span class="sd">    Instantiate a Python object for :py:attr:`processorClass`, passing:</span>
+<span class="sd">    - the workspace,</span>
+<span class="sd">    - :py:attr:`ocrd_tool`</span>
+<span class="sd">    - :py:attr:`page_id`</span>
+<span class="sd">    - :py:attr:`input_file_grp`</span>
+<span class="sd">    - :py:attr:`output_file_grp`</span>
+<span class="sd">    - :py:attr:`parameter` (after applying any :py:attr:`parameter_override` settings)</span>
+
+<span class="sd">    Run the processor on the workspace (creating output files in the filesystem).</span>
+
+<span class="sd">    Finally, write back the workspace (updating the METS in the filesystem).</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        parameter (string): URL to the parameter</span>
+<span class="sd">        processorClass (object): Python class of the module processor.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">workspace</span> <span class="o">=</span> <span class="n">_get_workspace</span><span class="p">(</span>
         <span class="n">workspace</span><span class="p">,</span>
@@ -140,7 +156,23 @@
         <span class="n">working_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create a workspace for mets_url and run MP CLI through it</span>
+<span class="sd">    Open a workspace and run a processor on the command line.</span>
+
+<span class="sd">    If :py:attr:`workspace` is not none, reuse that. Otherwise, instantiate an</span>
+<span class="sd">    :py:class:`~ocrd.Workspace` for :py:attr:`mets_url` (and :py:attr:`working_dir`)</span>
+<span class="sd">    by using :py:meth:`ocrd.Resolver.workspace_from_url` (i.e. open or clone local workspace).</span>
+
+<span class="sd">    Run the processor CLI :py:attr:`executable` on the workspace, passing:</span>
+<span class="sd">    - the workspace,</span>
+<span class="sd">    - :py:attr:`page_id`</span>
+<span class="sd">    - :py:attr:`input_file_grp`</span>
+<span class="sd">    - :py:attr:`output_file_grp`</span>
+<span class="sd">    - :py:attr:`parameter` (after applying any :py:attr:`parameter_override` settings)</span>
+
+<span class="sd">    (Will create output files and update the in the filesystem).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        executable (string): Executable name of the module processor.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">workspace</span> <span class="o">=</span> <span class="n">_get_workspace</span><span class="p">(</span><span class="n">workspace</span><span class="p">,</span> <span class="n">resolver</span><span class="p">,</span> <span class="n">mets_url</span><span class="p">,</span> <span class="n">working_dir</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">executable</span><span class="p">,</span> <span class="s1">&#39;--working-dir&#39;</span><span class="p">,</span> <span class="n">workspace</span><span class="o">.</span><span class="n">directory</span><span class="p">]</span>
