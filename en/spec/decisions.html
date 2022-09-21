@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="utf-8"/>
-  <title>Specifications - OCR-D</title>
+  <title>Decisions in OCR-D - OCR-D</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&amp;v=4" />
@@ -323,89 +323,53 @@ function ToggleSearchActive2() {
 
     <div class="navbar-end">
 
-      <span class="navbar-item"><a href="/de/spec/" title="View in German">de</a>
-              
+      <span class="navbar-item">
         </span>
 
 
     </div> </div> </nav>
 <div class="columns">
       
+      <aside id="toc-sidebar-content" class="column is-one-third menu is-hidden-mobile">
+        <ul class="menu-list column is-one-third">
+  <li><a href="#decisions-in-ocr-d">Decisions in OCR-D</a>
+    <ul>
+      <li><a href="#general-decisions">General decisions</a></li>
+      <li><a href="#workflow-format">Workflow format</a></li>
+      <li><a href="#web-api">Web API</a></li>
+    </ul>
+  </li>
+</ul>
 
-      <main class="container content column " aria-label="Content">
-        <div class="tile is-ancestor">
+      </aside>
+      <div id="toc-sidebar-toggle">&lt;&gt;</div>
+      
 
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title"><a href="intro">Intro</a></p>
-      <p class="subtitle">Overview of OCR-D technical documentation</p>
-    </article>
-  </div>
+      <main class="container content column is-two-thirds" aria-label="Content">
+        <h1 id="decisions-in-ocr-d">Decisions in OCR-D</h1>
 
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title"><a href="cli">CLI</a></p>
-      <p class="subtitle">Command line tools provided by MP</p>
-    </article>
-  </div>
+<p>In a software project, especially a highly distributed one like OCR-D, decisions need to be made on the technology used, how interfaces should interoperate and how the software as a whole is designed.
+In this document, such decisions on key aspects of OCR-D are discussed for the benefit of all OCR-D stakeholders.</p>
 
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title"><a href="ocrd_eval">OCR-D Eval Spec</a></p>
-      <p class="subtitle">OCR-D evaluation spec</p>
-    </article>
-  </div>
+<h2 id="general-decisions">General decisions</h2>
+<ul>
+  <li>[2022] We will update to Ubuntu 22.04 and Python 3.7 as soon as possible.</li>
+  <li>[2022] Switch to Slim Containers in <code class="language-plaintext highlighter-rouge">ocrd_all</code></li>
+  <li>[2022] Python API changes (Pagewise processing): https://github.com/OCR-D/zenhub/issues/2</li>
+</ul>
 
-</div>
+<h2 id="workflow-format">Workflow format</h2>
+<ul>
+  <li>[2022] We use Nextflow. The whole <code class="language-plaintext highlighter-rouge">.nf</code> file (Nextflow file) as the workflow format workflow server and processing 
+server including web API implementation is part of the <a href="phase3">implementation projects</a>. 
+Further details can be found <a href="spec/nextflow">here</a>.</li>
+</ul>
 
-<div class="tile is-ancestor">
-
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title"><a href="mets">METS</a></p>
-      <p class="subtitle">OCR-D METS conventions</p>
-    </article>
-  </div>
-
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title"><a href="ocrd_zip">OCRD-ZIP</a></p>
-      <p class="subtitle">METS workspace serialized as ZIP</p>
-    </article>
-  </div>
-
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title"><a href="ocrd_tool">ocrd-tool.json</a></p>
-      <p class="subtitle">OCR-D tool description</p>
-    </article>
-  </div>
-
-</div>
-
-<div class="tile is-ancestor">
-
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title"><a href="page">PAGE</a></p>
-      <p class="subtitle">PAGE conventions</p>
-    </article>
-  </div>
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title"><a href="../gt-guidelines/trans">GT Guidelines</a></p>
-      <p class="subtitle">OCR-D Ground Truth transcription guidelines</p>
-    </article>
-  </div>
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title"><a href="docker">Dockerfile</a></p>
-      <p class="subtitle">OCR-D Dockerfile conventions</p>
-    </article>
-  </div>
-
-</div>
-
+<h2 id="web-api">Web API</h2>
+<ul>
+  <li>[2022] OCR-D Coordination Project provides the <a href="spec/web_api">Web API spec</a>. 
+Only the <a href="https://github.com/OCR-D/core/pull/884">REST API wrapper</a> of a single processor is provided by OCR-D Core.</li>
+</ul>
 
       </main>
     </div><footer class="footer" style="padding: 1rem">
