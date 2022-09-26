@@ -359,10 +359,19 @@ function ToggleSearchActive2() {
           <li><a href="#scope-of-these-definitions">Scope of these Definitions</a></li>
           <li><a href="#text-evaluation">Text Evaluation</a>
             <ul>
-              <li><a href="#levenshtein-distance">Levenshtein Distance</a></li>
+              <li><a href="#levenshtein-distance">Levenshtein Distance</a>
+                <ul>
+                  <li><a href="#general-example">General example</a></li>
+                  <li><a href="#ocr-example">OCR example</a></li>
+                </ul>
+              </li>
               <li><a href="#cer-and-wer">CER and WER</a>
                 <ul>
-                  <li><a href="#characters">Characters</a></li>
+                  <li><a href="#characters">Characters</a>
+                    <ul>
+                      <li><a href="#examples">Examples</a></li>
+                    </ul>
+                  </li>
                   <li><a href="#character-error-rate-cer">Character Error Rate (CER)</a>
                     <ul>
                       <li><a href="#cer-granularity">CER Granularity</a></li>
@@ -467,7 +476,7 @@ solution works best for their use case.</p>
 
 <p>The Levenshtein distance forms the basis for the calculation of <a href="https://pad.gwdg.de/#CERWER">CER/WER</a>.</p>
 
-<p>General example:</p>
+<h5 id="general-example">General example</h5>
 
 <p>The Levenshtein distance between “Monday” and “Tuesday” is 4, because 4 edit operations are necessary to turn “Monday” into “Tuesday”:</p>
 
@@ -478,7 +487,7 @@ solution works best for their use case.</p>
   <li>Tueday –&gt; Tue<strong>s</strong>day (insertion)</li>
 </ul>
 
-<p>OCR example:</p>
+<h5 id="ocr-example">OCR example</h5>
 
 <p>Given a Ground truth that reads <code class="language-plaintext highlighter-rouge">ſind</code> and the recognized text <code class="language-plaintext highlighter-rouge">fmd</code>.</p>
 
@@ -496,7 +505,7 @@ solution works best for their use case.</p>
 
 <p>A text consists of a set of characters that have a certain meaning. A character is a glyph that represents a word, a letter in a word, or a symbol.</p>
 
-<p>Examples:</p>
+<h6 id="examples">Examples</h6>
 
 <ul>
   <li>the character <code class="language-plaintext highlighter-rouge">a</code> in the text <code class="language-plaintext highlighter-rouge">babst</code> represents the German letter <code class="language-plaintext highlighter-rouge">a</code></li>
@@ -511,24 +520,33 @@ solution works best for their use case.</p>
 <p>Errors fall into one of the following three categories:</p>
 
 <ul>
-  <li>
-    <p><strong>deletion</strong>: a character that is present in the text has been deleted from the output. Example:
-<img src="https://pad.gwdg.de/uploads/304cf855-3436-42b7-86af-87c16106f1ad.jpg" alt="" />
-This reads <code class="language-plaintext highlighter-rouge">Sonnenfinſterniſſe:</code>. The output contains <code class="language-plaintext highlighter-rouge">Sonnenfinſterniſſe</code>, deleting <code class="language-plaintext highlighter-rouge">:</code>.</p>
-  </li>
-  <li>
-    <p><strong>substitution</strong>: a character is replaced by another character in the output. Example: 
-<img src="https://pad.gwdg.de/uploads/d7fa6f23-7c79-4fb2-ad94-7e98084c69d6.jpg" alt="" /></p>
-  </li>
+  <li><strong>deletion</strong>: a character that is present in the text has been deleted from the output.</li>
 </ul>
+
+<p>Example:
+<img src="https://pad.gwdg.de/uploads/d7fa6f23-7c79-4fb2-ad94-7e98084c69d6.jpg" alt="A Fraktur sample reading &quot;Sonnenfinſterniſſe:&quot;" /></p>
+
+<p>This reads <code class="language-plaintext highlighter-rouge">Sonnenfinſterniſſe:</code>. The output contains <code class="language-plaintext highlighter-rouge">Sonnenfinſterniſſe</code>, deleting <code class="language-plaintext highlighter-rouge">:</code>.</p>
+
+<ul>
+  <li><strong>substitution</strong>: a character is replaced by another character in the output.</li>
+</ul>
+
+<p>Example:</p>
+
+<p><img src="https://pad.gwdg.de/uploads/b894049b-8d98-4fe7-ac31-71b2c9393a6c.jpg" alt="A Fraktur sample reading &quot;Die Finſterniſſe des 1801ſten Jahrs&quot;" /></p>
 
 <p>This heading reads <code class="language-plaintext highlighter-rouge">Die Finſterniſſe des 1801ſten Jahrs</code>. The output contains <code class="language-plaintext highlighter-rouge">180iſten</code>, replacing <code class="language-plaintext highlighter-rouge">1</code> with <code class="language-plaintext highlighter-rouge">i</code>.</p>
 
 <ul>
-  <li><strong>insertion</strong>: a new character is introduced in the output. Example:
-<img src="https://pad.gwdg.de/uploads/e6b6432e-d79c-4568-9aef-15a026c05b39.jpg" alt="" />
-This reads <code class="language-plaintext highlighter-rouge">diese Strahlen, und</code>. The output contains <code class="language-plaintext highlighter-rouge">Strahlen ,</code>, inserting a white space before the comma.</li>
+  <li><strong>insertion</strong>: a new character is introduced in the output.</li>
 </ul>
+
+<p>Example:</p>
+
+<p><img src="https://pad.gwdg.de/uploads/e6b6432e-d79c-4568-9aef-15a026c05b39.jpg" alt="A Fraktur sample reading &quot;diese Strahlen, und&quot;" /></p>
+
+<p>This reads <code class="language-plaintext highlighter-rouge">diese Strahlen, und</code>. The output contains <code class="language-plaintext highlighter-rouge">Strahlen ,</code>, inserting a white space before the comma.</p>
 
 <p>CER can be calculated in several ways, depending on whether a normalized CER is used or not.</p>
 
@@ -574,7 +592,7 @@ This reads <code class="language-plaintext highlighter-rouge">diese Strahlen, un
 
 <p>Example:</p>
 
-<p><img src="https://pad.gwdg.de/uploads/4d33b422-6c77-436c-a3e6-bf27e67dc203.jpg" alt="" /></p>
+<p><img src="https://pad.gwdg.de/uploads/4d33b422-6c77-436c-a3e6-bf27e67dc203.jpg" alt="A sample paragraph in German Fraktur" /></p>
 
 <blockquote>
   <p>Eine Mondfinsternis ist die Himmelsbegebenheit welche sich zur Zeit des Vollmondes ereignet, wenn die Erde zwischen der Sonne und dem Monde steht, so daß die Strahlen der Sonne von der Erde aufgehalten werden, und daß man so den Schatten der Erde in dem Monde siehet. In diesem Jahre sind zwey Monfinsternisse, davon ist ebenfalls nur Eine bey uns sichtbar, und zwar am 30sten März des Morgens nach 4 Uhr, und währt bis nach 6 Uhr.</p>
@@ -583,6 +601,7 @@ This reads <code class="language-plaintext highlighter-rouge">diese Strahlen, un
 <p>To get the Bag of Words of this paragraph a set containing each word and its number of occurence is created:</p>
 
 <p>$BoW$ =</p>
+
 <pre><code class="language-json=">{
     "Eine": 2, "Mondfinsternis": 1, "ist": 2, "die": 2, "Himmelsbegebenheit": 1, 
     "welche": 1, "sich": 1, "zur": 1,  "Zeit": 1, "des": 2, "Vollmondes": 1,
@@ -609,19 +628,19 @@ This reads <code class="language-plaintext highlighter-rouge">diese Strahlen, un
 
 <p>Example of a simple page layout with reading order:</p>
 
-<p><img src="https://pad.gwdg.de/uploads/bc5258cb-bf91-479e-8a91-abf5ff8bbbfa.jpg" alt="" />
-(http://resolver.sub.uni-goettingen.de/purl?PPN1726778096)</p>
+<p><img src="https://pad.gwdg.de/uploads/bc5258cb-bf91-479e-8a91-abf5ff8bbbfa.jpg" alt="A sample page in German Fraktur with a simple page layout showing the intended reading order" />
+(<a href="http://resolver.sub.uni-goettingen.de/purl?PPN1726778096">http://resolver.sub.uni-goettingen.de/purl?PPN1726778096</a>)</p>
 
 <p>Example of a complex page layout with reading order:</p>
 
-<p><img src="https://pad.gwdg.de/uploads/100f14c4-19b0-4810-b3e5-74c674575424.jpg" alt="" />
-(http://resolver.sub.uni-goettingen.de/purl?PPN1726778096)</p>
+<p><img src="https://pad.gwdg.de/uploads/100f14c4-19b0-4810-b3e5-74c674575424.jpg" alt="A sample page in German Fraktur with a complex page layout showing the intended reading order" />
+(<a href="http://resolver.sub.uni-goettingen.de/purl?PPN1726778096">http://resolver.sub.uni-goettingen.de/purl?PPN1726778096</a>)</p>
 
 <h4 id="iou-intersection-over-union">IoU (Intersection over Union)</h4>
 
 <p>Intersection over Union is a term which describes the degree of overlap of two regions of a (document) image defined either by a bounding box or polygon. Example:</p>
 
-<p><img src="https://pad.gwdg.de/uploads/62945a01-a7a7-48f3-86c2-6bb8f97d67fe.jpg" alt="" /></p>
+<p><img src="https://pad.gwdg.de/uploads/62945a01-a7a7-48f3-86c2-6bb8f97d67fe.jpg" alt="A sample heading in German Fraktur illustrating a Ground Truth bounding box and a detected bounding box" /></p>
 
 <p>(where green represents the Ground Truth and red the detected bounding box)</p>
 
@@ -677,9 +696,7 @@ This reads <code class="language-plaintext highlighter-rouge">diese Strahlen, un
 
 <h3 id="metrics-not-in-use-yet">Metrics Not in Use Yet</h3>
 
-<p>:::info
-The following metrics are not part of the MVP (minimal viable product) and will (if ever) be implemented at a later stage.
-:::</p>
+<p>The following metrics are not part of the MVP (minimal viable product) and will (if ever) be implemented at a later stage.</p>
 
 <h4 id="gpu-metrics">GPU metrics</h4>
 
@@ -825,7 +842,7 @@ Given a threshold of 0.6 and a model that tries to detect bicycles in an image. 
 
 <p>For each threshold a pair of precision and recall can be computed and plotted to a curve:</p>
 
-<p><img src="https://pad.gwdg.de/uploads/2d3c62ff-cab4-4a12-8043-014fe0440459.png" alt="" /></p>
+<p><img src="https://pad.gwdg.de/uploads/2d3c62ff-cab4-4a12-8043-014fe0440459.png" alt="A sample precision/recall curve" /></p>
 
 <p>This graph is called Precision-Recall-Curve.</p>
 
@@ -833,7 +850,7 @@ Given a threshold of 0.6 and a model that tries to detect bicycles in an image. 
 
 <p>The average precision (AP) describes how well a model can detect objects in an image for recall values over 0 to 1 by computing the average of all precisions given in the Precision-Recall-Curve. It is equal to the area under the curve.</p>
 
-<p><img src="https://pad.gwdg.de/uploads/799e6a05-e64a-4956-9ede-440ac0463a3f.png" alt="" /></p>
+<p><img src="https://pad.gwdg.de/uploads/799e6a05-e64a-4956-9ede-440ac0463a3f.png" alt="A sample precision/recall curve with highlighted area under curve" /></p>
 
 <p>The Average Precision can be computed with the weighted mean of precision at each confidence threshold:</p>
 
@@ -872,42 +889,42 @@ the <a href="https://ocr-d.de/en/spec/ocrd-eval.schema.json"><code class="langua
 
 <h2 id="tools">Tools</h2>
 
-<p>See <a href="https://ocr-d.de/en/workflows#evaluation">OCR-D workflow guide</a></p>
+<p>See <a href="https://ocr-d.de/en/workflows#evaluation">OCR-D workflow guide</a>.</p>
 
 <h2 id="references">References</h2>
 
 <ul>
   <li>CER/WER:
     <ul>
-      <li>https://sites.google.com/site/textdigitisation/qualitymeasures</li>
-      <li>https://towardsdatascience.com/evaluating-ocr-output-quality-with-character-error-rate-cer-and-word-error-rate-wer-853175297510#5aec</li>
+      <li><a href="https://sites.google.com/site/textdigitisation/qualitymeasures">https://sites.google.com/site/textdigitisation/qualitymeasures</a></li>
+      <li><a href="https://towardsdatascience.com/evaluating-ocr-output-quality-with-character-error-rate-cer-and-word-error-rate-wer-853175297510#5aec">https://towardsdatascience.com/evaluating-ocr-output-quality-with-character-error-rate-cer-and-word-error-rate-wer-853175297510#5aec</a></li>
     </ul>
   </li>
   <li>IoU:
     <ul>
-      <li>https://medium.com/analytics-vidhya/iou-intersection-over-union-705a39e7acef</li>
+      <li><a href="https://medium.com/analytics-vidhya/iou-intersection-over-union-705a39e7acef">https://medium.com/analytics-vidhya/iou-intersection-over-union-705a39e7acef</a></li>
     </ul>
   </li>
   <li>mAP:
     <ul>
-      <li>https://blog.paperspace.com/mean-average-precision/</li>
-      <li>https://jonathan-hui.medium.com/map-mean-average-precision-for-object-detection-45c121a31173</li>
+      <li><a href="https://blog.paperspace.com/mean-average-precision/">https://blog.paperspace.com/mean-average-precision/</a></li>
+      <li><a href="https://jonathan-hui.medium.com/map-mean-average-precision-for-object-detection-45c121a31173">https://jonathan-hui.medium.com/map-mean-average-precision-for-object-detection-45c121a31173</a></li>
     </ul>
   </li>
   <li>BoW:
     <ul>
-      <li>https://en.wikipedia.org/wiki/Bag-of-words_model</li>
+      <li><a href="https://en.wikipedia.org/wiki/Bag-of-words_model">https://en.wikipedia.org/wiki/Bag-of-words_model</a></li>
     </ul>
   </li>
   <li>FCA:
     <ul>
-      <li>https://www.primaresearch.org/www/assets/papers/PRL_Clausner_FlexibleCharacterAccuracy.pdf</li>
+      <li><a href="https://www.primaresearch.org/www/assets/papers/PRL_Clausner_FlexibleCharacterAccuracy.pdf">https://www.primaresearch.org/www/assets/papers/PRL_Clausner_FlexibleCharacterAccuracy.pdf</a></li>
     </ul>
   </li>
   <li>More background on evaluation of OCR
     <ul>
-      <li>https://doi.org/10.1145/3476887.3476888</li>
-      <li>https://doi.org/10.1515/9783110691597-009</li>
+      <li><a href="https://doi.org/10.1145/3476887.3476888">https://doi.org/10.1145/3476887.3476888</a></li>
+      <li><a href="https://doi.org/10.1515/9783110691597-009">https://doi.org/10.1515/9783110691597-009</a></li>
     </ul>
   </li>
 </ul>
