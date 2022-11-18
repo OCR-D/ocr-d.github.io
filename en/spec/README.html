@@ -11,25 +11,6 @@
   <link rel="stylesheet" href="/assets/bulma-switch.min.css" />
   <link rel="stylesheet" href="/assets/syntax-highlight.css" />
   <link rel="stylesheet" href="/assets/ocrd.css" />
-  <!--katex-->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-          delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false},
-            {left: '\\(', right: '\\)', display: false},
-            {left: '\\[', right: '\\]', display: true}
-          ],
-          // • rendering keys, e.g.:
-          throwOnError : true
-        });
-      });
-    </script>
-  <!--/katex-->
 </head>
 <body>
 <script async src="https://cse.google.com/cse.js?cx=e9e3f7148e57ed66c"></script>
@@ -354,7 +335,6 @@ function ToggleSearchActive2() {
   <li><a href="#specification-of-the-technical-architecture-interface-definitions-and-data-exchange-formats">Specification of the technical architecture, interface definitions and data exchange format(s)</a>
     <ul>
       <li><a href="#translating-the-spec">Translating the spec</a></li>
-      <li><a href="#building-json-files">Building JSON files</a></li>
     </ul>
   </li>
 </ul>
@@ -373,20 +353,6 @@ function ToggleSearchActive2() {
 <h2 id="translating-the-spec">Translating the spec</h2>
 
 <p>The specification is in English. To add a german translation of a file, replace the <code class="language-plaintext highlighter-rouge">.md</code> suffix with <code class="language-plaintext highlighter-rouge">.de.md</code>.</p>
-
-<h2 id="building-json-files">Building JSON files</h2>
-
-<p><code class="language-plaintext highlighter-rouge">.json</code> files are built from the easier-to-edit <code class="language-plaintext highlighter-rouge">.yml</code> files.</p>
-
-<p>To regenerate the <code class="language-plaintext highlighter-rouge">.json</code> files after editing <code class="language-plaintext highlighter-rouge">.yml</code> files, run</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make json
-</code></pre></div></div>
-
-<p>This requires python3 with the <code class="language-plaintext highlighter-rouge">click</code> and <code class="language-plaintext highlighter-rouge">yaml</code> libraries. To install the libraries run</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make deps
-</code></pre></div></div>
 
       </main>
     </div><footer class="footer" style="padding: 1rem">
