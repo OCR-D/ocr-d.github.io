@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="utf-8"/>
-  <title>The OCR-D project - OCR-D</title>
+  <title>Web Api - OCR-D</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/26362587?s=200&amp;v=4" />
@@ -323,9 +323,7 @@ function ToggleSearchActive2() {
 
     <div class="navbar-end">
 
-      <span class="navbar-item"><a href="/de/about.html" title="View in German">de</a>
-              <a href="/de/architecture.html" title="View in German">de</a>
-              
+      <span class="navbar-item">
         </span>
 
 
@@ -334,12 +332,24 @@ function ToggleSearchActive2() {
       
       <aside id="toc-sidebar-content" class="column is-one-third menu is-hidden-mobile">
         <ul class="menu-list column is-one-third">
-  <li><a href="#the-ocr-d-project">The OCR-D project</a>
+  <li><a href="#nextflow">Nextflow</a>
     <ul>
-      <li><a href="#background">Background</a></li>
-      <li><a href="#goals-and-structure-of-the-ocr-d-project">Goals and structure of the OCR-D project</a></li>
-      <li><a href="#community">Community</a></li>
-      <li><a href="#results-of-past-project-phases">Results of past project phases</a></li>
+      <li><a href="#what-is-nf-and-why-did-we-choose-it">What is NF and why did we choose it?</a></li>
+      <li><a href="#how-is-the-nf-script-structured">How is the NF script structured?</a>
+        <ul>
+          <li><a href="#dsl-and-parameters">DSL and Parameters</a></li>
+          <li><a href="#definition-of-processes">Definition of processes</a></li>
+          <li><a href="#definition-of-workflows">Definition of workflows</a></li>
+          <li><a href="#main-workflow">Main workflow</a></li>
+        </ul>
+      </li>
+      <li><a href="#which-features-of-nf-do-we-use-ie-what-features-have-to-be-implemented-in-potential-implementations">Which features of NF do we use, i.e. what features have to be implemented in potential implementations?</a></li>
+      <li><a href="#how-does-parallelization-work-both-within-works-and-across-works">How does parallelization work, both within works and across works?</a></li>
+      <li><a href="#how-does-the-nf-script-interact-with-the-processing-server">How does the NF script interact with the processing server?</a></li>
+      <li><a href="#how-does-the-nf-script-interact-with-the-mets-server">How does the NF script interact with the METS server?</a></li>
+      <li><a href="#how-to-convert-the-existing-ocr-d-process-workflows-we-reference-to-nf">How to convert the existing OCR-D process workflows we reference to NF?</a></li>
+      <li><a href="#how-should-nf-scripts-be-written-tested-deployed-and-evaluated">How should NF scripts be written, tested, deployed, and evaluated?</a></li>
+      <li><a href="#what-conventions-do-we-encourage-naming-structure-documentation-etc">What conventions do we encourage, naming, structure, documentation, etc.?</a></li>
     </ul>
   </li>
 </ul>
@@ -349,60 +359,68 @@ function ToggleSearchActive2() {
       
 
       <main class="container content column is-two-thirds" aria-label="Content">
-        <h1 id="the-ocr-d-project">The OCR-D project</h1>
+        <h1 id="nextflow">Nextflow</h1>
 
-<h2 id="background">Background</h2>
-<p>With the Union Catalogue of Books of the 16th–18th century (VD 16, VD 17, VD 18) published in the German-speaking countries, 
-a retrospective national bibliography of early modern writings from the German-speaking countries is being compiled. In order 
-to facilitate research access to these texts, great concerted efforts have been and are being undertaken to make fully digitised 
-copies or key pages for the recorded titles available in digital form.</p>
+<h2 id="what-is-nf-and-why-did-we-choose-it">What is NF and why did we choose it?</h2>
 
-<p>In view of the developments and new possibilities in the field of Optical Character Recognition (OCR), experts at a DFG workshop in March 2014 assessed the full-text transformation of VD as an ambitious but achievable goal. Making full texts available for the purpose of full-text search and further processing, for example with tools of the Digital Humanities, is a major desideratum of research, which is to be addressed by a coordinated funding initiative.</p>
+<p>Nextflow is a workflow framework that allows the integration of various scripting languages into a single cohesive pipeline. Nextflow also has its own Domain Specific Language (DSL) that extends Groovy (extension of Java).</p>
 
-<p>OCR is a comprehensive process that typically involves a sequence of several steps in the workflow: Besides the pure recognition of letters and words, techniques such as pre-processing (image optimization and binarization), layout analysis (recognition and classification of structural features such as headings, paragraphs, etc.) and post-processing (error correction) are applied. While most of these steps can also benefit from the use of Deep Neural Networks, so far hardly any free and open standard tools and related best practices have emerged. The full text recognition of historical documents is particularly complicated due to their great variability in font, layout, language and orthography.</p>
-
-<h2 id="goals-and-structure-of-the-ocr-d-project">Goals and structure of the OCR-D project</h2>
-<p>This is where the DFG-funded project OCR-D comes in. Its main goal is the conceptual and technical preparation of the full text transformation of the VD. The task of automatic full-text recognition is broken down into its individual process steps, which can be retraced in the open source OCR-D software. This allows to create optimal workflows for the old prints to be processed and thus to generate scientifically usable full texts.</p>
-
-<p>For this purpose, a coordination project was formed that identified development needs in the first project phase. These were worked on in the <a href="phase2">second project phase</a> by a total of eight module projects. 
-In the current <a href="phase3">third project phase</a>, the focus is on the conceptual preparation for the automatic generation of full texts for VD 16, VD 17 and VD 18. In addition, four implementation projects are working on integrating OCR-D into existing applications and infrastructures, while three module projects are further optimising OCR-D tools.</p>
-
-<p class="figure img" style="max-width: 100%">
-	<a href="/assets/Funktionsmodell.svg" style="max-width: 100%">
-		<img src="/assets/Funktionsmodell.svg" style="max-width: 100%" />
-	</a>
-</p>
-
-<p>Full-text recognition is understood as a complex process that includes several preprocessing and postprocessing steps in addition
-to the actual text recognition (see figure). First, a digital image is prepared for text recognition in preprocessing by binarization, cropping,
-deskewing, dewarping and despeckling. This is followed by layout recognition, which identifies the text areas of a page down to line level. 
-Especially the recognition of the lines respectively the baseline is important for the following actual text recognition, which in all modern approaches is based on neural networks. 
-The individual structures or elements of the full-text recognized document are then classified according to their typographic function and the OCR result is improved in the post-correction process if necessary, before it is transferred to repositories for long-term archiving.</p>
-
-<p>In addition to the envisaged full text transformation of VD titles (16th-19th century), which is technically and conceptually prepared within the OCR-D project, OCR-D pursues the following further objectives:</p>
+<p>We choose it due to its rich set of features:</p>
 <ul>
-  <li>the creation of <a href="data">reference corpora</a> for training and testing</li>
-  <li>the development of <a href="spec">standards in the fields of metadata, documentation and ground truth</a></li>
-  <li>the further development of individual processing steps, with a particular focus on Optical Layout Recognition (OLR)</li>
-  <li>the analysis of existing tools and their further development</li>
-  <li>the creation of <a href="http://www.github.com/ocr-d">reusable software packages</a></li>
-  <li>the establishment of quality assurance procedures</li>
+  <li>Stream oriented: Promotes programming approach extending Unix pipes model.</li>
+  <li>Fast Prototyping: Let’s you write a computational pipeline from smaller tasks.</li>
+  <li>Reproducibility: Supports Docker, Singularity, and 3 other types of containers.</li>
+  <li>Portable: Can run locally, Slurm, SGE, PBS, and cloud (Google, Kubernetes, and AWS).</li>
+  <li>Continuous checkpoints: Each process in the workflow is checkpointed. It is possible to retry 
+failed workflows and start from the last checkpoint.</li>
+  <li>Supports various scripting languages including Bash, Python, Perl, and others.</li>
+  <li>Enables separation between configuration (how to do) and workflow logic (what to do).</li>
+  <li>Modularization of tasks possible via workflow, sub-workflows, and processes.</li>
+  <li>Provides detailed logs and various types of execution reports.</li>
 </ul>
 
-<h2 id="community">Community</h2>
-<p>In all steps we welcome a lively exchange with colleagues from other projects and institutions as well as service providers, in order to finally be able to realize a consolidated procedure for the OCR processing of digitized material of the printed German cultural heritage of the 16th–19th century.
-To this end, there is already an active community, which you can join via our <a href="https://gitter.im/OCR-D/Lobby">chat</a> or our <a href="community">regular open online meetings</a>.
-Interested parties from academia and practice are just as welcome as private individuals who (would like to) use OCR-D.</p>
+<h2 id="how-is-the-nf-script-structured">How is the NF script structured?</h2>
 
-<p>On our website you will also find a <a href="publications">collection of (scientific) publications and lectures</a> on the topic of OCR(-D) by our current and former project participants.</p>
+<p>The NF script contains the following structures:</p>
+<h3 id="dsl-and-parameters">DSL and Parameters</h3>
+<h3 id="definition-of-processes">Definition of processes</h3>
+<h3 id="definition-of-workflows">Definition of workflows</h3>
+<h3 id="main-workflow">Main workflow</h3>
 
-<h2 id="results-of-past-project-phases">Results of past project phases</h2>
-<p>OCR-D is currently in its third project phase. Results of past project phases can be found on these pages at any time:</p>
-<ul>
-  <li><a href="user_survey">User survey [Phase I]</a></li>
-  <li><a href="phase2">Module projects from Phase II</a></li>
-  <li><a href="initial-tests">Pilot study [Phase II]</a></li>
-</ul>
+<p>Check this source code example: <a href="https://github.com/MehmedGIT/OPERANDI_TestRepo/blob/master/ExampleWorkflows/Nextflow/workflow4/seq_ocrd_wf_many.nf">seq_ocrd_wf_many.nf</a></p>
+
+<p>TODO: I will provide more structure-related details here based on the example above.</p>
+
+<h2 id="which-features-of-nf-do-we-use-ie-what-features-have-to-be-implemented-in-potential-implementations">Which features of NF do we use, i.e. what features have to be implemented in potential implementations?</h2>
+<p>The minimally used features for local runs are the parameters, processes, process decorators, and workflows. I will provide further answers to any following questions related to this main question. I am not sure what else to cover here for now.</p>
+
+<h2 id="how-does-parallelization-work-both-within-works-and-across-works">How does parallelization work, both within works and across works?</h2>
+
+<p>A Nextflow workflow script contains several processes. Processes are executed independently and are isolated from each other (i.e. they do not have a shared memory space). Communication between the processes is possible only through data channels (similar to the pipes model in Unix). These channels are basically asynchronous FIFO queues. Any process can define one or more channels as input and output. The order of interaction between these processes, and ultimately the order of workflow execution depends on the communication channel dependencies between processes. For example, if process A writes data to channel A and process B reads data from channel A, then Nextflow knows that process A must be executed before process B.</p>
+
+<p>Check this source code example: <a href="https://github.com/MehmedGIT/OPERANDI_TestRepo/blob/master/ExampleWorkflows/Nextflow/workflow4/seq_ocrd_wf_many.nf">seq_ocrd_wf_many.nf</a></p>
+
+<p>TODO: I will provide more parallelization details here based on the example above.</p>
+
+<h2 id="how-does-the-nf-script-interact-with-the-processing-server">How does the NF script interact with the processing server?</h2>
+<p>There is still no running processing server. More details will be announced once there is more to talk about. The interaction will most probably happen with curl through a bash script inside the Nextflow process. Of course, if it is integrated inside the OCR-D core, then no direct interactions will be needed from inside the Nextflow script.</p>
+
+<h2 id="how-does-the-nf-script-interact-with-the-mets-server">How does the NF script interact with the METS server?</h2>
+<p>There is still no running METS server. More details will be announced once there is more to talk about. The interaction will most probably happen with curl through a bash script inside the Nextflow process. Of course, if it is integrated inside the OCR-D core, then no direct interactions will be needed from inside the Nextflow script.</p>
+
+<h2 id="how-to-convert-the-existing-ocr-d-process-workflows-we-reference-to-nf">How to convert the existing OCR-D process workflows we reference to NF?</h2>
+<p>I have written an OtoN (OCR-D to Nextflow) converter which converts basic OCR-D process workflows to Nextflow workflow scripts. Check here: <a href="https://github.com/MehmedGIT/OtoN_Converter">OtoN</a></p>
+
+<p>Currently, there are no known issues or bugs. Feel free to report any bugs, errors, or lack of errors (when an error is expected). 
+The tool will probably be a part of the OCR-D software in the future when it is stable enough for general use.</p>
+
+<h2 id="how-should-nf-scripts-be-written-tested-deployed-and-evaluated">How should NF scripts be written, tested, deployed, and evaluated?</h2>
+<p>Depends on the use case. Detailed instructions for local executions and example Nextflow workflow scripts can be found here: <a href="https://github.com/MehmedGIT/OPERANDI_TestRepo/tree/master/ExampleWorkflows/Nextflow">Nextflow</a></p>
+
+<p>I will provide further answers to any following questions related to this main question.</p>
+
+<h2 id="what-conventions-do-we-encourage-naming-structure-documentation-etc">What conventions do we encourage, naming, structure, documentation, etc.?</h2>
+<p>Try to stick to the structure provided in point 2 when writing Nextflow scripts. You can also check the Nextflow examples provided in point 8. The naming conventions for variables, function names, process names, and workflow names are encouraged to follow the snake case. I will provide further answers to any following questions related to this main question.</p>
 
       </main>
     </div><footer class="footer" style="padding: 1rem">
